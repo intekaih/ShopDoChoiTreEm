@@ -35,6 +35,8 @@
             this.btnHome = new System.Windows.Forms.Button();
             this.pbExit = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnPhieuNhapHang = new System.Windows.Forms.Button();
+            this.btnHoaDon = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbExit)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -101,6 +103,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.panel1.Controls.Add(this.pbExit);
+            this.panel1.Controls.Add(this.btnPhieuNhapHang);
+            this.panel1.Controls.Add(this.btnHoaDon);
             this.panel1.Controls.Add(this.btnHome);
             this.panel1.Controls.Add(this.btnBanHang);
             this.panel1.Controls.Add(this.btnHangHoa);
@@ -112,6 +116,32 @@
             this.panel1.Size = new System.Drawing.Size(1920, 48);
             this.panel1.TabIndex = 1;
             // 
+            // btnPhieuNhapHang
+            // 
+            this.btnPhieuNhapHang.AutoSize = true;
+            this.btnPhieuNhapHang.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.btnPhieuNhapHang.Location = new System.Drawing.Point(483, 6);
+            this.btnPhieuNhapHang.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPhieuNhapHang.Name = "btnPhieuNhapHang";
+            this.btnPhieuNhapHang.Size = new System.Drawing.Size(113, 36);
+            this.btnPhieuNhapHang.TabIndex = 0;
+            this.btnPhieuNhapHang.Text = "Nhập Hàng";
+            this.btnPhieuNhapHang.UseVisualStyleBackColor = true;
+            this.btnPhieuNhapHang.Click += new System.EventHandler(this.btnPhieuNhapHang_Click);
+            // 
+            // btnHoaDon
+            // 
+            this.btnHoaDon.AutoSize = true;
+            this.btnHoaDon.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.btnHoaDon.Location = new System.Drawing.Point(366, 6);
+            this.btnHoaDon.Margin = new System.Windows.Forms.Padding(2);
+            this.btnHoaDon.Name = "btnHoaDon";
+            this.btnHoaDon.Size = new System.Drawing.Size(113, 36);
+            this.btnHoaDon.TabIndex = 0;
+            this.btnHoaDon.Text = "Hóa Đơn";
+            this.btnHoaDon.UseVisualStyleBackColor = true;
+            this.btnHoaDon.Click += new System.EventHandler(this.btnHoaDon_Click);
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -122,6 +152,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmHome";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.frmHome_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbExit)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -131,11 +162,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel pHome;
+        public System.Windows.Forms.Panel pHome;
         private System.Windows.Forms.Button btnHangHoa;
         private System.Windows.Forms.Button btnBanHang;
         private System.Windows.Forms.Button btnHome;
         private System.Windows.Forms.PictureBox pbExit;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnHoaDon;
+        private System.Windows.Forms.Button btnPhieuNhapHang;
     }
 }

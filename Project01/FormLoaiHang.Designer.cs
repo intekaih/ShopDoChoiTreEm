@@ -1,6 +1,6 @@
 ﻿namespace Project01
 {
-    partial class FormLoaiHang
+    partial class frmLoaiHang
     {
         /// <summary>
         /// Required designer variable.
@@ -145,7 +145,7 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "*Tên loại không được trùng";
             // 
-            // FormLoaiHang
+            // frmLoaiHang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -164,9 +164,10 @@
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FormLoaiHang";
+            this.Name = "frmLoaiHang";
             this.ShowInTaskbar = false;
             this.Text = "Thêm Loại Đồ Chơi";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormLoaiHang_FormClosing);
             this.Load += new System.EventHandler(this.FormLoaiHang_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -179,9 +180,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnThem;
-        private System.Windows.Forms.TextBox txtTenLoai;
-        private System.Windows.Forms.TextBox txtMaLoai;
-        private System.Windows.Forms.TextBox txtGhiChu;
+        public System.Windows.Forms.TextBox txtTenLoai;
+        public System.Windows.Forms.TextBox txtMaLoai;
+        public System.Windows.Forms.TextBox txtGhiChu;
         private System.Windows.Forms.ListBox lboDSLoai;
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.Button btnXoa;

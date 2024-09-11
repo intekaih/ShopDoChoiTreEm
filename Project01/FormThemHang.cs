@@ -14,6 +14,7 @@ namespace Project01
 {
     public partial class frmNhapHang : Form
     {
+        public event EventHandler DataChanged;
         BindingSource bs = new BindingSource();
 
         public frmNhapHang()
@@ -33,12 +34,12 @@ namespace Project01
 
         private void pbThemHang_Click(object sender, EventArgs e)
         {
-            FormLoaiHang formLoaiHang = new FormLoaiHang();
-            formLoaiHang.FormClosed += new FormClosedEventHandler(FormLoaiHang_FormClosed);
+            frmLoaiHang formLoaiHang = new frmLoaiHang();
+            formLoaiHang.FormClosed += new FormClosedEventHandler(FormLHangHoa_FormClosed);
             formLoaiHang.ShowDialog();
         }
 
-        private void FormLoaiHang_FormClosed(object sender, FormClosedEventArgs e)
+        private void FormLHangHoa_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Tải lại dữ liệu khi FormLoaiHang đóng
             LoadData();
@@ -46,7 +47,7 @@ namespace Project01
 
 
 
-        private void LoadData()
+        public void LoadData()
         {
             // Lấy dữ liệu từ bảng QuanLyLoaiHang
             string query = "SELECT MaLoai, TenLoai, GhiChu FROM QuanLyLoaiHang";
@@ -119,7 +120,70 @@ namespace Project01
             QuanLySQL.NhapDLVaoSQL(insertQuery);
 
             MessageBox.Show("Thêm hàng hóa thành công!");
+            DataChanged?.Invoke(this, EventArgs.Empty);
+            MacDinh(); 
         }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            // Lấy mã hàng hóa từ điều khiển txtMaHH (readonly, không cho phép sửa)
+            string maHangHoa = txtMaHH.Text;  // Mã hàng hóa cố định, không thể sửa
+
+            // Lấy thông tin từ các điều khiển trên frmNhapHang
+            string tenHang = txtTenHang.Text;
+            decimal giaNhap;
+            decimal giaBan;
+            int soLuong;
+            bool trangThaiBan = cbTrangThaiBan.Checked;
+            string ghiChu = txtNote.Text;
+            string duongDanAnh = pbHinhSP.ImageLocation;  // Đường dẫn ảnh từ PictureBox
+            string maLoai = cbLoaiHang.SelectedValue.ToString();
+
+            // Kiểm tra nếu các trường giá trị cần thiết có dữ liệu hợp lệ
+            if (string.IsNullOrEmpty(tenHang) ||
+                !decimal.TryParse(txtGiaNhap.Text, out giaNhap) ||
+                !decimal.TryParse(txtGiaBan.Text, out giaBan) ||
+                !int.TryParse(txtSoLuong.Text, out soLuong))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Truy vấn SQL để cập nhật dữ liệu vào bảng QuanLyHang (không cập nhật MaHangHoa)
+            string query = $"UPDATE QuanLyHang SET " +
+                           $"TenHang = N'{tenHang}', " +
+                           $"MaLoaiHang = {maLoai}, " +
+                           $"GiaNhap = {giaNhap}, " +
+                           $"GiaBan = {giaBan}, " +
+                           $"SoLuong = {soLuong}, " +
+                           $"TrangThai = {(trangThaiBan ? 1 : 0)}, " +
+                           $"GhiChu = N'{ghiChu}', " +
+                           $"DuongDanAnh = N'{duongDanAnh}' " +
+                           $"WHERE MaHangHoa = '{maHangHoa}'";
+
+
+            try
+            {
+                // Thực thi lệnh SQL cập nhật
+                QuanLySQL.NhapDLVaoSQL(query);
+
+                // Thông báo thành công
+                MessageBox.Show("Cập nhật thông tin hàng hóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Sau khi cập nhật thành công, đóng form và trả kết quả thành công
+                DataChanged?.Invoke(this, EventArgs.Empty);
+                this.DialogResult = DialogResult.OK;
+                
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có
+                MessageBox.Show("Có lỗi xảy ra trong quá trình cập nhật: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
 
         private void txtGiaNhap_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -143,6 +207,34 @@ namespace Project01
         {
             this.Close();
         }
+
+
+        public void HienThiBtnSua()
+        {
+            btnSua.Visible = true;
+            btnThem.Visible = false;
+        }
+
+        public void MacDinh()
+        {
+            // Xóa dữ liệu trong các TextBox
+            txtTenHang.Text = string.Empty;
+            txtGiaNhap.Text = string.Empty;
+            txtGiaBan.Text = string.Empty;
+            txtSoLuong.Text = string.Empty;
+            txtNote.Text = string.Empty;
+
+            // Đặt trạng thái ban đầu cho CheckBox
+            cbTrangThaiBan.Checked = true;
+
+            // Xóa hình ảnh trong PictureBox
+            pbHinhSP.Image = Image.FromFile(@"F:\Học Tập\ShopDoChoiTreEm\Picture\AnhMacDinh.jpg");
+
+            // Đặt lại tiêu điểm vào TextBox đầu tiên (nếu cần)
+            txtTenHang.Focus();
+        }
+
+
     }
 }
 

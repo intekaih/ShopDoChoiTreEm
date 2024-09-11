@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project01.Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,7 +18,12 @@ namespace Project01
             InitializeComponent();
         }
 
-        private void AddControlsToPanel(Control c)
+        private void frmHome_Load(object sender, EventArgs e)
+        {
+            QuanLySQL.KetNoi();
+        }
+
+        public void AddControlsToPanel(Control c)
         {
             c.Dock = DockStyle.Fill;
             pHome.Controls.Clear();
@@ -32,6 +38,7 @@ namespace Project01
 
         private void pbExit_Click(object sender, EventArgs e)
         {
+            QuanLySQL.NgatKetNoi();
             Application.Exit(); 
         }
 
@@ -46,6 +53,26 @@ namespace Project01
         {
             ucHome ucHome = new ucHome();
             AddControlsToPanel(ucHome);
+        }
+
+        private void btnHoaDon_Click(object sender, EventArgs e)
+        {
+            ucBillInfo ucBillInfo = new ucBillInfo();
+            AddControlsToPanel(ucBillInfo);
+        }
+
+        private void btnNhapHang_Click(object sender, EventArgs e)
+        {
+            ucNhapHang ucNhapHang = new ucNhapHang();
+            AddControlsToPanel (ucNhapHang);
+        }
+
+        
+
+        private void btnPhieuNhapHang_Click(object sender, EventArgs e)
+        {
+            ucPhieuNhapHang ucPhieuNhapHang = new ucPhieuNhapHang();
+            AddControlsToPanel((ucPhieuNhapHang));
         }
     }
 }

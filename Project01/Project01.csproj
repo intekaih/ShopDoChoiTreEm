@@ -55,17 +55,23 @@
     <Compile Include="FormHome.Designer.cs">
       <DependentUpon>FormHome.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormNhapHang.cs">
+    <Compile Include="FormThemHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormNhapHang.Designer.cs">
-      <DependentUpon>FormNhapHang.cs</DependentUpon>
+    <Compile Include="FormThemHang.Designer.cs">
+      <DependentUpon>FormThemHang.cs</DependentUpon>
     </Compile>
     <Compile Include="FormLoaiHang.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormLoaiHang.Designer.cs">
       <DependentUpon>FormLoaiHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmChiTietPhieuHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChiTietPhieuHang.Designer.cs">
+      <DependentUpon>frmChiTietPhieuHang.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\FormDangNhap.cs">
       <SubType>Form</SubType>
@@ -75,6 +81,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ucBillInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucBillInfo.Designer.cs">
+      <DependentUpon>ucBillInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="ucChinh.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -93,14 +105,29 @@
     <Compile Include="ucHome.Designer.cs">
       <DependentUpon>ucHome.cs</DependentUpon>
     </Compile>
+    <Compile Include="ucNhapHang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucNhapHang.Designer.cs">
+      <DependentUpon>ucNhapHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucPhieuNhapHang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucPhieuNhapHang.Designer.cs">
+      <DependentUpon>ucPhieuNhapHang.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormNhapHang.resx">
-      <DependentUpon>FormNhapHang.cs</DependentUpon>
+    <EmbeddedResource Include="FormThemHang.resx">
+      <DependentUpon>FormThemHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLoaiHang.resx">
       <DependentUpon>FormLoaiHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmChiTietPhieuHang.resx">
+      <DependentUpon>frmChiTietPhieuHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\FormDangNhap.resx">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
@@ -114,6 +141,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ucBillInfo.resx">
+      <DependentUpon>ucBillInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ucChinh.resx">
       <DependentUpon>ucChinh.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,6 +152,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ucHome.resx">
       <DependentUpon>ucHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucNhapHang.resx">
+      <DependentUpon>ucNhapHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucPhieuNhapHang.resx">
+      <DependentUpon>ucPhieuNhapHang.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

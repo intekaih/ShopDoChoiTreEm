@@ -6,12 +6,13 @@ using Project01.Class;
 
 namespace Project01
 {
-    public partial class FormLoaiHang : Form
+    public partial class frmLoaiHang : Form
     {
 
+        public event EventHandler DataChanged;
         BindingSource bs = new BindingSource();
 
-        public FormLoaiHang()
+        public frmLoaiHang()
         {
             InitializeComponent();
         }
@@ -23,23 +24,7 @@ namespace Project01
 
         }
 
-        //private void LoadData()
-        //{
-        //        // Lấy dữ liệu từ bảng QuanLyLoaiHang
-        //        string query = "SELECT TenLoai FROM QuanLyLoaiHang";
-        //        DataTable dt = QuanLySQL.XuatDLTuSQL(query);
-
-        //        // Cài đặt BindingSource với DataTable
-        //        bs.DataSource = dt;
-
-        //        // Gán BindingSource cho ListBox
-        //        lboDSLoai.DataSource = bs;
-        //        lboDSLoai.DisplayMember = "TenLoai"; // Hiển thị cột TenLoai trong ListBox
-        //}
-
-
-
-        private void LoadData()
+        public void LoadData()
         {
             // Lấy dữ liệu từ bảng QuanLyLoaiHang
             string query = "SELECT MaLoai, TenLoai, GhiChu FROM QuanLyLoaiHang";
@@ -52,7 +37,10 @@ namespace Project01
             lboDSLoai.DataSource = bs;
             lboDSLoai.DisplayMember = "TenLoai"; // Hiển thị cột TenLoai trong ListBox
             lboDSLoai.ValueMember = "MaLoai"; // Đặt cột MaLoai làm giá trị của ListBox
+            lboDSLoai.SelectedItem = null;
             MacDinh();
+
+
         }
 
         private void lboDSLoai_SelectedIndexChanged(object sender, EventArgs e)
@@ -87,12 +75,14 @@ namespace Project01
 
             // Thêm tham số vào câu lệnh SQL
             SqlParameter[] parameters = {
-        new SqlParameter("@TenLoai", tenLoai),
-        new SqlParameter("@GhiChu", ghiChu)
-    };
+                    new SqlParameter("@TenLoai", tenLoai),
+                    new SqlParameter("@GhiChu", ghiChu)
+            };
 
             // Gọi phương thức để thực thi câu lệnh SQL
             QuanLySQL.NhapDLVaoSQL(query, parameters);
+            //Thong Bao thay doi data
+            DataChanged?.Invoke(this, EventArgs.Empty);
 
             // Cập nhật ListBox
             LoadData();
@@ -135,6 +125,8 @@ namespace Project01
             // Gọi phương thức để thực thi câu lệnh SQL
             QuanLySQL.NhapDLVaoSQL(query, parameters);
 
+            DataChanged?.Invoke(this, EventArgs.Empty);
+
             // Cập nhật ListBox
             LoadData();
 
@@ -171,21 +163,14 @@ namespace Project01
             // Gọi phương thức để thực thi câu lệnh SQL
             QuanLySQL.NhapDLVaoSQL(query, parameters);
 
+            DataChanged?.Invoke(this, EventArgs.Empty);
+
             // Cập nhật ListBox
             LoadData();
 
             // Xóa thông tin nhập liệu
             MacDinh();
         }
-
-
-
-
-
-
-
-
-
 
 
         private void MacDinh()
@@ -196,6 +181,9 @@ namespace Project01
             txtTenLoai.Focus();
         }
 
-        
+        private void FormLoaiHang_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
     }
 }

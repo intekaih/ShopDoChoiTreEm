@@ -42,8 +42,11 @@ namespace Project01.Login
             QuanLySQL.NgatKetNoi(); // Ngắt kết nối khỏi SQL Server
         }
 
-        private void btnDangKy_Click(object sender, EventArgs e)
+        
+
+        private void btnThoat_Click(object sender, EventArgs e)
         {
+            QuanLySQL.NgatKetNoi();
             this.Close();
         }
     }

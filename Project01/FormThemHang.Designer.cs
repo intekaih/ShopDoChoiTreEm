@@ -49,6 +49,7 @@
             this.cbTrangThaiBan = new System.Windows.Forms.CheckBox();
             this.cbLoaiHang = new System.Windows.Forms.ComboBox();
             this.pbThemHang = new System.Windows.Forms.PictureBox();
+            this.btnSua = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbHinhSP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbThemHang)).BeginInit();
             this.SuspendLayout();
@@ -58,13 +59,13 @@
             this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(176)))), ((int)(((byte)(211)))));
             this.btnThem.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThem.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThem.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThem.ForeColor = System.Drawing.Color.White;
-            this.btnThem.Location = new System.Drawing.Point(329, 360);
+            this.btnThem.Location = new System.Drawing.Point(330, 360);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(108, 33);
             this.btnThem.TabIndex = 8;
-            this.btnThem.Text = "Add";
+            this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = false;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
@@ -73,7 +74,7 @@
             this.btnThoatFNH.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(176)))), ((int)(((byte)(211)))));
             this.btnThoatFNH.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnThoatFNH.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThoatFNH.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThoatFNH.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThoatFNH.ForeColor = System.Drawing.Color.Transparent;
             this.btnThoatFNH.Location = new System.Drawing.Point(572, 360);
             this.btnThoatFNH.Name = "btnThoatFNH";
@@ -258,6 +259,22 @@
             this.pbThemHang.TabStop = false;
             this.pbThemHang.Click += new System.EventHandler(this.pbThemHang_Click);
             // 
+            // btnSua
+            // 
+            this.btnSua.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(176)))), ((int)(((byte)(211)))));
+            this.btnSua.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSua.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSua.ForeColor = System.Drawing.Color.White;
+            this.btnSua.Location = new System.Drawing.Point(330, 360);
+            this.btnSua.Name = "btnSua";
+            this.btnSua.Size = new System.Drawing.Size(108, 33);
+            this.btnSua.TabIndex = 8;
+            this.btnSua.Text = "Lưu";
+            this.btnSua.UseVisualStyleBackColor = false;
+            this.btnSua.Visible = false;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
+            // 
             // frmNhapHang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -267,6 +284,7 @@
             this.Controls.Add(this.cbLoaiHang);
             this.Controls.Add(this.cbTrangThaiBan);
             this.Controls.Add(this.btnThoatFNH);
+            this.Controls.Add(this.btnSua);
             this.Controls.Add(this.btnThem);
             this.Controls.Add(this.txtNote);
             this.Controls.Add(this.txtSoLuong);
@@ -286,7 +304,8 @@
             this.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "frmNhapHang";
-            this.Text = "FormNhapHang";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "frmThemHang";
             this.Load += new System.EventHandler(this.FormNhapHang_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbHinhSP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbThemHang)).EndInit();
@@ -299,9 +318,9 @@
 
         private System.Windows.Forms.Button btnThem;
         private System.Windows.Forms.Button btnThoatFNH;
-        private System.Windows.Forms.TextBox txtTenHang;
-        private System.Windows.Forms.TextBox txtMaHH;
-        private System.Windows.Forms.PictureBox pbHinhSP;
+        public System.Windows.Forms.TextBox txtTenHang;
+        public System.Windows.Forms.TextBox txtMaHH;
+        public System.Windows.Forms.PictureBox pbHinhSP;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -310,12 +329,13 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtGiaNhap;
-        private System.Windows.Forms.TextBox txtGiaBan;
-        private System.Windows.Forms.TextBox txtSoLuong;
-        private System.Windows.Forms.TextBox txtNote;
-        private System.Windows.Forms.CheckBox cbTrangThaiBan;
-        private System.Windows.Forms.ComboBox cbLoaiHang;
+        public System.Windows.Forms.TextBox txtGiaNhap;
+        public System.Windows.Forms.TextBox txtGiaBan;
+        public System.Windows.Forms.TextBox txtSoLuong;
+        public System.Windows.Forms.TextBox txtNote;
+        public System.Windows.Forms.CheckBox cbTrangThaiBan;
+        public System.Windows.Forms.ComboBox cbLoaiHang;
         private System.Windows.Forms.PictureBox pbThemHang;
+        private System.Windows.Forms.Button btnSua;
     }
 }

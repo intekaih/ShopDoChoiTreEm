@@ -18,7 +18,7 @@ namespace Project01.Class
         {
             connection = new SqlConnection();
             connection.ConnectionString = 
-                @"server=INTEKAIH\TIENKHAI; database = ShopDoChoi; Integrated Security = true; ";
+                @"server=INTEKAIH\TIENKHAI; database = ShopDoChoi1; Integrated Security = true; ";
 
             if (connection.State != ConnectionState.Open)
             {
@@ -36,7 +36,7 @@ namespace Project01.Class
         // Phương thức ngắt kết nối
         public static void NgatKetNoi()
         {
-            if (connection.State == ConnectionState.Open)
+            if (connection != null && connection.State == ConnectionState.Open)  // Kiểm tra connection có null không
             {
                 try
                 {
@@ -50,6 +50,7 @@ namespace Project01.Class
                 }
             }
         }
+
 
         // Phương thức lấy dữ liệu từ SQL
         public static DataTable XuatDLTuSQL(string query)

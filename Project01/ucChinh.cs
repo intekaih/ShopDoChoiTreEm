@@ -25,14 +25,17 @@ namespace Project01
 
         private void ucChinh_Load(object sender, EventArgs e)
         {
+            VeBoGoc();
+            dtpNgayLapHD.Value = DateTime.Now;
+        }
+
+        private void VeBoGoc()
+        {
             VeBoGocPanel.BoGocPanel(pHang, 30);
             VeBoGocPanel.BoGocPanel(pBill, 50);
             VeBoGocPanel.BoGocPanel(pHoaDon, 30);
             VeBoGocPanel.BoGocPanel(pInfoKhach, 30);
-            dtpNgayLapHD.Value = DateTime.Now;
         }
-
-
 
         private void UpdateTongGiaHHDon()
         {
