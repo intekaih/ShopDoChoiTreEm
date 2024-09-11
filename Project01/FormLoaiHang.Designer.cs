@@ -30,11 +30,9 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.btnThem = new System.Windows.Forms.Button();
             this.txtTenLoai = new System.Windows.Forms.TextBox();
             this.txtMaLoai = new System.Windows.Forms.TextBox();
-            this.txtGhiChu = new System.Windows.Forms.TextBox();
             this.lboDSLoai = new System.Windows.Forms.ListBox();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnXoa = new System.Windows.Forms.Button();
@@ -58,15 +56,6 @@
             this.label2.Size = new System.Drawing.Size(72, 21);
             this.label2.TabIndex = 0;
             this.label2.Text = "Mã Loại";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(25, 110);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 21);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Ghi Chú";
             // 
             // btnThem
             // 
@@ -93,13 +82,6 @@
             this.txtMaLoai.ReadOnly = true;
             this.txtMaLoai.Size = new System.Drawing.Size(193, 29);
             this.txtMaLoai.TabIndex = 2;
-            // 
-            // txtGhiChu
-            // 
-            this.txtGhiChu.Location = new System.Drawing.Point(122, 107);
-            this.txtGhiChu.Name = "txtGhiChu";
-            this.txtGhiChu.Size = new System.Drawing.Size(193, 29);
-            this.txtGhiChu.TabIndex = 2;
             // 
             // lboDSLoai
             // 
@@ -152,13 +134,11 @@
             this.ClientSize = new System.Drawing.Size(598, 288);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lboDSLoai);
-            this.Controls.Add(this.txtGhiChu);
             this.Controls.Add(this.txtMaLoai);
             this.Controls.Add(this.txtTenLoai);
             this.Controls.Add(this.btnXoa);
             this.Controls.Add(this.btnSua);
             this.Controls.Add(this.btnThem);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -178,11 +158,9 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnThem;
         public System.Windows.Forms.TextBox txtTenLoai;
         public System.Windows.Forms.TextBox txtMaLoai;
-        public System.Windows.Forms.TextBox txtGhiChu;
         private System.Windows.Forms.ListBox lboDSLoai;
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.Button btnXoa;

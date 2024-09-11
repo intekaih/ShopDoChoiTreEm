@@ -18,7 +18,7 @@ namespace Project01.Class
         {
             connection = new SqlConnection();
             connection.ConnectionString = 
-                @"server=INTEKAIH\TIENKHAI; database = ShopDoChoi1; Integrated Security = true; ";
+                @"server=INTEKAIH\TIENKHAI; database = ShopDoChoiTreEm; Integrated Security = true; ";
 
             if (connection.State != ConnectionState.Open)
             {
@@ -71,18 +71,12 @@ namespace Project01.Class
         }
 
         // Phương thức lưu dữ liệu vào SQL
-        public static void NhapDLVaoSQL(string query, params SqlParameter[] parameters)
+        public static void NhapDLVaoSQL(string query)
         {
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 try
                 {
-                    // Thêm các tham số vào SqlCommand
-                    if (parameters != null)
-                    {
-                        command.Parameters.AddRange(parameters);
-                    }
-
                     // Thực thi câu lệnh SQL
                     command.ExecuteNonQuery();
                 }

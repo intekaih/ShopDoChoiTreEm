@@ -61,18 +61,10 @@ namespace Project01
             AddControlsToPanel(ucBillInfo);
         }
 
-        private void btnNhapHang_Click(object sender, EventArgs e)
-        {
-            ucNhapHang ucNhapHang = new ucNhapHang();
-            AddControlsToPanel (ucNhapHang);
-        }
+       
 
         
 
-        private void btnPhieuNhapHang_Click(object sender, EventArgs e)
-        {
-            ucPhieuNhapHang ucPhieuNhapHang = new ucPhieuNhapHang();
-            AddControlsToPanel((ucPhieuNhapHang));
-        }
+        
     }
 }

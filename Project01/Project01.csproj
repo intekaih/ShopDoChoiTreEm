@@ -73,6 +73,18 @@
     <Compile Include="frmChiTietPhieuHang.Designer.cs">
       <DependentUpon>frmChiTietPhieuHang.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDoTuoi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDoTuoi.Designer.cs">
+      <DependentUpon>frmDoTuoi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmHangSX.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHangSX.Designer.cs">
+      <DependentUpon>frmHangSX.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login\FormDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,18 +117,6 @@
     <Compile Include="ucHome.Designer.cs">
       <DependentUpon>ucHome.cs</DependentUpon>
     </Compile>
-    <Compile Include="ucNhapHang.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ucNhapHang.Designer.cs">
-      <DependentUpon>ucNhapHang.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ucPhieuNhapHang.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ucPhieuNhapHang.Designer.cs">
-      <DependentUpon>ucPhieuNhapHang.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>
@@ -128,6 +128,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmChiTietPhieuHang.resx">
       <DependentUpon>frmChiTietPhieuHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDoTuoi.resx">
+      <DependentUpon>frmDoTuoi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHangSX.resx">
+      <DependentUpon>frmHangSX.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\FormDangNhap.resx">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
@@ -152,12 +158,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ucHome.resx">
       <DependentUpon>ucHome.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ucNhapHang.resx">
-      <DependentUpon>ucNhapHang.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ucPhieuNhapHang.resx">
-      <DependentUpon>ucPhieuNhapHang.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

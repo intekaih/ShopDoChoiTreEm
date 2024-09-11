@@ -50,7 +50,7 @@ namespace Project01
         public void LoadData()
         {
             // Lấy dữ liệu từ bảng QuanLyLoaiHang
-            string query = "SELECT MaLoai, TenLoai, GhiChu FROM QuanLyLoaiHang";
+            string query = "SELECT ID, Ten FROM LoaiSP";
             DataTable dt = QuanLySQL.XuatDLTuSQL(query);
 
             // Cài đặt BindingSource với DataTable
@@ -58,8 +58,8 @@ namespace Project01
 
             // Gán BindingSource cho ListBox
             cbLoaiHang.DataSource = bs;
-            cbLoaiHang.DisplayMember = "TenLoai"; // Hiển thị cột TenLoai trong ListBox
-            cbLoaiHang.ValueMember = "MaLoai"; // Đặt cột MaLoai làm giá trị của ListBox
+            cbLoaiHang.DisplayMember = "Ten"; // Hiển thị cột TenLoai trong ListBox
+            cbLoaiHang.ValueMember = "ID"; // Đặt cột ID làm giá trị của ListBox
         }
 
         private void pbHinhSP_Click(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace Project01
             string giaNhap = txtGiaNhap.Text;
             string giaBan = txtGiaBan.Text;
             string soLuong = txtSoLuong.Text;
-            int maLoaiHang = Convert.ToInt32(cbLoaiHang.SelectedValue); // Lấy giá trị (MaLoai) của loại hàng
+            int maLoaiHang = Convert.ToInt32(cbLoaiHang.SelectedValue); // Lấy giá trị (ID) của loại hàng
             string moTa = txtNote.Text;
             bool trangThai = cbTrangThaiBan.Checked;
 
@@ -234,7 +234,30 @@ namespace Project01
             txtTenHang.Focus();
         }
 
+        private void txtGiaNhap_TextChanged(object sender, EventArgs e)
+        {
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtMaHH_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pbDoTuoi_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pbHangSX_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
