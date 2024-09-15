@@ -12,56 +12,115 @@ using System.Windows.Forms;
 
 namespace Project01
 {
-    public partial class frmNhapHang : Form
+    public partial class frmThemHang : Form
     {
         public event EventHandler DataChanged;
-        BindingSource bs = new BindingSource();
+        BindingSource Loai = new BindingSource();
+        BindingSource DoTuoi = new BindingSource();
+        BindingSource HangSX = new BindingSource();
+        BindingSource XuatXu = new BindingSource();
+        string anhMD = @"F:\Học Tập\ShopDoChoiTreEm\Picture\AnhMacDinh.jpg";
 
-        public frmNhapHang()
+
+
+        public frmThemHang()
         {
             InitializeComponent();
-
-           
+            
         }
 
 
         private void FormNhapHang_Load(object sender, EventArgs e)
         {
             QuanLySQL.KetNoi();
-            txtTenHang.Focus();
             LoadData();
+            //MacDinh();
         }
 
-        private void pbThemHang_Click(object sender, EventArgs e)
+        
+
+        private void pbThemLoai_Click(object sender, EventArgs e)
         {
             frmLoaiHang formLoaiHang = new frmLoaiHang();
-            formLoaiHang.FormClosed += new FormClosedEventHandler(FormLHangHoa_FormClosed);
+            formLoaiHang.FormClosed += new FormClosedEventHandler(frmThemLoaiDong);
             formLoaiHang.ShowDialog();
         }
 
-        private void FormLHangHoa_FormClosed(object sender, FormClosedEventArgs e)
+
+        private void frmThemLoaiDong(object sender, FormClosedEventArgs e)
         {
-            // Tải lại dữ liệu khi FormLoaiHang đóng
-            LoadData();
+            LoadDataTocbLoaiHang();
         }
 
-
-
+        //hàm load
         public void LoadData()
+        {
+            LoadDataTocbLoaiHang();
+            LoadDataTocbDoTuoi();
+            LoadDataTocbHangSX();
+            LoadDataTocbXuatXu();
+        }
+
+        public void LoadDataTocbLoaiHang()
         {
             // Lấy dữ liệu từ bảng QuanLyLoaiHang
             string query = "SELECT ID, Ten FROM LoaiSP";
             DataTable dt = QuanLySQL.XuatDLTuSQL(query);
 
             // Cài đặt BindingSource với DataTable
-            bs.DataSource = dt;
+            Loai.DataSource = dt;
 
             // Gán BindingSource cho ListBox
-            cbLoaiHang.DataSource = bs;
-            cbLoaiHang.DisplayMember = "Ten"; // Hiển thị cột TenLoai trong ListBox
-            cbLoaiHang.ValueMember = "ID"; // Đặt cột ID làm giá trị của ListBox
+            cbLoaiHang.DataSource = Loai;
+            cbLoaiHang.DisplayMember = "Ten";
+            cbLoaiHang.ValueMember = "ID";
         }
 
+        private void LoadDataTocbDoTuoi()
+        {
+            // Lấy dữ liệu từ bảng QuanLyLoaiHang
+            string query = "SELECT ID, Ten FROM DoTuoi";
+            DataTable dt = QuanLySQL.XuatDLTuSQL(query);
+
+            // Cài đặt BindingSource với DataTable
+            DoTuoi.DataSource = dt;
+
+            // Gán BindingSource cho ListBox
+            cbDoTuoi.DataSource = DoTuoi;
+            cbDoTuoi.DisplayMember = "Ten";
+            cbDoTuoi.ValueMember = "ID";
+        }
+
+        private void LoadDataTocbHangSX()
+        {
+            // Lấy dữ liệu từ bảng QuanLyLoaiHang
+            string query = "SELECT ID, Ten FROM HangSX";
+            DataTable dt = QuanLySQL.XuatDLTuSQL(query);
+
+            // Cài đặt BindingSource với DataTable
+            HangSX.DataSource = dt;
+
+            // Gán BindingSource cho ListBox
+            cbHangSX.DataSource = HangSX;
+            cbHangSX.DisplayMember = "Ten";
+            cbHangSX.ValueMember = "ID";
+        }
+
+        private void LoadDataTocbXuatXu()
+        {
+            // Lấy dữ liệu từ bảng QuanLyLoaiHang
+            string query = "SELECT ID, Ten FROM XuatXu";
+            DataTable dt = QuanLySQL.XuatDLTuSQL(query);
+
+            // Cài đặt BindingSource với DataTable
+            XuatXu.DataSource = dt;
+
+            // Gán BindingSource cho ListBox
+            cbXuatXu.DataSource = XuatXu;
+            cbXuatXu.DisplayMember = "Ten";
+            cbXuatXu.ValueMember = "ID";
+        }
+        //Them Hinh
         private void pbHinhSP_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -77,24 +136,28 @@ namespace Project01
                 }
             }
         }
-
+        //XyLybntThem
         private void btnThem_Click(object sender, EventArgs e)
         {
+            string bangDL = "SanPham";
+
             // Lấy dữ liệu từ các trường
             string tenHang = txtTenHang.Text;
             string giaNhap = txtGiaNhap.Text;
             string giaBan = txtGiaBan.Text;
             string soLuong = txtSoLuong.Text;
-            int maLoaiHang = Convert.ToInt32(cbLoaiHang.SelectedValue); // Lấy giá trị (ID) của loại hàng
+            int loaiID = Convert.ToInt32(cbLoaiHang.SelectedValue); // Lấy giá trị (ID) của loại hàng
+            int hangID = QuanLySQL.KTVaThemGT("HangSX", "Ten", cbHangSX.Text);
+            int xuatxuID = QuanLySQL.KTVaThemGT("XuatXu", "Ten", cbXuatXu.Text);
+            int dotuoiID = QuanLySQL.KTVaThemGT("DoTuoi", "Ten", cbDoTuoi.Text);
             string moTa = txtNote.Text;
-            bool trangThai = cbTrangThaiBan.Checked;
+            bool enable = cboTrangThaiBan.Checked;
 
             // Lấy đường dẫn của hình ảnh
-            string duongDanAnh = string.Empty;
+            string anhPath = string.Empty;
             if (pbHinhSP.Image != null)
             {
-                duongDanAnh = pbHinhSP.ImageLocation;
-
+                anhPath = pbHinhSP.ImageLocation;
             }
 
             // Kiểm tra dữ liệu đầu vào
@@ -104,87 +167,84 @@ namespace Project01
                 return;
             }
 
-            // Kiểm tra xem hàng hóa đã tồn tại chưa
-            QuanLySQL.KetNoi(); // Đảm bảo rằng bạn đã kết nối tới cơ sở dữ liệu
-            if (QuanLySQL.KiemTraHangHoaTonTai(tenHang, maLoaiHang))
+            // Kiểm tra xem đồ chơi đã tồn tại chưa
+            if (QuanLySQL.KTtontai("SanPham", tenHang, loaiID))
             {
                 MessageBox.Show("Đồ chơi đã tồn tại");
                 return;
             }
 
-            // Tạo câu lệnh SQL để thêm dữ liệu vào bảng QuanLyHang
-            string insertQuery = "INSERT INTO QuanLyHang (TenHang, GiaNhap, GiaBan, SoLuong, MaLoaiHang, GhiChu, TrangThai, DuongDanAnh) " +
-                                 $"VALUES (N'{tenHang}', {giaNhap}, {giaBan}, {soLuong}, {maLoaiHang}, N'{moTa}', {(trangThai ? 1 : 0)}, N'{duongDanAnh}')";
+            string insertQuery = $"INSERT INTO [{bangDL}] (Ten, LoaiID, HangID, XuatXuID, DoTuoiID, GiaNhap, GiaBan, Ton, MoTa, HinhAnhURL, Enable) " +
+                                 $"VALUES (N'{tenHang}', {loaiID}, {hangID}, {xuatxuID}, {dotuoiID}, {giaNhap}, {giaBan}, {soLuong}, N'{moTa}', N'{anhPath}', {(enable ? 1 : 0)})";
 
-            // Thực thi câu lệnh SQL để thêm bản ghi mới
             QuanLySQL.NhapDLVaoSQL(insertQuery);
 
             MessageBox.Show("Thêm hàng hóa thành công!");
             DataChanged?.Invoke(this, EventArgs.Empty);
-            MacDinh(); 
+            MacDinh();
+
+
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            // Lấy mã hàng hóa từ điều khiển txtMaHH (readonly, không cho phép sửa)
-            string maHangHoa = txtMaHH.Text;  // Mã hàng hóa cố định, không thể sửa
-
-            // Lấy thông tin từ các điều khiển trên frmNhapHang
-            string tenHang = txtTenHang.Text;
-            decimal giaNhap;
-            decimal giaBan;
-            int soLuong;
-            bool trangThaiBan = cbTrangThaiBan.Checked;
-            string ghiChu = txtNote.Text;
-            string duongDanAnh = pbHinhSP.ImageLocation;  // Đường dẫn ảnh từ PictureBox
-            string maLoai = cbLoaiHang.SelectedValue.ToString();
-
-            // Kiểm tra nếu các trường giá trị cần thiết có dữ liệu hợp lệ
-            if (string.IsNullOrEmpty(tenHang) ||
-                !decimal.TryParse(txtGiaNhap.Text, out giaNhap) ||
-                !decimal.TryParse(txtGiaBan.Text, out giaBan) ||
-                !int.TryParse(txtSoLuong.Text, out soLuong))
+            // Kiểm tra thông tin nhập vào và sản phẩm được chọn
+            if (string.IsNullOrEmpty(txtID.Text))
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Chọn sản phẩm để sửa.");
                 return;
             }
 
-            // Truy vấn SQL để cập nhật dữ liệu vào bảng QuanLyHang (không cập nhật MaHangHoa)
-            string query = $"UPDATE QuanLyHang SET " +
-                           $"TenHang = N'{tenHang}', " +
-                           $"MaLoaiHang = {maLoai}, " +
-                           $"GiaNhap = {giaNhap}, " +
-                           $"GiaBan = {giaBan}, " +
-                           $"SoLuong = {soLuong}, " +
-                           $"TrangThai = {(trangThaiBan ? 1 : 0)}, " +
-                           $"GhiChu = N'{ghiChu}', " +
-                           $"DuongDanAnh = N'{duongDanAnh}' " +
-                           $"WHERE MaHangHoa = '{maHangHoa}'";
+            // Lấy thông tin từ các TextBox
+            int id = Convert.ToInt32(txtID.Text);
+            string tenHang = txtTenHang.Text;
+            decimal giaNhap = Convert.ToDecimal(txtGiaNhap.Text);
+            decimal giaBan = Convert.ToDecimal(txtGiaBan.Text);
+            int soLuong = Convert.ToInt32(txtSoLuong.Text);
+            int loaiID = Convert.ToInt32(cbLoaiHang.SelectedValue); // Lấy giá trị (ID) của loại hàng
+            int hangID = Convert.ToInt32(cbHangSX.SelectedValue);
+            int xuatxuID = Convert.ToInt32(cbXuatXu.SelectedValue);
+            int dotuoiID = Convert.ToInt32(cbDoTuoi.SelectedValue);
+            string moTa = txtNote.Text;
+            bool enable = cboTrangThaiBan.Checked;
 
-
-            try
+            // Lấy đường dẫn của hình ảnh
+            string anhPath = string.Empty;
+            if (pbHinhSP.Image != null)
             {
-                // Thực thi lệnh SQL cập nhật
-                QuanLySQL.NhapDLVaoSQL(query);
-
-                // Thông báo thành công
-                MessageBox.Show("Cập nhật thông tin hàng hóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Sau khi cập nhật thành công, đóng form và trả kết quả thành công
-                DataChanged?.Invoke(this, EventArgs.Empty);
-                this.DialogResult = DialogResult.OK;
-                
-                this.Close();
+                anhPath = pbHinhSP.ImageLocation;
             }
-            catch (Exception ex)
+
+            // Kiểm tra dữ liệu đầu vào
+            if (string.IsNullOrEmpty(tenHang) || string.IsNullOrEmpty(txtGiaNhap.Text) || string.IsNullOrEmpty(txtGiaBan.Text) || string.IsNullOrEmpty(txtSoLuong.Text))
             {
-                // Xử lý lỗi nếu có
-                MessageBox.Show("Có lỗi xảy ra trong quá trình cập nhật: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin.");
+                return;
             }
+
+            string updateQuery = $"UPDATE SanPham SET " +
+                        $"Ten = N'{tenHang}', " +
+                        $"LoaiID = {loaiID}, " +
+                        $"HangID = {hangID}, " +
+                        $"XuatXuID = {xuatxuID}, " +
+                        $"DoTuoiID = {dotuoiID}, " +
+                        $"GiaNhap = {giaNhap}, " +
+                        $"GiaBan = {giaBan}, " +
+                        $"Ton = {soLuong}, " +
+                        $"MoTa = N'{moTa}', " +
+                        $"HinhAnhURL = N'{anhPath}', " +
+                        $"Enable = {(enable ? 1 : 0)} " +
+                        $"WHERE ID = {id}";
+
+            QuanLySQL.NhapDLVaoSQL(updateQuery);
+            // Cập nhật dữ liệu và thông báo
+            MessageBox.Show("Cập nhật hàng hóa thành công!");
+            DataChanged?.Invoke(this, EventArgs.Empty);
+            MacDinh();
         }
 
 
-
+        //chỉ cho phép nhập số
         private void txtGiaNhap_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
@@ -224,11 +284,17 @@ namespace Project01
             txtSoLuong.Text = string.Empty;
             txtNote.Text = string.Empty;
 
+            //combobox index = -1
+            cbXuatXu.SelectedIndex = -1;
+            cbLoaiHang.SelectedIndex = -1;
+            cbDoTuoi.SelectedIndex = -1;
+            cbHangSX.SelectedIndex = -1;
+
             // Đặt trạng thái ban đầu cho CheckBox
-            cbTrangThaiBan.Checked = true;
+            cboTrangThaiBan.Checked = true;
 
             // Xóa hình ảnh trong PictureBox
-            pbHinhSP.Image = Image.FromFile(@"F:\Học Tập\ShopDoChoiTreEm\Picture\AnhMacDinh.jpg");
+            pbHinhSP.Image = Image.FromFile(anhMD);
 
             // Đặt lại tiêu điểm vào TextBox đầu tiên (nếu cần)
             txtTenHang.Focus();
@@ -249,15 +315,7 @@ namespace Project01
 
         }
 
-        private void pbDoTuoi_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pbHangSX_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }
 

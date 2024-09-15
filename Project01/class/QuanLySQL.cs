@@ -1,11 +1,15 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+
 
 namespace Project01.Class
 {
-    
+
 
     public static class QuanLySQL
     {
@@ -17,7 +21,7 @@ namespace Project01.Class
         public static void KetNoi()
         {
             connection = new SqlConnection();
-            connection.ConnectionString = 
+            connection.ConnectionString =
                 @"server=INTEKAIH\TIENKHAI; database = ShopDoChoiTreEm; Integrated Security = true; ";
 
             if (connection.State != ConnectionState.Open)
@@ -106,14 +110,11 @@ namespace Project01.Class
             }
         }
 
-        public static bool KiemTraHangHoaTonTai(string tenHang, int maLoaiHang)
+        public static bool KTtontai(string bang, string ten, int id)
         {
-            string query = "SELECT COUNT(*) FROM QuanLyHang WHERE TenHang = @TenHang AND MaLoaiHang = @MaLoaiHang";
+            string query = $"SELECT COUNT(*) FROM [{bang}] WHERE Ten = '{ten}' AND LoaiID = {id}";
             using (SqlCommand command = new SqlCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@TenHang", tenHang);
-                command.Parameters.AddWithValue("@MaLoaiHang", maLoaiHang);
-
                 try
                 {
                     int count = (int)command.ExecuteScalar();
@@ -126,6 +127,28 @@ namespace Project01.Class
                 }
             }
         }
+
+        public static int KTVaThemGT(string tenBang, string tenCot, string giaTri)
+        {
+            // Truy vấn kiểm tra sự tồn tại của giá trị trong bảng
+            DataTable dt = XuatDLTuSQL($"SELECT ID FROM {tenBang} WHERE {tenCot} = N'{giaTri}'");
+
+            if (dt.Rows.Count == 0)
+            {
+                // Nếu không tồn tại, thêm giá trị vào bảng
+                string query = $"INSERT INTO {tenBang} ({tenCot}, Enable) VALUES (N'{giaTri}', 1)";
+                NhapDLVaoSQL(query);
+
+                // Cập nhật lại ID của giá trị từ cơ sở dữ liệu
+                dt = XuatDLTuSQL($"SELECT ID FROM {tenBang} WHERE {tenCot} = N'{giaTri}'");
+            }
+
+            // Trả về ID của giá trị
+            return Convert.ToInt32(dt.Rows[0]["ID"]);
+        }
+
+
+
     }
 
 }

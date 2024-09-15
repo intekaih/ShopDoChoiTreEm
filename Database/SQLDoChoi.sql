@@ -1,22 +1,39 @@
 ﻿
+--Tạo bảng chi tiết hóa đơn
+CREATE TABLE ChiTietHoaDon (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    DonHangID INT,                                  -- Khóa ngoại liên kết với bảng HoaDon
+    SanPhamID INT,                                 -- Khóa ngoại liên kết với bảng SanPham
+    SoLuong INT NOT NULL,                          -- Số lượng sản phẩm
+    Gia DECIMAL(10, 0) NOT NULL,                   -- Giá sản phẩm tại thời điểm mua
+	GiaGiam DECIMAL(10, 0) DEFAULT NULL,
+    Enable BIT DEFAULT 1,                         -- Cột Enable để đánh dấu chi tiết còn hoạt động hay không
+    FOREIGN KEY (DonHangID) REFERENCES HoaDon(ID),
+    FOREIGN KEY (SanPhamID) REFERENCES SanPham(ID),
+   
+);
+
 -- Tạo bảng sản phẩm
 CREATE TABLE SanPham (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    Ten nVARCHAR(100) NOT NULL,
-    LoaiID INT,
-    HangID INT, --Hãng
-    DoTuoiID INT,
+    Ten NVARCHAR(100) NOT NULL,
+    LoaiID INT,                   -- Khóa ngoại đến bảng LoaiSP
+    HangID INT,                   -- Khóa ngoại đến bảng HangSX (Hãng sản xuất)
+    XuatXuID INT,                 -- Khóa ngoại đến bảng XuatXu (Xuất xứ)
+    DoTuoiID INT,                 -- Khóa ngoại đến bảng DoTuoi
     GiaNhap DECIMAL(10, 0) NOT NULL,
     GiaBan DECIMAL(10, 0) NOT NULL,
-    Ton INT NOT NULL, --Số Lượng
-    MoTa TEXT,
-    HinhAnhURL VARCHAR(255),
-    Enable BIT DEFAULT 1,  -- Cột Enable để đánh dấu sản phẩm còn hoạt động hay không
+    Ton INT NOT NULL,             -- Số lượng tồn kho
+    MoTa nTEXT,
+    HinhAnhURL nVARCHAR(255),
+    Enable BIT DEFAULT 1,         -- Cột Enable để đánh dấu sản phẩm còn hoạt động hay không
     FOREIGN KEY (LoaiID) REFERENCES LoaiSP(ID),
     FOREIGN KEY (HangID) REFERENCES HangSX(ID),
-    FOREIGN KEY (DoTuoiID) REFERENCES DoTuoi(ID),
-      
+    FOREIGN KEY (XuatXuID) REFERENCES XuatXu(ID),   -- Liên kết tới bảng Xuất Xứ
+    FOREIGN KEY (DoTuoiID) REFERENCES DoTuoi(ID)
 );
+
+
 
 --Tìm sản phẩm sắp hết hàng:
 SELECT ID, Ten, GiaNhap, GiaBan, Ton
@@ -52,19 +69,7 @@ WHERE ID = 1; -- Thay ID = 1 bằng ID của sản phẩm cần đánh dấu
 DELETE FROM SanPham
 WHERE ID = 1; -- Thay ID = 1 bằng ID của sản phẩm cần xóa
 
---Tạo bảng chi tiết hóa đơn
-CREATE TABLE ChiTietHoaDon (
-    ID INT IDENTITY(1,1) PRIMARY KEY,
-    DonHangID INT,                                  -- Khóa ngoại liên kết với bảng HoaDon
-    SanPhamID INT,                                 -- Khóa ngoại liên kết với bảng SanPham
-    SoLuong INT NOT NULL,                          -- Số lượng sản phẩm
-    Gia DECIMAL(10, 0) NOT NULL,                   -- Giá sản phẩm tại thời điểm mua
-	GiaGiam DECIMAL(10, 0) DEFAULT NULL,
-    Enable BIT DEFAULT 1,                         -- Cột Enable để đánh dấu chi tiết còn hoạt động hay không
-    FOREIGN KEY (DonHangID) REFERENCES HoaDon(ID),
-    FOREIGN KEY (SanPhamID) REFERENCES SanPham(ID),
-   
-);
+
 
 --Tạo bảng hóa đơn
 CREATE TABLE HoaDon (
@@ -171,10 +176,15 @@ CREATE TABLE LoaiSP (
 --Tạo bảng hãng sản xuất
 CREATE TABLE HangSX (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    Ten nVARCHAR(100) NOT NULL,
-    XuatXu nVARCHAR(100),
-    Enable BIT DEFAULT 1,
-    
+    Ten NVARCHAR(100) NOT NULL unique,   -- Tên của hãng sản xuất
+    Enable BIT DEFAULT 1          -- Trạng thái hoạt động của hãng
+);
+
+--Tạo bảng Xuất Xứ
+CREATE TABLE XuatXu (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Ten NVARCHAR(100) NOT NULL unique,
+    Enable BIT DEFAULT 1           -- Trạng thái hoạt động của quốc gia xuất xứ
 );
 
 
@@ -182,9 +192,10 @@ CREATE TABLE HangSX (
 --Tạo bảng độ tuổi 
 CREATE TABLE DoTuoi (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    MoTa nVARCHAR(100) NOT NULL,
+    Ten nVARCHAR(100) NOT NULL unique,
     Enable BIT DEFAULT 1,
 );
+
 
 
 --Tạo bảng tài khoản
@@ -204,6 +215,7 @@ select * from HoaDon
 select * from TaiKhoan
 select * from LoaiSP
 select * from HangSX
+select * from XuatXu
 select * from DoTuoi
 select * from KhachHang
 select * from ChiTietHoaDon
@@ -214,6 +226,7 @@ drop table ChiTietHoaDon
 drop table TaiKhoan
 drop table LoaiSP
 drop table HangSX
+drop table XuatXu
 drop table DoTuoi
 drop table KhachHang
 
@@ -231,12 +244,12 @@ VALUES ('user', 'a', 'Tran Thi B', 'NguoiDung', 1);
 
 INSERT INTO ChiTietHoaDon (DonHangID, SanPhamID, SoLuong, Gia, GiaGiam, Enable)
 VALUES 
-(1, 9, 2, 100000, 95000, 1),
-(1, 5, 1, 200000, NULL, 1),
+(1, 1, 2, 100000, 95000, 1),
+(1, 2, 1, 200000, NULL, 1),
 (1, 3, 3, 150000, 140000, 1),
-(2, 8, 2, 200000, NULL, 1),
-(2, 7, 1, 250000, 230000, 1),
-(3, 6, 4, 100000, NULL, 1);
+(2, 4, 2, 200000, NULL, 1),
+(2, 4, 1, 250000, 230000, 1),
+(3, 2, 4, 100000, NULL, 1);
 
 -- Chèn dữ liệu mẫu vào HoaDon
 INSERT INTO HoaDon (KhachID, TongTien, TrangThai, NguoiBanID, LoaiGiamGia, GiamGiaTien, GiamGiaPhanTram, PhiShip, PhiKhac, Enable)
@@ -269,15 +282,34 @@ VALUES
 (N'Đồ Chơi Sáng Tạo', 1);
 
 -- Chèn dữ liệu mẫu vào HangSX
-INSERT INTO HangSX (Ten, XuatXu, Enable)
+INSERT INTO HangSX (Ten, Enable)
 VALUES 
-(N'Hãng A', N'Việt Nam', 1),
-(N'Hãng B', N'Trung Quốc', 1),
-(N'Hãng C', N'Nhật Bản', 1);
+(N'Hãng A', 1),
+(N'Hãng B', 1),
+(N'Hãng C', 1);
+
+-- Chèn dữ liệu mẫu vào XuatXu
+INSERT INTO XuatXu (Ten, Enable)
+VALUES 
+( N'Việt Nam', 1),
+( N'Trung Quốc', 1),
+(N'Nhật Bản', 1);
 
 -- Chèn dữ liệu mẫu vào DoTuoi
-INSERT INTO DoTuoi (MoTa, Enable)
+INSERT INTO DoTuoi (Ten, Enable)
 VALUES 
 (N'Từ 1 đến 3 tuổi', 1),
 (N'Từ 4 đến 6 tuổi', 1),
 (N'Từ 7 đến 12 tuổi', 1);
+
+
+SELECT COUNT(*) FROM sanpham WHERE Ten = N'Hộp Lego Đa Năng' AND LoaiID = '1'
+
+SELECT * FROM dbo.HangSX WHERE ID = 2;
+
+SELECT ID, Ten, LoaiID, GiaNhap, GiaBan, Ton, enable, MoTa, hinhanhurl  
+                   FROM SanPham  
+                   WHERE LoaiID IN (SELECT ID FROM LoaiSP WHERE Ten = N'Đồ Chơi Giải Trí')
+
+select * from sanpham 
+where LoaiID = 1 and XuatXuID = 1

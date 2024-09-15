@@ -1,75 +1,27 @@
 ﻿using Project01.Class;
-using Project01.Login;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Project01 
-{ 
-    public partial class ucChinh : UserControl
+namespace Project01
+{
+    public partial class Form1 : Form
     {
         private Dictionary<string, Panel> listCacSPDon = new Dictionary<string, Panel>();
 
         public int sttSP = 1;
 
-        public ucChinh()
+        public Form1()
         {
             InitializeComponent();
         }
 
-        
-        
-
-        private void ucChinh_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
             LoadSP();
-            VeBoGoc();
-            dtpNgayLapHD.Value = DateTime.Now;
-        }
-
-        private void VeBoGoc()
-        {
-            VeBoGocPanel.BoGocPanel(pHang, 30);
-            VeBoGocPanel.BoGocPanel(pBill, 50);
-            VeBoGocPanel.BoGocPanel(pHoaDon, 30);
-            VeBoGocPanel.BoGocPanel(pInfoKhach, 30);
-        }
-
-        private void UpdateTongGiaHHDon()
-        {
-            // Khởi tạo biến tổng
-            decimal tongGia = 0;
-
-            // Lặp qua tất cả các control trong FlowLayoutPanel
-            foreach (Control control in flpBangHoaDon.Controls)
-            {
-                // Kiểm tra nếu control là một Panel
-                if (control is Panel panel)
-                {
-                    // Lặp qua tất cả các control trong Panel
-                    foreach (Control innerControl in panel.Controls)
-                    {
-                        // Kiểm tra nếu control là Label với tên "lbTongGia1SPDon"
-                        if (innerControl is Label label && label.Name == "lbTongGia1SPDon")
-                        {
-                            // Thêm giá trị của label vào tổng
-                            if (decimal.TryParse(label.Text, out decimal gia))
-                            {
-                                tongGia += gia;
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Cập nhật giá trị của lbTongGiaHHDon
-            lbTongGiaHHDon.Text = tongGia.ToString("F0"); // Định dạng với 2 chữ số thập phân
         }
 
         private void LoadSP()
@@ -89,8 +41,8 @@ namespace Project01
                     Panel pThuocTinhHH = new Panel
                     {
                         BackColor = SystemColors.ControlLightLight,
-                        Size = new Size(270, 100),
-                        Margin = new Padding(0, 15, 15, 0)
+                        Size = new Size(300, 100),
+                        Margin = new Padding(15, 15, 0, 0)
                     };
 
                     VeBoGocPanel.BoGocPanel(pThuocTinhHH, 30);
@@ -154,7 +106,11 @@ namespace Project01
             {
                 MessageBox.Show("Lỗi khi tải sản phẩm: " + ex.Message);
             }
-           
+            finally
+            {
+                // Ngắt kết nối cơ sở dữ liệu
+                QuanLySQL.NgatKetNoi();
+            }
         }
 
         private void Panels_Click(object sender, EventArgs e)
@@ -287,7 +243,7 @@ namespace Project01
                         listCacSPDon[ID] = pThuocTinhHHDon;
 
                         // Hiển thị panel chi tiết trong form
-                        flpBangHoaDon.Controls.Add(pThuocTinhHHDon);
+                        flptest.Controls.Add(pThuocTinhHHDon);
                     }
                 }
                 else
@@ -310,7 +266,7 @@ namespace Project01
         {
             if (sender is PictureBox pbXoaSPDon)
             {
-
+                
                 // Tìm panel chứa PictureBox
                 Panel panel = pbXoaSPDon.Parent as Panel;
 
@@ -322,7 +278,7 @@ namespace Project01
                     if (!string.IsNullOrEmpty(idSanPham) && listCacSPDon.ContainsKey(idSanPham))
                     {
                         // Xóa panel khỏi FlowLayoutPanel và từ điển
-                        flpBangHoaDon.Controls.Remove(panel);
+                        flptest.Controls.Remove(panel);
                         listCacSPDon.Remove(idSanPham);
 
                         CapNhatStt();
@@ -397,8 +353,8 @@ namespace Project01
         private void CapNhatStt()
         {
             // Lặp qua các panel trong FlowLayoutPanel
-            int stt = 0;
-            foreach (Panel panel in flpBangHoaDon.Controls.OfType<Panel>())
+            int stt = 1;
+            foreach (Panel panel in flptest.Controls.OfType<Panel>())
             {
                 Label lbSttSP = panel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "lbSttSP");
                 if (lbSttSP != null)
@@ -412,24 +368,5 @@ namespace Project01
             sttSP = stt;
         }
 
-
-
-
-
-
-
-
-
-
-        private void pbExit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-
-        }
-
-        private void pThuocTinhHH_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }
