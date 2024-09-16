@@ -10,8 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Project01 
-{ 
+namespace Project01
+{
     public partial class ucChinh : UserControl
     {
         private Dictionary<string, Panel> listCacSPDon = new Dictionary<string, Panel>();
@@ -23,14 +23,18 @@ namespace Project01
             InitializeComponent();
         }
 
-        
-        
+
+
 
         private void ucChinh_Load(object sender, EventArgs e)
         {
             LoadSP();
             VeBoGoc();
             dtpNgayLapHD.Value = DateTime.Now;
+            TongGiaSPHD();
+
+
+
         }
 
         private void VeBoGoc()
@@ -40,8 +44,116 @@ namespace Project01
             VeBoGocPanel.BoGocPanel(pHoaDon, 30);
             VeBoGocPanel.BoGocPanel(pInfoKhach, 30);
         }
+        //XyLy tinh tien
+        private void txtThueVATHD_TextChanged(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(txtThueVATHD.Text, out decimal value))
+            {
+                if (value < 0) value = 0;
+                if (value > 100) value = 00;
+                txtThueVATHD.Text = value.ToString();
+            }
+            else
+                txtThueVATHD.Text = "0";
+            TongThanhToan();
+            txtThueVATHD.SelectionStart = txtThueVATHD.Text.Length;
+        }
 
-        private void UpdateTongGiaHHDon()
+        private void lbTongTienHang_TextChanged(object sender, EventArgs e)
+        {
+            TongThanhToan();
+        }
+
+        private void txtPhiKhacHD_TextChanged(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(ttt.Text, out decimal value))
+            {
+                if (value < 0) value = 0;
+                ttt.Text = value.ToString("N0");
+            }
+            else
+                ttt.Text = "0";
+            TongThanhToan();
+            ttt.SelectionStart = ttt.Text.Length;
+        }
+
+        private void txtGiamGiaHD_TextChanged(object sender, EventArgs e)
+        {
+            if (rdPhanTram.Checked == true)
+            {
+                if (decimal.TryParse(txtGiamGiaHD.Text, out decimal valuePhanTram))
+                {
+                    if (valuePhanTram < 0) valuePhanTram = 0;
+                    if (valuePhanTram > 100) valuePhanTram = 00;
+                    txtGiamGiaHD.Text = valuePhanTram.ToString();
+                }
+                else
+                    txtThueVATHD.Text = "0";
+            }
+            else
+            {
+                if (decimal.TryParse(txtGiamGiaHD.Text, out decimal value))
+                {
+                    if (value < 0) value = 0;
+                    txtGiamGiaHD.Text = value.ToString("N0");
+                }
+                else
+                    txtGiamGiaHD.Text = "0";
+            }
+            TongThanhToan();
+            txtGiamGiaHD.SelectionStart = txtGiamGiaHD.Text.Length;
+        }
+
+        private void rdVND_CheckedChanged(object sender, EventArgs e)
+        {
+            txtGiamGiaHD_TextChanged(sender, e);
+        }
+
+        private void rdPhanTram_CheckedChanged(object sender, EventArgs e)
+        {
+            txtGiamGiaHD_TextChanged(sender, e);
+        }
+
+        private void TongThanhToan()
+        {
+            decimal tongThanhToan = decimal.Parse(lbTongTienHang.Text);
+            decimal phiKhac = decimal.Parse(ttt.Text);
+            decimal giamGia = 0;
+            if (rdVND.Checked == true)
+                giamGia = decimal.Parse(txtGiamGiaHD.Text);
+            if (rdPhanTram.Checked == true)
+                giamGia = tongThanhToan * decimal.Parse(txtGiamGiaHD.Text) / 100;
+            decimal thueVAT = tongThanhToan * decimal.Parse(txtThueVATHD.Text) / 100;
+
+            decimal thanhTien = tongThanhToan + phiKhac + thueVAT - giamGia;
+
+            lbTongThanhToan.Text = thanhTien.ToString("N0");
+        }
+
+
+        private void TongSLSPHD()
+        {
+            decimal tongSL = 0;
+
+            foreach (Control control in flpBangHoaDon.Controls)
+            {
+                if (control is Panel panel)
+                {
+                    foreach (Control controlOne in panel.Controls)
+                    {
+                        if (controlOne is TextBox textbox && textbox.Name == "txtSoLuong1SPDon")
+                        {
+                            if (decimal.TryParse(textbox.Text, out decimal sL))
+                            {
+                                tongSL += sL;
+                            }
+                        }
+                    }
+                }
+            }
+            lbTongSLSpHd.Text = "Tổng số lượng Sản phẩm: " + tongSL.ToString();
+        }
+        private void TongGiaSPHD()
         {
             // Khởi tạo biến tổng
             decimal tongGia = 0;
@@ -69,13 +181,16 @@ namespace Project01
             }
 
             // Cập nhật giá trị của lbTongGiaHHDon
-            lbTongGiaHHDon.Text = tongGia.ToString("F0"); // Định dạng với 2 chữ số thập phân
+            lbTongTienHang.Text = tongGia.ToString("N0"); // Định dạng với 2 chữ số thập phân
         }
 
         private void LoadSP()
         {
+
+
             // Kết nối đến cơ sở dữ liệu
             QuanLySQL.KetNoi();
+            cbTinhTrangHD.SelectedItem = "Thanh Toán";
 
             try
             {
@@ -154,7 +269,7 @@ namespace Project01
             {
                 MessageBox.Show("Lỗi khi tải sản phẩm: " + ex.Message);
             }
-           
+
         }
 
         private void Panels_Click(object sender, EventArgs e)
@@ -166,6 +281,9 @@ namespace Project01
 
                 // Tạo hoặc cập nhật
                 TaoOrCapNhatSPDon(idSanPham);
+                TongGiaSPHD();
+                TongSLSPHD();
+
             }
         }
 
@@ -246,7 +364,11 @@ namespace Project01
                             Text = "1",
                             Size = new Size(76, 29),
                             Location = new Point(125, 46),
+                            TextAlign = HorizontalAlignment.Center
+
                         };
+
+
 
                         TextBox txtGia1SPDon = new TextBox
                         {
@@ -254,7 +376,9 @@ namespace Project01
                             Location = new Point(352, 46),
                             Size = new Size(100, 30),
                             AutoSize = true,
-                            Text = row["GiaBan"].ToString()
+                            Text = Convert.ToDecimal(row["GiaBan"]).ToString("N0"),
+                            TextAlign = HorizontalAlignment.Center
+
                         };
 
                         Label lbMaSPDon = new Label
@@ -326,6 +450,8 @@ namespace Project01
                         listCacSPDon.Remove(idSanPham);
 
                         CapNhatStt();
+                        TongGiaSPHD();
+                        TongSLSPHD();
                     }
                 }
             }
@@ -340,12 +466,13 @@ namespace Project01
 
                 if (panel != null)
                 {
+
                     // Cập nhật lại tổng giá khi số lượng thay đổi
                     CapNhatGia(panel);
                 }
             }
+            TongSLSPHD();
         }
-
 
         private void txtGia1SPDon_TextChanged(object sender, EventArgs e)
         {
@@ -392,6 +519,8 @@ namespace Project01
 
             // Cập nhật tổng giá vào nhãn
             lbTongGia1SPDon.Text = string.Format("{0:N0}", tongGia);
+            TongGiaSPHD();
+
         }
 
         private void CapNhatStt()
@@ -430,6 +559,17 @@ namespace Project01
         private void pThuocTinhHH_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void lbTongTienHang_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pbKhachHang_Click(object sender, EventArgs e)
+        {
+            frmKhachHang frmKhachHang = new frmKhachHang();
+            frmKhachHang.ShowDialog();
         }
     }
 }

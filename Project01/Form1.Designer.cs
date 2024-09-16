@@ -36,9 +36,15 @@
             this.lbTenSP = new System.Windows.Forms.Label();
             this.pbAnhSP = new System.Windows.Forms.PictureBox();
             this.flptest = new System.Windows.Forms.FlowLayoutPanel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.flpSanPham.SuspendLayout();
             this.pThuocTinhHH.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAnhSP)).BeginInit();
+            this.flptest.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // flpSanPham
@@ -112,11 +118,37 @@
             // flptest
             // 
             this.flptest.AutoScroll = true;
+            this.flptest.Controls.Add(this.dataGridView1);
+            this.flptest.Controls.Add(this.dataGridView2);
             this.flptest.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.flptest.Location = new System.Drawing.Point(23, 12);
             this.flptest.Name = "flptest";
             this.flptest.Size = new System.Drawing.Size(905, 789);
             this.flptest.TabIndex = 1;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1});
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(249, 3);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView2.TabIndex = 1;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Column1";
+            this.Column1.Name = "Column1";
             // 
             // Form1
             // 
@@ -132,6 +164,9 @@
             this.pThuocTinhHH.ResumeLayout(false);
             this.pThuocTinhHH.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAnhSP)).EndInit();
+            this.flptest.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -145,5 +180,8 @@
         private System.Windows.Forms.PictureBox pbAnhSP;
         private System.Windows.Forms.Label lbSoLuongSP;
         private System.Windows.Forms.FlowLayoutPanel flptest;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
     }
 }

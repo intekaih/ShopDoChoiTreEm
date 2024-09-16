@@ -5,13 +5,18 @@ CREATE TABLE ChiTietHoaDon (
     DonHangID INT,                                  -- Khóa ngoại liên kết với bảng HoaDon
     SanPhamID INT,                                 -- Khóa ngoại liên kết với bảng SanPham
     SoLuong INT NOT NULL,                          -- Số lượng sản phẩm
-    Gia DECIMAL(10, 0) NOT NULL,                   -- Giá sản phẩm tại thời điểm mua
 	GiaGiam DECIMAL(10, 0) DEFAULT NULL,
+	ThanhTien Decimal(10,0) Not null,
     Enable BIT DEFAULT 1,                         -- Cột Enable để đánh dấu chi tiết còn hoạt động hay không
     FOREIGN KEY (DonHangID) REFERENCES HoaDon(ID),
     FOREIGN KEY (SanPhamID) REFERENCES SanPham(ID),
    
 );
+
+select a.SoLuong, b.GiaBan , a.GiaGiam, a.ThanhTien
+from ChiTietHoaDon a, sanpham b
+where a.SanPhamID = b.ID 
+
 
 -- Tạo bảng sản phẩm
 CREATE TABLE SanPham (
@@ -157,10 +162,12 @@ CREATE TABLE KhachHang (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     HoTen nVARCHAR(100) NOT NULL,
     DienThoai VARCHAR(20),
-    DiaChi TEXT,
+    DiaChi NVARCHAR(MAX),
     Enable BIT DEFAULT 1,
     
 );
+
+
 
 
 -- Tạo bảng loại sản phẩm
@@ -242,14 +249,15 @@ VALUES ('admin', 'a', 'Nguyen Van A', 'Admin', 1);
 INSERT INTO TaiKhoan (TenDangNhap, MatKhau, HoTen, VaiTro, Enable)
 VALUES ('user', 'a', 'Tran Thi B', 'NguoiDung', 1);
 
-INSERT INTO ChiTietHoaDon (DonHangID, SanPhamID, SoLuong, Gia, GiaGiam, Enable)
+-- Thêm dữ liệu mẫu vào bảng ChiTietHoaDon
+INSERT INTO ChiTietHoaDon (DonHangID, SanPhamID, SoLuong, GiaGiam, ThanhTien)
 VALUES 
-(1, 1, 2, 100000, 95000, 1),
-(1, 2, 1, 200000, NULL, 1),
-(1, 3, 3, 150000, 140000, 1),
-(2, 4, 2, 200000, NULL, 1),
-(2, 4, 1, 250000, 230000, 1),
-(3, 2, 4, 100000, NULL, 1);
+(1, 1, 2, 10000, 200000),   -- Chi tiết hóa đơn cho đơn hàng 1, sản phẩm 1
+(1, 2, 1, NULL, 150000),    -- Chi tiết hóa đơn cho đơn hàng 1, sản phẩm 2, không có giảm giá
+(2, 3, 5, 5000, 450000),    -- Chi tiết hóa đơn cho đơn hàng 2, sản phẩm 3
+(3, 1, 3, NULL, 300000),    -- Chi tiết hóa đơn cho đơn hàng 3, sản phẩm 1, không có giảm giá
+(3, 4, 10, 20000, 1000000); -- Chi tiết hóa đơn cho đơn hàng 3, sản phẩm 4
+
 
 -- Chèn dữ liệu mẫu vào HoaDon
 INSERT INTO HoaDon (KhachID, TongTien, TrangThai, NguoiBanID, LoaiGiamGia, GiamGiaTien, GiamGiaPhanTram, PhiShip, PhiKhac, Enable)
