@@ -81,14 +81,15 @@ CREATE TABLE HoaDon (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     KhachID INT,
     NgayLap DATETIME DEFAULT CURRENT_TIMESTAMP,
-    TongTien DECIMAL(10, 0) NOT NULL,                -- Tổng tiền trước giảm giá và phí
+    TongTienHang DECIMAL(10, 0) NOT NULL,                -- Tổng tiền trước giảm giá và phí
     TrangThai nVARCHAR(50) ,                                -- Khóa ngoại liên kết với bảng TrangThaiHoaDon
     NguoiBanID INT,                                -- Cột NguoiBanID để liên kết với người bán hàng
-    LoaiGiamGia nvarchar(50),                             -- Khóa ngoại liên kết với bảng LoaiGiamGia
     GiamGiaTien DECIMAL(10, 0) DEFAULT 0.00,       -- Giảm giá theo số tiền
-    GiamGiaPhanTram DECIMAL(5, 0) DEFAULT 0.00,     -- Giảm giá theo phần trăm
-    PhiShip DECIMAL(10, 0) DEFAULT 0.00,            -- Phí ship
-    PhiKhac DECIMAL(10, 0) DEFAULT 0.00,            -- Các phí khác
+    GiamGiaPhanTram DECIMAL(5, 0) DEFAULT 0.00,
+    ThueVAT DECIMAL(5, 0) DEFAULT 0.00,     
+	PhiKhac DECIMAL(10, 0) DEFAULT 0.00,            -- Các phí khác
+    TongThanhToan DECIMAL(10, 0) DEFAULT 0.00,  
+	GhiChu nvarchar(max),
     Enable BIT DEFAULT 1,                          -- Cột Enable để đánh dấu hóa đơn còn hoạt động hay không
     FOREIGN KEY (KhachID) REFERENCES KhachHang(ID),
     FOREIGN KEY (NguoiBanID) REFERENCES TaiKhoan(ID),
@@ -220,6 +221,8 @@ CREATE TABLE TaiKhoan (
 select * from SanPham
 select * from HoaDon
 select * from TaiKhoan
+select * from HoaDon
+select * from TaiKhoan
 select * from LoaiSP
 select * from HangSX
 select * from XuatXu
@@ -237,7 +240,7 @@ drop table XuatXu
 drop table DoTuoi
 drop table KhachHang
 
-
+delete from khachHang
 
 
 

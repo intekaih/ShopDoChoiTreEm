@@ -28,160 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.flpSanPham = new System.Windows.Forms.FlowLayoutPanel();
-            this.pThuocTinhHH = new System.Windows.Forms.Panel();
-            this.lbSoLuongSP = new System.Windows.Forms.Label();
-            this.lbGiaSP = new System.Windows.Forms.Label();
-            this.lbTenSP = new System.Windows.Forms.Label();
-            this.pbAnhSP = new System.Windows.Forms.PictureBox();
-            this.flptest = new System.Windows.Forms.FlowLayoutPanel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.flpSanPham.SuspendLayout();
-            this.pThuocTinhHH.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbAnhSP)).BeginInit();
-            this.flptest.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // flpSanPham
+            // panel1
             // 
-            this.flpSanPham.AutoScroll = true;
-            this.flpSanPham.Controls.Add(this.pThuocTinhHH);
-            this.flpSanPham.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.flpSanPham.Location = new System.Drawing.Point(1068, 45);
-            this.flpSanPham.Margin = new System.Windows.Forms.Padding(0);
-            this.flpSanPham.Name = "flpSanPham";
-            this.flpSanPham.Size = new System.Drawing.Size(694, 439);
-            this.flpSanPham.TabIndex = 0;
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Location = new System.Drawing.Point(161, 240);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 100);
+            this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // pThuocTinhHH
+            // button1
             // 
-            this.pThuocTinhHH.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pThuocTinhHH.Controls.Add(this.lbSoLuongSP);
-            this.pThuocTinhHH.Controls.Add(this.lbGiaSP);
-            this.pThuocTinhHH.Controls.Add(this.lbTenSP);
-            this.pThuocTinhHH.Controls.Add(this.pbAnhSP);
-            this.pThuocTinhHH.Location = new System.Drawing.Point(20, 20);
-            this.pThuocTinhHH.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
-            this.pThuocTinhHH.Name = "pThuocTinhHH";
-            this.pThuocTinhHH.Size = new System.Drawing.Size(300, 100);
-            this.pThuocTinhHH.TabIndex = 0;
-            this.pThuocTinhHH.Visible = false;
-            // 
-            // lbSoLuongSP
-            // 
-            this.lbSoLuongSP.AutoSize = true;
-            this.lbSoLuongSP.Font = new System.Drawing.Font("Times New Roman", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lbSoLuongSP.Location = new System.Drawing.Point(200, 60);
-            this.lbSoLuongSP.MaximumSize = new System.Drawing.Size(70, 0);
-            this.lbSoLuongSP.Name = "lbSoLuongSP";
-            this.lbSoLuongSP.Size = new System.Drawing.Size(63, 19);
-            this.lbSoLuongSP.TabIndex = 1;
-            this.lbSoLuongSP.Text = "000000";
-            // 
-            // lbGiaSP
-            // 
-            this.lbGiaSP.AutoSize = true;
-            this.lbGiaSP.Font = new System.Drawing.Font("Times New Roman", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lbGiaSP.Location = new System.Drawing.Point(90, 60);
-            this.lbGiaSP.MaximumSize = new System.Drawing.Size(110, 0);
-            this.lbGiaSP.Name = "lbGiaSP";
-            this.lbGiaSP.Size = new System.Drawing.Size(72, 19);
-            this.lbGiaSP.TabIndex = 1;
-            this.lbGiaSP.Text = "5000000";
-            // 
-            // lbTenSP
-            // 
-            this.lbTenSP.AutoSize = true;
-            this.lbTenSP.Font = new System.Drawing.Font("Times New Roman", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lbTenSP.Location = new System.Drawing.Point(90, 20);
-            this.lbTenSP.MaximumSize = new System.Drawing.Size(200, 0);
-            this.lbTenSP.Name = "lbTenSP";
-            this.lbTenSP.Size = new System.Drawing.Size(181, 19);
-            this.lbTenSP.TabIndex = 1;
-            this.lbTenSP.Text = "Bộ Xếp Hình Sáng Tạooo";
-            // 
-            // pbAnhSP
-            // 
-            this.pbAnhSP.Image = ((System.Drawing.Image)(resources.GetObject("pbAnhSP.Image")));
-            this.pbAnhSP.Location = new System.Drawing.Point(20, 20);
-            this.pbAnhSP.Name = "pbAnhSP";
-            this.pbAnhSP.Size = new System.Drawing.Size(60, 60);
-            this.pbAnhSP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbAnhSP.TabIndex = 0;
-            this.pbAnhSP.TabStop = false;
-            // 
-            // flptest
-            // 
-            this.flptest.AutoScroll = true;
-            this.flptest.Controls.Add(this.dataGridView1);
-            this.flptest.Controls.Add(this.dataGridView2);
-            this.flptest.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.flptest.Location = new System.Drawing.Point(23, 12);
-            this.flptest.Name = "flptest";
-            this.flptest.Size = new System.Drawing.Size(905, 789);
-            this.flptest.TabIndex = 1;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(249, 3);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView2.TabIndex = 1;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Column1";
-            this.Column1.Name = "Column1";
+            this.button1.Location = new System.Drawing.Point(29, 35);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.panel1_Paint);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1851, 801);
-            this.Controls.Add(this.flptest);
-            this.Controls.Add(this.flpSanPham);
+            this.ClientSize = new System.Drawing.Size(959, 617);
+            this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.flpSanPham.ResumeLayout(false);
-            this.pThuocTinhHH.ResumeLayout(false);
-            this.pThuocTinhHH.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbAnhSP)).EndInit();
-            this.flptest.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel flpSanPham;
-        private System.Windows.Forms.Panel pThuocTinhHH;
-        private System.Windows.Forms.Label lbGiaSP;
-        private System.Windows.Forms.Label lbTenSP;
-        private System.Windows.Forms.PictureBox pbAnhSP;
-        private System.Windows.Forms.Label lbSoLuongSP;
-        private System.Windows.Forms.FlowLayoutPanel flptest;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -32,13 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucHangHoa));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -56,19 +49,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pHangHoa = new System.Windows.Forms.Panel();
             this.cbChonHang = new System.Windows.Forms.CheckBox();
             this.dgvDataHang = new System.Windows.Forms.DataGridView();
-            this.Cb = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.DuongDanAnh = new System.Windows.Forms.DataGridViewImageColumn();
-            this.MaHangHoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MaLoaiHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GiaNhap = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SoLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TrangThai = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.flpBoLoc = new System.Windows.Forms.FlowLayoutPanel();
             this.flpLocLoaiHang = new System.Windows.Forms.FlowLayoutPanel();
@@ -132,6 +122,16 @@
             this.cmsChuotPhai = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiSua = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiXoa = new System.Windows.Forms.ToolStripMenuItem();
+            this.Cb = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DuongDanAnh = new System.Windows.Forms.DataGridViewImageColumn();
+            this.MaHangHoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaLoaiHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GiaNhap = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SoLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrangThai = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pHangHoa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataHang)).BeginInit();
             this.flpBoLoc.SuspendLayout();
@@ -258,118 +258,6 @@
             this.dgvDataHang.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDataHang_CellContentClick);
             this.dgvDataHang.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDataHang_CellFormatting);
             this.dgvDataHang.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvDataHang_ColumnHeaderMouseClick);
-            // 
-            // Cb
-            // 
-            this.Cb.Frozen = true;
-            this.Cb.HeaderText = "";
-            this.Cb.Name = "Cb";
-            this.Cb.ReadOnly = true;
-            this.Cb.Width = 50;
-            // 
-            // DuongDanAnh
-            // 
-            this.DuongDanAnh.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.DuongDanAnh.FillWeight = 50F;
-            this.DuongDanAnh.Frozen = true;
-            this.DuongDanAnh.HeaderText = "";
-            this.DuongDanAnh.Name = "DuongDanAnh";
-            this.DuongDanAnh.Width = 70;
-            // 
-            // MaHangHoa
-            // 
-            this.MaHangHoa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.MaHangHoa.DefaultCellStyle = dataGridViewCellStyle2;
-            this.MaHangHoa.FillWeight = 86.28024F;
-            this.MaHangHoa.Frozen = true;
-            this.MaHangHoa.HeaderText = "Mã đồ chơi";
-            this.MaHangHoa.Name = "MaHangHoa";
-            this.MaHangHoa.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.MaHangHoa.Width = 130;
-            // 
-            // TenHang
-            // 
-            this.TenHang.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.TenHang.DefaultCellStyle = dataGridViewCellStyle3;
-            this.TenHang.FillWeight = 86.28024F;
-            this.TenHang.Frozen = true;
-            this.TenHang.HeaderText = "Tên Đồ Chơi";
-            this.TenHang.Name = "TenHang";
-            this.TenHang.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TenHang.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.TenHang.Width = 250;
-            // 
-            // MaLoaiHang
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.MaLoaiHang.DefaultCellStyle = dataGridViewCellStyle4;
-            this.MaLoaiHang.Frozen = true;
-            this.MaLoaiHang.HeaderText = "Loại Đồ Chơi";
-            this.MaLoaiHang.Name = "MaLoaiHang";
-            this.MaLoaiHang.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.MaLoaiHang.Width = 140;
-            // 
-            // GiaNhap
-            // 
-            this.GiaNhap.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.GiaNhap.DefaultCellStyle = dataGridViewCellStyle5;
-            this.GiaNhap.FillWeight = 86.28024F;
-            this.GiaNhap.Frozen = true;
-            this.GiaNhap.HeaderText = "Giá Nhập";
-            this.GiaNhap.Name = "GiaNhap";
-            this.GiaNhap.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GiaNhap.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.GiaNhap.Width = 110;
-            // 
-            // GiaBan
-            // 
-            this.GiaBan.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.GiaBan.DefaultCellStyle = dataGridViewCellStyle6;
-            this.GiaBan.FillWeight = 86.28024F;
-            this.GiaBan.Frozen = true;
-            this.GiaBan.HeaderText = "Giá Bán";
-            this.GiaBan.Name = "GiaBan";
-            this.GiaBan.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GiaBan.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // SoLuong
-            // 
-            this.SoLuong.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.SoLuong.DefaultCellStyle = dataGridViewCellStyle7;
-            this.SoLuong.FillWeight = 86.28024F;
-            this.SoLuong.Frozen = true;
-            this.SoLuong.HeaderText = "Số Lượng";
-            this.SoLuong.Name = "SoLuong";
-            this.SoLuong.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.SoLuong.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.SoLuong.Width = 125;
-            // 
-            // TrangThai
-            // 
-            this.TrangThai.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.TrangThai.FillWeight = 86.28024F;
-            this.TrangThai.Frozen = true;
-            this.TrangThai.HeaderText = "Trạng Thái";
-            this.TrangThai.Name = "TrangThai";
-            this.TrangThai.ReadOnly = true;
-            this.TrangThai.Width = 150;
-            // 
-            // GhiChu
-            // 
-            this.GhiChu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.GhiChu.DefaultCellStyle = dataGridViewCellStyle8;
-            this.GhiChu.FillWeight = 86.28024F;
-            this.GhiChu.HeaderText = "Mô tả đồ chơi";
-            this.GhiChu.Name = "GhiChu";
-            this.GhiChu.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GhiChu.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.GhiChu.Width = 230;
             // 
             // flowLayoutPanel1
             // 
@@ -1272,6 +1160,110 @@
             this.tsmiXoa.Text = "Xóa";
             this.tsmiXoa.Click += new System.EventHandler(this.tsmiXoa_Click);
             // 
+            // Cb
+            // 
+            this.Cb.Frozen = true;
+            this.Cb.HeaderText = "";
+            this.Cb.Name = "Cb";
+            this.Cb.ReadOnly = true;
+            this.Cb.Width = 50;
+            // 
+            // DuongDanAnh
+            // 
+            this.DuongDanAnh.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.DuongDanAnh.FillWeight = 50F;
+            this.DuongDanAnh.HeaderText = "";
+            this.DuongDanAnh.Name = "DuongDanAnh";
+            this.DuongDanAnh.Width = 70;
+            // 
+            // MaHangHoa
+            // 
+            this.MaHangHoa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.MaHangHoa.DefaultCellStyle = dataGridViewCellStyle2;
+            this.MaHangHoa.FillWeight = 86.28024F;
+            this.MaHangHoa.HeaderText = "Mã đồ chơi";
+            this.MaHangHoa.Name = "MaHangHoa";
+            this.MaHangHoa.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.MaHangHoa.Width = 130;
+            // 
+            // TenHang
+            // 
+            this.TenHang.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.TenHang.DefaultCellStyle = dataGridViewCellStyle3;
+            this.TenHang.FillWeight = 86.28024F;
+            this.TenHang.HeaderText = "Tên Đồ Chơi";
+            this.TenHang.Name = "TenHang";
+            this.TenHang.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TenHang.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.TenHang.Width = 250;
+            // 
+            // MaLoaiHang
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.MaLoaiHang.DefaultCellStyle = dataGridViewCellStyle4;
+            this.MaLoaiHang.HeaderText = "Loại Đồ Chơi";
+            this.MaLoaiHang.Name = "MaLoaiHang";
+            this.MaLoaiHang.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.MaLoaiHang.Width = 140;
+            // 
+            // GiaNhap
+            // 
+            this.GiaNhap.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.GiaNhap.DefaultCellStyle = dataGridViewCellStyle5;
+            this.GiaNhap.FillWeight = 86.28024F;
+            this.GiaNhap.HeaderText = "Giá Nhập";
+            this.GiaNhap.Name = "GiaNhap";
+            this.GiaNhap.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.GiaNhap.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.GiaNhap.Width = 110;
+            // 
+            // GiaBan
+            // 
+            this.GiaBan.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.GiaBan.DefaultCellStyle = dataGridViewCellStyle6;
+            this.GiaBan.FillWeight = 86.28024F;
+            this.GiaBan.HeaderText = "Giá Bán";
+            this.GiaBan.Name = "GiaBan";
+            this.GiaBan.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.GiaBan.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // SoLuong
+            // 
+            this.SoLuong.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.SoLuong.DefaultCellStyle = dataGridViewCellStyle7;
+            this.SoLuong.FillWeight = 86.28024F;
+            this.SoLuong.HeaderText = "Số Lượng";
+            this.SoLuong.Name = "SoLuong";
+            this.SoLuong.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.SoLuong.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.SoLuong.Width = 125;
+            // 
+            // TrangThai
+            // 
+            this.TrangThai.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.TrangThai.FillWeight = 86.28024F;
+            this.TrangThai.HeaderText = "Trạng Thái";
+            this.TrangThai.Name = "TrangThai";
+            this.TrangThai.ReadOnly = true;
+            this.TrangThai.Width = 150;
+            // 
+            // GhiChu
+            // 
+            this.GhiChu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.GhiChu.DefaultCellStyle = dataGridViewCellStyle8;
+            this.GhiChu.FillWeight = 86.28024F;
+            this.GhiChu.HeaderText = "Mô tả đồ chơi";
+            this.GhiChu.Name = "GhiChu";
+            this.GhiChu.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.GhiChu.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.GhiChu.Width = 230;
+            // 
             // ucHangHoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1361,16 +1353,6 @@
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView dgvDataHang;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Cb;
-        private System.Windows.Forms.DataGridViewImageColumn DuongDanAnh;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MaHangHoa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TenHang;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MaLoaiHang;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GiaNhap;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GiaBan;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SoLuong;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn TrangThai;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GhiChu;
         private System.Windows.Forms.FlowLayoutPanel flpBoLoc;
         private System.Windows.Forms.FlowLayoutPanel flpLocLoaiHang;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
@@ -1416,5 +1398,15 @@
         private System.Windows.Forms.RadioButton rdAll;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Cb;
+        private System.Windows.Forms.DataGridViewImageColumn DuongDanAnh;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaHangHoa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TenHang;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaLoaiHang;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GiaNhap;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GiaBan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SoLuong;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn TrangThai;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GhiChu;
     }
 }

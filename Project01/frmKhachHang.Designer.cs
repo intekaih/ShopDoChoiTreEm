@@ -431,6 +431,7 @@
             this.Name = "frmKhachHang";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmKhachHang";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmKhachHang_FormClosing);
             this.Load += new System.EventHandler(this.frmKhachHang_Load);
             this.Click += new System.EventHandler(this.frmKhachHang_Click);
             ((System.ComponentModel.ISupportInitialize)(this.dgvKhachHang)).EndInit();

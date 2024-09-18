@@ -13,6 +13,8 @@ namespace Project01
 {
     public partial class frmKhachHang : Form
     {
+        public event EventHandler DataChanged;
+
         public frmKhachHang()
         {
             InitializeComponent();
@@ -67,6 +69,7 @@ namespace Project01
             QuanLySQL.NhapDLVaoSQL(queryDl);
             lbThongBao.Text = "Successfully!";
             LoadDataToDGV();
+            DataChanged?.Invoke(this, EventArgs.Empty);
             MacDinh();
 
         }
@@ -97,6 +100,7 @@ namespace Project01
             QuanLySQL.NhapDLVaoSQL(queryUd);
             lbThongBao.Text = "Successfully!";
             LoadDataToDGV();
+            DataChanged?.Invoke(this, EventArgs.Empty);
             MacDinh();
         }
 
@@ -114,6 +118,7 @@ namespace Project01
             QuanLySQL.NhapDLVaoSQL(queryIs);
             lbThongBao.Text = "Successfully!";
             LoadDataToDGV();
+            DataChanged?.Invoke(this, EventArgs.Empty);
             MacDinh();
         }
 
@@ -153,6 +158,10 @@ namespace Project01
         private void pThoat_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void frmKhachHang_FormClosing(object sender, FormClosingEventArgs e)
+        {
         }
     }
 }

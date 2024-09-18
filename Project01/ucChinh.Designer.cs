@@ -32,9 +32,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucChinh));
             this.flpBangHoaDon = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
             this.pBill = new System.Windows.Forms.Panel();
             this.pInfoKhach = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
+            this.btnLuuIn = new System.Windows.Forms.Button();
+            this.btnLuuDon = new System.Windows.Forms.Button();
+            this.btnHuyDon = new System.Windows.Forms.Button();
+            this.txtF = new System.Windows.Forms.TextBox();
+            this.cbHoTenKH = new System.Windows.Forms.ComboBox();
+            this.pbKhachHang = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -49,7 +55,7 @@
             this.rdVND = new System.Windows.Forms.RadioButton();
             this.cbTinhTrangHD = new System.Windows.Forms.ComboBox();
             this.txtThueVATHD = new System.Windows.Forms.TextBox();
-            this.ttt = new System.Windows.Forms.TextBox();
+            this.txtPhiKhacHD = new System.Windows.Forms.TextBox();
             this.txtGiamGiaHD = new System.Windows.Forms.TextBox();
             this.txtGhiChuHoaDon = new System.Windows.Forms.TextBox();
             this.dtpNgayLapHD = new System.Windows.Forms.DateTimePicker();
@@ -64,6 +70,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pSale = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.flpSanPham = new System.Windows.Forms.FlowLayoutPanel();
             this.pThuocTinhHH = new System.Windows.Forms.Panel();
             this.lbSoLuongSP = new System.Windows.Forms.Label();
@@ -79,46 +87,32 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.pbKhachHang = new System.Windows.Forms.PictureBox();
-            this.cbHoTenKH = new System.Windows.Forms.ComboBox();
-            this.flpBangHoaDon.SuspendLayout();
             this.pBill.SuspendLayout();
             this.pInfoKhach.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbKhachHang)).BeginInit();
             this.pHoaDon.SuspendLayout();
             this.pSale.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.flpSanPham.SuspendLayout();
             this.pThuocTinhHH.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAnhSP)).BeginInit();
             this.pHang.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbKhachHang)).BeginInit();
             this.SuspendLayout();
             // 
             // flpBangHoaDon
             // 
             this.flpBangHoaDon.AutoScroll = true;
             this.flpBangHoaDon.BackColor = System.Drawing.SystemColors.Control;
-            this.flpBangHoaDon.Controls.Add(this.label1);
             this.flpBangHoaDon.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpBangHoaDon.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.flpBangHoaDon.Location = new System.Drawing.Point(0, 0);
+            this.flpBangHoaDon.Location = new System.Drawing.Point(0, 50);
             this.flpBangHoaDon.Margin = new System.Windows.Forms.Padding(10, 50, 10, 100);
             this.flpBangHoaDon.Name = "flpBangHoaDon";
             this.flpBangHoaDon.Padding = new System.Windows.Forms.Padding(20, 10, 0, 0);
-            this.flpBangHoaDon.Size = new System.Drawing.Size(772, 750);
+            this.flpBangHoaDon.Size = new System.Drawing.Size(772, 690);
             this.flpBangHoaDon.TabIndex = 5;
             this.flpBangHoaDon.WrapContents = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.Location = new System.Drawing.Point(23, 10);
-            this.label1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(182, 27);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Chi tiết đơn hàng";
             // 
             // pBill
             // 
@@ -134,6 +128,11 @@
             // pInfoKhach
             // 
             this.pInfoKhach.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pInfoKhach.Controls.Add(this.button4);
+            this.pInfoKhach.Controls.Add(this.btnLuuIn);
+            this.pInfoKhach.Controls.Add(this.btnLuuDon);
+            this.pInfoKhach.Controls.Add(this.btnHuyDon);
+            this.pInfoKhach.Controls.Add(this.txtF);
             this.pInfoKhach.Controls.Add(this.cbHoTenKH);
             this.pInfoKhach.Controls.Add(this.pbKhachHang);
             this.pInfoKhach.Controls.Add(this.label13);
@@ -146,6 +145,77 @@
             this.pInfoKhach.Name = "pInfoKhach";
             this.pInfoKhach.Size = new System.Drawing.Size(905, 262);
             this.pInfoKhach.TabIndex = 2;
+            // 
+            // button4
+            // 
+            this.button4.AutoSize = true;
+            this.button4.Location = new System.Drawing.Point(493, 195);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(77, 31);
+            this.button4.TabIndex = 8;
+            this.button4.Text = "button2";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // btnLuuIn
+            // 
+            this.btnLuuIn.AutoSize = true;
+            this.btnLuuIn.Location = new System.Drawing.Point(355, 195);
+            this.btnLuuIn.Name = "btnLuuIn";
+            this.btnLuuIn.Size = new System.Drawing.Size(92, 31);
+            this.btnLuuIn.TabIndex = 8;
+            this.btnLuuIn.Text = "Lưu và In";
+            this.btnLuuIn.UseVisualStyleBackColor = true;
+            // 
+            // btnLuuDon
+            // 
+            this.btnLuuDon.AutoSize = true;
+            this.btnLuuDon.Location = new System.Drawing.Point(211, 195);
+            this.btnLuuDon.Name = "btnLuuDon";
+            this.btnLuuDon.Size = new System.Drawing.Size(88, 31);
+            this.btnLuuDon.TabIndex = 8;
+            this.btnLuuDon.Text = "Lưu Đơn";
+            this.btnLuuDon.UseVisualStyleBackColor = true;
+            this.btnLuuDon.Click += new System.EventHandler(this.btnLuuDon_Click);
+            // 
+            // btnHuyDon
+            // 
+            this.btnHuyDon.AutoSize = true;
+            this.btnHuyDon.Location = new System.Drawing.Point(48, 195);
+            this.btnHuyDon.Name = "btnHuyDon";
+            this.btnHuyDon.Size = new System.Drawing.Size(83, 31);
+            this.btnHuyDon.TabIndex = 7;
+            this.btnHuyDon.Text = "HuyDon";
+            this.btnHuyDon.UseVisualStyleBackColor = true;
+            this.btnHuyDon.Click += new System.EventHandler(this.btnHuyDon_Click);
+            // 
+            // txtF
+            // 
+            this.txtF.Location = new System.Drawing.Point(-1000, -1000);
+            this.txtF.Name = "txtF";
+            this.txtF.Size = new System.Drawing.Size(1, 29);
+            this.txtF.TabIndex = 6;
+            // 
+            // cbHoTenKH
+            // 
+            this.cbHoTenKH.FormattingEnabled = true;
+            this.cbHoTenKH.Location = new System.Drawing.Point(170, 38);
+            this.cbHoTenKH.Name = "cbHoTenKH";
+            this.cbHoTenKH.Size = new System.Drawing.Size(324, 29);
+            this.cbHoTenKH.TabIndex = 5;
+            this.cbHoTenKH.SelectedIndexChanged += new System.EventHandler(this.cbHoTenKH_SelectedIndexChanged);
+            this.cbHoTenKH.TextChanged += new System.EventHandler(this.cbHoTenKH_TextChanged);
+            // 
+            // pbKhachHang
+            // 
+            this.pbKhachHang.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbKhachHang.Image = ((System.Drawing.Image)(resources.GetObject("pbKhachHang.Image")));
+            this.pbKhachHang.Location = new System.Drawing.Point(505, 43);
+            this.pbKhachHang.Name = "pbKhachHang";
+            this.pbKhachHang.Size = new System.Drawing.Size(20, 20);
+            this.pbKhachHang.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbKhachHang.TabIndex = 4;
+            this.pbKhachHang.TabStop = false;
+            this.pbKhachHang.Click += new System.EventHandler(this.pbKhachHang_Click);
             // 
             // label13
             // 
@@ -211,7 +281,7 @@
             this.pHoaDon.Controls.Add(this.rdVND);
             this.pHoaDon.Controls.Add(this.cbTinhTrangHD);
             this.pHoaDon.Controls.Add(this.txtThueVATHD);
-            this.pHoaDon.Controls.Add(this.ttt);
+            this.pHoaDon.Controls.Add(this.txtPhiKhacHD);
             this.pHoaDon.Controls.Add(this.txtGiamGiaHD);
             this.pHoaDon.Controls.Add(this.txtGhiChuHoaDon);
             this.pHoaDon.Controls.Add(this.dtpNgayLapHD);
@@ -239,7 +309,6 @@
             this.lbTongThanhToan.Size = new System.Drawing.Size(20, 22);
             this.lbTongThanhToan.TabIndex = 7;
             this.lbTongThanhToan.Text = "0";
-            this.lbTongThanhToan.Click += new System.EventHandler(this.lbTongTienHang_Click);
             // 
             // lbTongTienHang
             // 
@@ -291,7 +360,7 @@
             // 
             this.cbTinhTrangHD.FormattingEnabled = true;
             this.cbTinhTrangHD.Items.AddRange(new object[] {
-            "Thanh Toán",
+            "Đã Thanh Toán",
             "Công Nợ"});
             this.cbTinhTrangHD.Location = new System.Drawing.Point(608, 42);
             this.cbTinhTrangHD.Name = "cbTinhTrangHD";
@@ -307,14 +376,14 @@
             this.txtThueVATHD.Text = "0";
             this.txtThueVATHD.TextChanged += new System.EventHandler(this.txtThueVATHD_TextChanged);
             // 
-            // ttt
+            // txtPhiKhacHD
             // 
-            this.ttt.Location = new System.Drawing.Point(195, 129);
-            this.ttt.Name = "ttt";
-            this.ttt.Size = new System.Drawing.Size(250, 29);
-            this.ttt.TabIndex = 3;
-            this.ttt.Text = "0";
-            this.ttt.TextChanged += new System.EventHandler(this.txtPhiKhacHD_TextChanged);
+            this.txtPhiKhacHD.Location = new System.Drawing.Point(195, 129);
+            this.txtPhiKhacHD.Name = "txtPhiKhacHD";
+            this.txtPhiKhacHD.Size = new System.Drawing.Size(250, 29);
+            this.txtPhiKhacHD.TabIndex = 3;
+            this.txtPhiKhacHD.Text = "0";
+            this.txtPhiKhacHD.TextChanged += new System.EventHandler(this.txtPhiKhacHD_TextChanged);
             // 
             // txtGiamGiaHD
             // 
@@ -337,11 +406,11 @@
             this.dtpNgayLapHD.CalendarForeColor = System.Drawing.SystemColors.Control;
             this.dtpNgayLapHD.CalendarTitleForeColor = System.Drawing.SystemColors.Control;
             this.dtpNgayLapHD.Cursor = System.Windows.Forms.Cursors.Default;
-            this.dtpNgayLapHD.CustomFormat = "dd/MM/yy     HH:mm ";
+            this.dtpNgayLapHD.CustomFormat = "dd/MM/yyyy     HH:mm ";
             this.dtpNgayLapHD.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpNgayLapHD.Location = new System.Drawing.Point(195, 38);
             this.dtpNgayLapHD.Name = "dtpNgayLapHD";
-            this.dtpNgayLapHD.Size = new System.Drawing.Size(169, 29);
+            this.dtpNgayLapHD.Size = new System.Drawing.Size(187, 29);
             this.dtpNgayLapHD.TabIndex = 2;
             this.dtpNgayLapHD.Value = new System.DateTime(2024, 9, 8, 14, 17, 16, 0);
             // 
@@ -447,16 +516,36 @@
             // 
             // pSale
             // 
-            this.pSale.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pSale.BackColor = System.Drawing.SystemColors.Control;
+            this.pSale.Controls.Add(this.panel1);
             this.pSale.Controls.Add(this.flpSanPham);
             this.pSale.Controls.Add(this.pBill);
             this.pSale.Controls.Add(this.flpBangHoaDon);
             this.pSale.Controls.Add(this.pHang);
+            this.pSale.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pSale.Location = new System.Drawing.Point(0, 0);
             this.pSale.Name = "pSale";
             this.pSale.Size = new System.Drawing.Size(1920, 1032);
             this.pSale.TabIndex = 5;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(772, 50);
+            this.panel1.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label1.Location = new System.Drawing.Point(15, 13);
+            this.label1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(182, 27);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Chi tiết đơn hàng";
             // 
             // flpSanPham
             // 
@@ -641,26 +730,6 @@
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = "Tìm Hàng Hóa";
             // 
-            // pbKhachHang
-            // 
-            this.pbKhachHang.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbKhachHang.Image = ((System.Drawing.Image)(resources.GetObject("pbKhachHang.Image")));
-            this.pbKhachHang.Location = new System.Drawing.Point(505, 43);
-            this.pbKhachHang.Name = "pbKhachHang";
-            this.pbKhachHang.Size = new System.Drawing.Size(20, 20);
-            this.pbKhachHang.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbKhachHang.TabIndex = 4;
-            this.pbKhachHang.TabStop = false;
-            this.pbKhachHang.Click += new System.EventHandler(this.pbKhachHang_Click);
-            // 
-            // cbHoTenKH
-            // 
-            this.cbHoTenKH.FormattingEnabled = true;
-            this.cbHoTenKH.Location = new System.Drawing.Point(170, 38);
-            this.cbHoTenKH.Name = "cbHoTenKH";
-            this.cbHoTenKH.Size = new System.Drawing.Size(324, 29);
-            this.cbHoTenKH.TabIndex = 5;
-            // 
             // ucChinh
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -672,14 +741,15 @@
             this.Name = "ucChinh";
             this.Size = new System.Drawing.Size(1920, 1032);
             this.Load += new System.EventHandler(this.ucChinh_Load);
-            this.flpBangHoaDon.ResumeLayout(false);
-            this.flpBangHoaDon.PerformLayout();
             this.pBill.ResumeLayout(false);
             this.pInfoKhach.ResumeLayout(false);
             this.pInfoKhach.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbKhachHang)).EndInit();
             this.pHoaDon.ResumeLayout(false);
             this.pHoaDon.PerformLayout();
             this.pSale.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.flpSanPham.ResumeLayout(false);
             this.pThuocTinhHH.ResumeLayout(false);
             this.pThuocTinhHH.PerformLayout();
@@ -688,14 +758,12 @@
             this.pHang.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbKhachHang)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.FlowLayoutPanel flpBangHoaDon;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel pBill;
         private System.Windows.Forms.Panel pInfoKhach;
         private System.Windows.Forms.Label label13;
@@ -709,7 +777,7 @@
         private System.Windows.Forms.RadioButton rdVND;
         private System.Windows.Forms.ComboBox cbTinhTrangHD;
         private System.Windows.Forms.TextBox txtThueVATHD;
-        private System.Windows.Forms.TextBox ttt;
+        private System.Windows.Forms.TextBox txtPhiKhacHD;
         private System.Windows.Forms.TextBox txtGiamGiaHD;
         private System.Windows.Forms.TextBox txtGhiChuHoaDon;
         private System.Windows.Forms.DateTimePicker dtpNgayLapHD;
@@ -744,6 +812,13 @@
         private System.Windows.Forms.Label lbTongThanhToan;
         private System.Windows.Forms.PictureBox pbKhachHang;
         private System.Windows.Forms.ComboBox cbHoTenKH;
+        private System.Windows.Forms.TextBox txtF;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnLuuIn;
+        private System.Windows.Forms.Button btnLuuDon;
+        private System.Windows.Forms.Button btnHuyDon;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

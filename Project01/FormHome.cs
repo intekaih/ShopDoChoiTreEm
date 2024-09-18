@@ -61,10 +61,10 @@ namespace Project01
             AddControlsToPanel(ucBillInfo);
         }
 
-       
-
-        
-
-        
+        private void btnTaiKhoan_Click(object sender, EventArgs e)
+        {
+            ucTaiKhoan ucTK = new ucTaiKhoan();
+            AddControlsToPanel(ucTK);
+        }
     }
 }

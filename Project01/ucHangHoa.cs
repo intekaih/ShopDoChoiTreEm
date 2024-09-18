@@ -117,10 +117,12 @@ namespace Project01
             LoadDataLoc(dgvLocHangSX, "HangSX", "HangSX");
             LoadDataLoc(dgvLocXuatXu, "XuatXu", "XuatXu");
 
+            
             DataTable dataTable = QuanLySQL.XuatDLTuSQL("SELECT * FROM SanPham");
 
             IDtoTen("LoaiSP");
 
+           
             LoadDataToDGV(dataTable);
         }
 
@@ -486,6 +488,8 @@ namespace Project01
             LoadDataToDGV(dataTable);
 
         }
+
+       
 
         private void LoadDataToDGV(DataTable dataTable)
         {

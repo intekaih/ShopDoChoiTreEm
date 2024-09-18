@@ -15,12 +15,15 @@ namespace Project01
     public partial class ucChinh : UserControl
     {
         private Dictionary<string, Panel> listCacSPDon = new Dictionary<string, Panel>();
+        BindingSource KhachHang = new BindingSource();
+
 
         public int sttSP = 1;
 
         public ucChinh()
         {
             InitializeComponent();
+
         }
 
 
@@ -28,11 +31,12 @@ namespace Project01
 
         private void ucChinh_Load(object sender, EventArgs e)
         {
+            QuanLySQL.KetNoi();
             LoadSP();
             VeBoGoc();
             dtpNgayLapHD.Value = DateTime.Now;
             TongGiaSPHD();
-
+            LoadKhachHangToCb();
 
 
         }
@@ -66,15 +70,15 @@ namespace Project01
 
         private void txtPhiKhacHD_TextChanged(object sender, EventArgs e)
         {
-            if (decimal.TryParse(ttt.Text, out decimal value))
+            if (decimal.TryParse(txtPhiKhacHD.Text, out decimal value))
             {
                 if (value < 0) value = 0;
-                ttt.Text = value.ToString("N0");
+                txtPhiKhacHD.Text = value.ToString("N0");
             }
             else
-                ttt.Text = "0";
+                txtPhiKhacHD.Text = "0";
             TongThanhToan();
-            ttt.SelectionStart = ttt.Text.Length;
+            txtPhiKhacHD.SelectionStart = txtPhiKhacHD.Text.Length;
         }
 
         private void txtGiamGiaHD_TextChanged(object sender, EventArgs e)
@@ -117,7 +121,7 @@ namespace Project01
         private void TongThanhToan()
         {
             decimal tongThanhToan = decimal.Parse(lbTongTienHang.Text);
-            decimal phiKhac = decimal.Parse(ttt.Text);
+            decimal phiKhac = decimal.Parse(txtPhiKhacHD.Text);
             decimal giamGia = 0;
             if (rdVND.Checked == true)
                 giamGia = decimal.Parse(txtGiamGiaHD.Text);
@@ -184,13 +188,54 @@ namespace Project01
             lbTongTienHang.Text = tongGia.ToString("N0"); // Định dạng với 2 chữ số thập phân
         }
 
+        //Xy ly bang KhachHang
+        private void LoadKhachHangToCb()
+        {
+            string queryKh = "select * from KhachHang where enable = 1";
+            DataTable dataTable = QuanLySQL.XuatDLTuSQL(queryKh);
+
+            cbHoTenKH.DataSource = dataTable;
+            cbHoTenKH.DisplayMember = "HoTen";
+            cbHoTenKH.ValueMember = "ID";
+        }
+
+        private void cbHoTenKH_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbHoTenKH.SelectedItem != null)
+            {
+                DataRowView selectedRow = cbHoTenKH.SelectedItem as DataRowView;
+
+                if (selectedRow != null)
+                {
+                    string id = selectedRow["ID"].ToString();
+                    string query = $"SELECT * FROM KhachHang WHERE ID = '{id}'";
+                    DataTable dataTable = QuanLySQL.XuatDLTuSQL(query);
+
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        txtSDT.Text = dataTable.Rows[0]["DienThoai"].ToString();
+                        txtDiaChi.Text = dataTable.Rows[0]["DiaChi"].ToString();
+                        cbHoTenKH.Text = dataTable.Rows[0]["Hoten"].ToString();
+                    }
+                }
+                txtF.Focus();
+            }
+
+
+        }
+
+        private void cbHoTenKH_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(cbHoTenKH.Text))
+            {
+                txtSDT.Text = "";
+                txtDiaChi.Text = "";
+            }
+        }
+
         private void LoadSP()
         {
-
-
-            // Kết nối đến cơ sở dữ liệu
-            QuanLySQL.KetNoi();
-            cbTinhTrangHD.SelectedItem = "Thanh Toán";
+            cbTinhTrangHD.SelectedItem = "Đã Thanh Toán";
 
             try
             {
@@ -227,6 +272,7 @@ namespace Project01
                         Location = new Point(90, 20),
                         Size = new Size(181, 19),
                         MaximumSize = new Size(200, 40),
+                        ForeColor = ColorTranslator.FromHtml("#2c3f50"),
                         Text = row["Ten"].ToString()
                     };
                     lbTenSP.Click += (s, e) => Panels_Click(pThuocTinhHH, e);  // Đăng ký sự kiện cho Label tên sản phẩm
@@ -236,6 +282,7 @@ namespace Project01
                         Font = new Font("Times New Roman", 12.75F),
                         Location = new Point(90, 60),
                         MaximumSize = new Size(110, 20),
+                        ForeColor = ColorTranslator.FromHtml("#008fff"),
                         Text = string.Format("{0:N0}", Convert.ToDecimal(row["GiaBan"])) // Định dạng giá với dấu phân cách nghìn
                     };
                     lbGiaSP.Click += (s, e) => Panels_Click(pThuocTinhHH, e);  // Đăng ký sự kiện cho Label giá
@@ -245,6 +292,7 @@ namespace Project01
                         Font = new Font("Times New Roman", 12.75F),
                         Location = new Point(200, 60),
                         MaximumSize = new Size(70, 20),
+                        ForeColor = ColorTranslator.FromHtml("#ff5436"),
                         Text = row["Ton"].ToString()
                     };
                     lbSoLuongSP.Click += (s, e) => Panels_Click(pThuocTinhHH, e);  // Đăng ký sự kiện cho Label số lượng
@@ -278,7 +326,7 @@ namespace Project01
             {
                 // Lấy ID sản phẩm từ tag
                 string idSanPham = panel.Tag.ToString();
-
+                //MessageBox.Show(idSanPham);
                 // Tạo hoặc cập nhật
                 TaoOrCapNhatSPDon(idSanPham);
                 TongGiaSPHD();
@@ -289,9 +337,6 @@ namespace Project01
 
         private void TaoOrCapNhatSPDon(string ID)
         {
-            // Kết nối đến cơ sở dữ liệu
-            QuanLySQL.KetNoi();
-
             try
             {
                 string query = $"SELECT * FROM SanPham WHERE ID = {ID}";
@@ -322,7 +367,7 @@ namespace Project01
                             Size = new Size(725, 91),
                             BorderStyle = BorderStyle.None,
                             BackColor = Color.White,
-                            Margin = new Padding(0, 0, 0, 10),
+                            Margin = new Padding(0, 3, 0, 3),
                         };
 
                         VeBoGocPanel.BoGocPanel(pThuocTinhHHDon, 30);
@@ -346,6 +391,7 @@ namespace Project01
 
                         Label lbTenSPDon = new Label
                         {
+                            Name = "lbTenSPDon",
                             Location = new Point(247, 13),
                             Size = new Size(300, 30),
                             Text = row["Ten"].ToString()
@@ -422,11 +468,6 @@ namespace Project01
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi hiển thị chi tiết sản phẩm: " + ex.Message);
-            }
-            finally
-            {
-                // Ngắt kết nối cơ sở dữ liệu
-                QuanLySQL.NgatKetNoi();
             }
         }
 
@@ -526,7 +567,7 @@ namespace Project01
         private void CapNhatStt()
         {
             // Lặp qua các panel trong FlowLayoutPanel
-            int stt = 0;
+            int stt = 1;
             foreach (Panel panel in flpBangHoaDon.Controls.OfType<Panel>())
             {
                 Label lbSttSP = panel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "lbSttSP");
@@ -541,35 +582,108 @@ namespace Project01
             sttSP = stt;
         }
 
-
-
-
-
-
-
-
-
-
         private void pbExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
 
         }
 
-        private void pThuocTinhHH_Paint(object sender, PaintEventArgs e)
+        private void LoadDataChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void lbTongTienHang_Click(object sender, EventArgs e)
-        {
-
+            LoadKhachHangToCb();
         }
 
         private void pbKhachHang_Click(object sender, EventArgs e)
         {
             frmKhachHang frmKhachHang = new frmKhachHang();
+            frmKhachHang.DataChanged += LoadDataChanged;
             frmKhachHang.ShowDialog();
         }
+
+        private void btnHuyDon_Click(object sender, EventArgs e)
+        {
+            // Xóa tất cả các phần tử trong Dictionary
+            listCacSPDon.Clear();
+
+            // Xóa tất cả các điều khiển trong FlowLayoutPanel
+            flpBangHoaDon.Controls.Clear();
+            CapNhatStt();
+            TongGiaSPHD();
+            lbTongSLSpHd.Text = "";
+        }
+
+        private void btnLuuDon_Click(object sender, EventArgs e)
+        {
+            // Thông tin hóa đơn
+            int khachID = int.Parse(cbHoTenKH.SelectedValue.ToString());
+            DateTime ngayLap = dtpNgayLapHD.Value;
+            decimal tongTienHang = decimal.Parse(lbTongTienHang.Text);
+            string trangThai = "Chờ Xử Lý";
+            int nguoiBanID = 1;
+            decimal giamGiaTien = 0;
+            decimal giamGiaPhanTram = 0;
+
+            if (rdVND.Checked)
+                giamGiaTien = decimal.Parse(txtGiamGiaHD.Text);
+
+            if (rdPhanTram.Checked)
+                giamGiaPhanTram = decimal.Parse(txtGiamGiaHD.Text);
+
+            decimal thueVAT = decimal.Parse(txtThueVATHD.Text);
+            decimal phiKhac = decimal.Parse(txtPhiKhacHD.Text);
+            decimal tongThanhToan = decimal.Parse(lbTongThanhToan.Text);
+            string ghiChu = txtGhiChuHoaDon.Text;
+
+            // Chèn hóa đơn và lấy ID
+            string queryInsertHoaDon = "INSERT INTO HoaDon (KhachID, NgayLap, TongTienHang, TrangThai, NguoiBanID, GiamGiaTien, GiamGiaPhanTram, " +
+                                       "ThueVAT, PhiKhac, TongThanhToan, GhiChu) VALUES " +
+                                       $"({khachID}, '{ngayLap:yyyy-MM-dd HH:mm:ss}', {tongTienHang}, '{trangThai}', {nguoiBanID}, {giamGiaTien}, " +
+                                       $"{giamGiaPhanTram}, {thueVAT}, {phiKhac}, {tongThanhToan}, '{ghiChu}'); " +
+                                       "SELECT SCOPE_IDENTITY();";
+
+            try
+            {
+               
+                int donHangID = 0;
+                using (DataTable dataTable = QuanLySQL.XuatDLTuSQL(queryInsertHoaDon))
+                {
+                        donHangID = Convert.ToInt32(dataTable.Rows[0][0]);
+                }
+
+                // Chèn chi tiết hóa đơn
+                foreach (var entry in listCacSPDon)
+                {
+                    string ID = entry.Key;
+                    Panel pThuocTinhHHDon = entry.Value;
+
+                    TextBox txtSoLuong1SPDon = pThuocTinhHHDon.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "txtSoLuong1SPDon");
+                    TextBox txtGia1SPDon = pThuocTinhHHDon.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "txtGia1SP");
+                    Label lbTongGia1SPDon = pThuocTinhHHDon.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "lbTongGia1SPDon");
+                    Label lbMaSPDon = pThuocTinhHHDon.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "lbMaSPDon");
+
+                    if (txtSoLuong1SPDon != null && txtGia1SPDon != null && lbTongGia1SPDon != null && lbMaSPDon != null)
+                    {
+                        int soLuong = int.Parse(txtSoLuong1SPDon.Text);
+                        decimal gia = decimal.Parse(txtGia1SPDon.Text);
+                        decimal tongGia = decimal.Parse(lbTongGia1SPDon.Text);
+                        string maSP = lbMaSPDon.Text;
+
+                        string querySP = $"INSERT INTO ChiTietHoaDon (DonHangID, SanPhamID, SoLuong, GiaGiam, ThanhTien) " +
+                                         $"VALUES ({donHangID}, {ID}, {soLuong}, {gia}, {tongGia})";
+
+                        QuanLySQL.NhapDLVaoSQL(querySP);
+                    }
+                }
+
+                MessageBox.Show("Dữ liệu đã được lưu thành công.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lưu hóa đơn và chi tiết hóa đơn: " + ex.Message);
+            }
+        }
+
+
+
     }
 }

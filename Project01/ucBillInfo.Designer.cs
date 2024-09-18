@@ -65,16 +65,6 @@
             this.pHoaDon = new System.Windows.Forms.Panel();
             this.cbChonHang = new System.Windows.Forms.CheckBox();
             this.dgvBillInfo = new System.Windows.Forms.DataGridView();
-            this.Cb = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.MaHoaDon = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenKhachHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ThoiGian = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TongThanhToan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GiamGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ThueVAT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KhachThanhToan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.flpHeader = new System.Windows.Forms.FlowLayoutPanel();
             this.pTimKiemHD = new System.Windows.Forms.Panel();
@@ -88,6 +78,16 @@
             this.label8 = new System.Windows.Forms.Label();
             this.flpXuatFile = new System.Windows.Forms.FlowLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
+            this.Cb = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.MaHoaDon = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenKhachHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ThoiGian = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TongThanhToan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GiamGiaTien = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ThueVAT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KhachThanhToan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flpKhachHang.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbThemLoai)).BeginInit();
@@ -497,7 +497,7 @@
             this.TenKhachHang,
             this.ThoiGian,
             this.TongThanhToan,
-            this.GiamGia,
+            this.GiamGiaTien,
             this.ThueVAT,
             this.TrangThai,
             this.KhachThanhToan,
@@ -531,66 +531,6 @@
             this.dgvBillInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvBillInfo.Size = new System.Drawing.Size(1356, 831);
             this.dgvBillInfo.TabIndex = 7;
-            // 
-            // Cb
-            // 
-            this.Cb.HeaderText = "";
-            this.Cb.Name = "Cb";
-            this.Cb.Width = 50;
-            // 
-            // MaHoaDon
-            // 
-            this.MaHoaDon.HeaderText = "Mã Hóa Đơn";
-            this.MaHoaDon.Name = "MaHoaDon";
-            this.MaHoaDon.Width = 135;
-            // 
-            // TenKhachHang
-            // 
-            this.TenKhachHang.HeaderText = "Khách Hàng";
-            this.TenKhachHang.Name = "TenKhachHang";
-            this.TenKhachHang.Width = 200;
-            // 
-            // ThoiGian
-            // 
-            this.ThoiGian.HeaderText = "Thời Gian";
-            this.ThoiGian.Name = "ThoiGian";
-            this.ThoiGian.Width = 150;
-            // 
-            // TongThanhToan
-            // 
-            this.TongThanhToan.HeaderText = "Tổng Thanh Toán";
-            this.TongThanhToan.Name = "TongThanhToan";
-            this.TongThanhToan.Width = 175;
-            // 
-            // GiamGia
-            // 
-            this.GiamGia.HeaderText = "Giảm Giá";
-            this.GiamGia.Name = "GiamGia";
-            this.GiamGia.Width = 110;
-            // 
-            // ThueVAT
-            // 
-            this.ThueVAT.HeaderText = "Thuế VAT";
-            this.ThueVAT.Name = "ThueVAT";
-            this.ThueVAT.Width = 115;
-            // 
-            // TrangThai
-            // 
-            this.TrangThai.HeaderText = "Trạng Thái";
-            this.TrangThai.Name = "TrangThai";
-            this.TrangThai.Width = 115;
-            // 
-            // KhachThanhToan
-            // 
-            this.KhachThanhToan.HeaderText = "Khách Thanh Toán";
-            this.KhachThanhToan.Name = "KhachThanhToan";
-            this.KhachThanhToan.Width = 180;
-            // 
-            // GhiChu
-            // 
-            this.GhiChu.HeaderText = "Ghi Chú";
-            this.GhiChu.Name = "GhiChu";
-            this.GhiChu.Width = 125;
             // 
             // flowLayoutPanel1
             // 
@@ -740,10 +680,80 @@
             this.label6.TabIndex = 1;
             this.label6.Text = "Xuất File";
             // 
+            // Cb
+            // 
+            this.Cb.HeaderText = "";
+            this.Cb.Name = "Cb";
+            this.Cb.Width = 50;
+            // 
+            // MaHoaDon
+            // 
+            this.MaHoaDon.DataPropertyName = "ID";
+            this.MaHoaDon.HeaderText = "Mã Hóa Đơn";
+            this.MaHoaDon.Name = "MaHoaDon";
+            this.MaHoaDon.Width = 135;
+            // 
+            // TenKhachHang
+            // 
+            this.TenKhachHang.DataPropertyName = "KhachID";
+            this.TenKhachHang.HeaderText = "Khách Hàng";
+            this.TenKhachHang.Name = "TenKhachHang";
+            this.TenKhachHang.Width = 200;
+            // 
+            // ThoiGian
+            // 
+            this.ThoiGian.DataPropertyName = "NgayLap";
+            this.ThoiGian.HeaderText = "Thời Gian";
+            this.ThoiGian.Name = "ThoiGian";
+            this.ThoiGian.Width = 150;
+            // 
+            // TongThanhToan
+            // 
+            this.TongThanhToan.DataPropertyName = "TongThanhToan";
+            this.TongThanhToan.HeaderText = "Tổng Thanh Toán";
+            this.TongThanhToan.Name = "TongThanhToan";
+            this.TongThanhToan.Width = 175;
+            // 
+            // GiamGiaTien
+            // 
+            this.GiamGiaTien.DataPropertyName = "GiamGiaTien";
+            this.GiamGiaTien.HeaderText = "Giảm Giá Tiền";
+            this.GiamGiaTien.Name = "GiamGiaTien";
+            this.GiamGiaTien.Width = 110;
+            // 
+            // ThueVAT
+            // 
+            this.ThueVAT.DataPropertyName = "ThueVAT";
+            this.ThueVAT.HeaderText = "Thuế VAT";
+            this.ThueVAT.Name = "ThueVAT";
+            this.ThueVAT.Width = 115;
+            // 
+            // TrangThai
+            // 
+            this.TrangThai.DataPropertyName = "TrangThai";
+            this.TrangThai.HeaderText = "Trạng Thái";
+            this.TrangThai.Name = "TrangThai";
+            this.TrangThai.Width = 115;
+            // 
+            // KhachThanhToan
+            // 
+            this.KhachThanhToan.DataPropertyName = "TongThanhToan";
+            this.KhachThanhToan.HeaderText = "Khách Thanh Toán";
+            this.KhachThanhToan.Name = "KhachThanhToan";
+            this.KhachThanhToan.Width = 180;
+            // 
+            // GhiChu
+            // 
+            this.GhiChu.DataPropertyName = "GhiChu";
+            this.GhiChu.HeaderText = "Ghi Chú";
+            this.GhiChu.Name = "GhiChu";
+            this.GhiChu.Width = 125;
+            // 
             // ucBillInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.pHoaDon);
             this.Name = "ucBillInfo";
             this.Size = new System.Drawing.Size(1920, 1032);
@@ -823,20 +833,20 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.FlowLayoutPanel flpXuatFile;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Cb;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MaHoaDon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TenKhachHang;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ThoiGian;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TongThanhToan;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GiamGia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ThueVAT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TrangThai;
-        private System.Windows.Forms.DataGridViewTextBoxColumn KhachThanhToan;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GhiChu;
         private System.Windows.Forms.FlowLayoutPanel flpThoiGian;
         private System.Windows.Forms.Label lbTime;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Cb;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaHoaDon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TenKhachHang;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ThoiGian;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TongThanhToan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GiamGiaTien;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ThueVAT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TrangThai;
+        private System.Windows.Forms.DataGridViewTextBoxColumn KhachThanhToan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GhiChu;
     }
 }
