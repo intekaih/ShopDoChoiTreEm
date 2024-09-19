@@ -2,6 +2,7 @@
 --Tạo bảng chi tiết hóa đơn
 CREATE TABLE ChiTietHoaDon (
     ID INT IDENTITY(1,1) PRIMARY KEY,
+	TabHoaDonID INT,
     DonHangID INT,                                  -- Khóa ngoại liên kết với bảng HoaDon
     SanPhamID INT,                                 -- Khóa ngoại liên kết với bảng SanPham
     SoLuong INT NOT NULL,                          -- Số lượng sản phẩm
@@ -10,8 +11,17 @@ CREATE TABLE ChiTietHoaDon (
     Enable BIT DEFAULT 1,                         -- Cột Enable để đánh dấu chi tiết còn hoạt động hay không
     FOREIGN KEY (DonHangID) REFERENCES HoaDon(ID),
     FOREIGN KEY (SanPhamID) REFERENCES SanPham(ID),
-   
+    FOREIGN KEY (TabHoaDonID) REFERENCES TabHoaDon(ID),
+
 );
+
+-- Thêm dữ liệu mẫu vào bảng ChiTietHoaDon
+INSERT INTO ChiTietHoaDon (TabHoaDonID, DonHangID, SanPhamID, SoLuong, GiaGiam, ThanhTien, Enable)
+VALUES 
+(1, 1, 1, 2, NULL, 300000, 1),    -- Ví dụ 1: Sản phẩm 1, hóa đơn 1, số lượng 2, giá giảm không có
+(1, 2, 5, 1, 50000, 650000, 1),   -- Ví dụ 2: Sản phẩm 5, hóa đơn 2, số lượng 1, giá giảm 50000
+(2, 2, 10, 3, 100000, 600000, 1); -- Ví dụ 3: Sản phẩm 10, hóa đơn 3, số lượng 3, giá giảm 100000
+
 
 select a.SoLuong, b.GiaBan , a.GiaGiam, a.ThanhTien
 from ChiTietHoaDon a, sanpham b
@@ -35,8 +45,34 @@ CREATE TABLE SanPham (
     FOREIGN KEY (LoaiID) REFERENCES LoaiSP(ID),
     FOREIGN KEY (HangID) REFERENCES HangSX(ID),
     FOREIGN KEY (XuatXuID) REFERENCES XuatXu(ID),   -- Liên kết tới bảng Xuất Xứ
-    FOREIGN KEY (DoTuoiID) REFERENCES DoTuoi(ID)
+    FOREIGN KEY (DoTuoiID) REFERENCES DoTuoi(ID),
 );
+
+-- Thêm dữ liệu mẫu vào bảng SanPham
+INSERT INTO SanPham (Ten, LoaiID, HangID, XuatXuID, DoTuoiID, GiaNhap, GiaBan, Ton, MoTa, HinhAnhURL, Enable)
+VALUES 
+('Búp bê Barbie', 1, 1, 1, 1, 100000, 150000, 50, 'Búp bê Barbie thời trang, nhiều kiểu dáng.', 'url_to_image_barbie', 1),
+('Xe hơi điều khiển từ xa', 2, 2, 2, 2, 200000, 250000, 30, 'Xe hơi điều khiển từ xa với tốc độ cao.', 'url_to_image_car', 1),
+('Xếp hình Lego', 1, 1, 1, 3, 300000, 350000, 20, 'Bộ xếp hình Lego cho trẻ em.', 'url_to_image_lego', 1),
+('Gấu bông mềm mại', 3, 2, 2, 1, 400000, 450000, 15, 'Gấu bông mềm mại, dễ thương.', 'url_to_image_bear', 1),
+('Đồ chơi xếp hình', 2, 3, 3, 2, 500000, 550000, 10, 'Đồ chơi xếp hình đa dạng.', 'url_to_image_puzzle', 1),
+('Búp bê bếp', 1, 1, 1, 3, 600000, 650000, 25, 'Búp bê bếp với nhiều phụ kiện.', 'url_to_image_doll', 1),
+('Bánh xe tập đi', 3, 2, 2, 1, 700000, 750000, 5, 'Bánh xe tập đi cho bé.', 'url_to_image_walker', 1),
+('Đồ chơi âm nhạc', 2, 3, 3, 2, 800000, 850000, 12, 'Đồ chơi âm nhạc cho trẻ em.', 'url_to_image_music', 1),
+('Ô tô mô hình', 1, 1, 1, 3, 900000, 950000, 18, 'Ô tô mô hình với chi tiết tinh xảo.', 'url_to_image_modelcar', 1),
+('Xe đạp trẻ em', 3, 2, 2, 1, 1000000, 1050000, 8, 'Xe đạp dành cho trẻ em.', 'url_to_image_bike', 1),
+('Bảng xóa nhanh', 2, 3, 3, 2, 1100000, 1150000, 14, 'Bảng xóa nhanh cho bé học tập.', 'url_to_image_board', 1),
+('Hộp màu vẽ', 1, 1, 1, 3, 1200000, 1250000, 22, 'Hộp màu vẽ cho trẻ em sáng tạo.', 'url_to_image_paint', 1),
+('Tranh ghép hình', 3, 2, 2, 1, 1300000, 1350000, 6, 'Tranh ghép hình thú vị.', 'url_to_image_puzzleart', 1),
+('Đồ chơi mô phỏng', 2, 3, 3, 2, 1400000, 1450000, 11, 'Đồ chơi mô phỏng các hoạt động thực tế.', 'url_to_image_simulation', 1),
+('Lều trẻ em', 1, 1, 1, 3, 1500000, 1550000, 16, 'Lều chơi cho trẻ em.', 'url_to_image_tent', 1),
+('Đồ chơi lắp ráp', 3, 2, 2, 1, 1600000, 1650000, 9, 'Đồ chơi lắp ráp với nhiều chi tiết.', 'url_to_image_assembly', 1),
+('Đồ chơi thể thao', 2, 3, 3, 2, 1700000, 1750000, 13, 'Đồ chơi thể thao cho bé.', 'url_to_image_sport', 1),
+('Tranh tô màu', 1, 1, 1, 3, 1800000, 1850000, 21, 'Tranh tô màu cho trẻ em.', 'url_to_image_color', 1),
+('Đồ chơi bể bơi', 3, 2, 2, 1, 1900000, 1950000, 7, 'Đồ chơi bể bơi cho bé.', 'url_to_image_pooltoy', 1),
+('Bộ đồ chơi Lego', 2, 3, 3, 2, 2000000, 2050000, 10, 'Bộ đồ chơi Lego với nhiều chủ đề.', 'url_to_image_legoset', 1),
+('Xe mô hình điều khiển', 1, 1, 1, 3, 2100000, 2150000, 20, 'Xe mô hình điều khiển từ xa với nhiều tính năng.', 'url_to_image_rccar', 1),
+('Bộ búp bê gia đình', 3, 2, 2, 1, 2200000, 2250000, 5, 'Bộ búp bê gia đình với nhiều nhân vật.', 'url_to_image_familydoll', 1);
 
 
 
@@ -79,6 +115,7 @@ WHERE ID = 1; -- Thay ID = 1 bằng ID của sản phẩm cần xóa
 --Tạo bảng hóa đơn
 CREATE TABLE HoaDon (
     ID INT IDENTITY(1,1) PRIMARY KEY,
+	TabHoaDonID INT,
     KhachID INT,
     NgayLap DATETIME DEFAULT CURRENT_TIMESTAMP,
     TongTienHang DECIMAL(10, 0) NOT NULL,                -- Tổng tiền trước giảm giá và phí
@@ -93,14 +130,20 @@ CREATE TABLE HoaDon (
     Enable BIT DEFAULT 1,                          -- Cột Enable để đánh dấu hóa đơn còn hoạt động hay không
     FOREIGN KEY (KhachID) REFERENCES KhachHang(ID),
     FOREIGN KEY (NguoiBanID) REFERENCES TaiKhoan(ID),
-   
+    FOREIGN KEY (TabHoaDonID) REFERENCES TabHoaDon(ID)
 );
  
+ -- Thêm dữ liệu mẫu vào bảng HoaDon
+INSERT INTO HoaDon (TabHoaDonID, KhachID, TongTienHang, TrangThai, NguoiBanID, GiamGiaTien, GiamGiaPhanTram, ThueVAT, PhiKhac, TongThanhToan, GhiChu, Enable)
+VALUES (1, 1, 500000, 'Đã thanh toán', 1, 50000, 10, 5, 20000, 450000, 'Khách hàng thanh toán đầy đủ.', 1);
+
+INSERT INTO HoaDon (TabHoaDonID, KhachID, TongTienHang, TrangThai, NguoiBanID, GiamGiaTien, GiamGiaPhanTram, ThueVAT, PhiKhac, TongThanhToan, GhiChu, Enable)
+VALUES (2, 2, 300000, 'Chưa thanh toán', 2, 30000, 5, 0, 10000, 270000, 'Khách hàng chưa thanh toán.', 1);
+
+INSERT INTO HoaDon (TabHoaDonID, KhachID, TongTienHang, TrangThai, NguoiBanID, GiamGiaTien, GiamGiaPhanTram, ThueVAT, PhiKhac, TongThanhToan, GhiChu, Enable)
+VALUES (3, 1, 1000000, 'Đã thanh toán', 2, 100000, 10, 10, 50000, 945000, 'Hóa đơn đã thanh toán toàn bộ.', 1);
 
 
--- Thêm dữ liệu vào bảng
-INSERT INTO LoaiGiamGia (TenLoaiGiamGia) VALUES ('TheoSo');
-INSERT INTO LoaiGiamGia (TenLoaiGiamGia) VALUES ('TheoPhanTram');
 
 
 
@@ -156,6 +199,11 @@ WHERE ID = X;              -- Thay X bằng ID của hóa đơn cần cập nh�
 
 
 
+-- Tạo bảng TabHoaDon
+CREATE TABLE TabHoaDon (
+    ID INT IDENTITY(1,1) PRIMARY KEY,  -- Cột ID là khóa chính và tự động tăng
+    Ten NVARCHAR(100) NOT NULL          -- Cột Ten không cho phép giá trị NULL
+);
 
 
 --Tạo bảng khách hàng
@@ -168,6 +216,12 @@ CREATE TABLE KhachHang (
     
 );
 
+-- Thêm dữ liệu mẫu vào bảng KhachHang
+INSERT INTO KhachHang (HoTen, DienThoai, DiaChi, Enable)
+VALUES ('Khách lẻ', '', '', 1);
+
+INSERT INTO KhachHang (HoTen, DienThoai, DiaChi, Enable)
+VALUES ('Trần Thị B', '0987654321', 'Số 2, Đường DEF, Quận 2, TP.HCM', 1);
 
 
 
@@ -179,6 +233,18 @@ CREATE TABLE LoaiSP (
    
 );
 
+-- Thêm dữ liệu mẫu vào bảng LoaiSP
+INSERT INTO LoaiSP (Ten, Enable)
+VALUES ('Đồ chơi giáo dục', 1);
+
+INSERT INTO LoaiSP (Ten, Enable)
+VALUES ('Đồ chơi lắp ráp', 1);
+
+INSERT INTO LoaiSP (Ten, Enable)
+VALUES ('Đồ chơi mô hình', 1);
+
+INSERT INTO LoaiSP (Ten, Enable)
+VALUES ('Đồ chơi ngoài trời', 1);
 
 
 --Tạo bảng hãng sản xuất
@@ -188,6 +254,17 @@ CREATE TABLE HangSX (
     Enable BIT DEFAULT 1          -- Trạng thái hoạt động của hãng
 );
 
+-- Thêm dữ liệu mẫu vào bảng HangSX
+INSERT INTO HangSX (Ten, Enable)
+VALUES ('Samsung', 1);
+
+INSERT INTO HangSX (Ten, Enable)
+VALUES ('Sony', 1);
+
+INSERT INTO HangSX (Ten, Enable)
+VALUES ('Apple', 1);
+
+
 --Tạo bảng Xuất Xứ
 CREATE TABLE XuatXu (
     ID INT IDENTITY(1,1) PRIMARY KEY,
@@ -195,7 +272,18 @@ CREATE TABLE XuatXu (
     Enable BIT DEFAULT 1           -- Trạng thái hoạt động của quốc gia xuất xứ
 );
 
+-- Thêm dữ liệu mẫu vào bảng XuatXu
+INSERT INTO XuatXu (Ten, Enable)
+VALUES ('Việt Nam', 1);
 
+INSERT INTO XuatXu (Ten, Enable)
+VALUES ('Trung Quốc', 1);
+
+INSERT INTO XuatXu (Ten, Enable)
+VALUES ('Hàn Quốc', 1);
+
+INSERT INTO XuatXu (Ten, Enable)
+VALUES ('Nhật Bản', 1);
 
 --Tạo bảng độ tuổi 
 CREATE TABLE DoTuoi (
@@ -204,6 +292,15 @@ CREATE TABLE DoTuoi (
     Enable BIT DEFAULT 1,
 );
 
+-- Thêm dữ liệu mẫu vào bảng DoTuoi
+INSERT INTO DoTuoi (Ten, Enable)
+VALUES ('Dưới 1 tuổi', 1);
+INSERT INTO DoTuoi (Ten, Enable)
+VALUES ('1-3 tuổi', 1);
+INSERT INTO DoTuoi (Ten, Enable)
+VALUES ('4-6 tuổi', 1);
+INSERT INTO DoTuoi (Ten, Enable)
+VALUES ('Trên 6 tuổi', 1);
 
 
 --Tạo bảng tài khoản
@@ -215,6 +312,14 @@ CREATE TABLE TaiKhoan (
     VaiTro VARCHAR(50) NOT NULL, 
     Enable BIT DEFAULT 1
 );
+
+-- Thêm tài khoản mẫu 1
+INSERT INTO TaiKhoan (TenDangNhap, MatKhau, HoTen, VaiTro, Enable)
+VALUES ('a', 'a', 'Nguyễn Văn A', 'admin', 1);
+
+-- Thêm tài khoản mẫu 2
+INSERT INTO TaiKhoan (TenDangNhap, MatKhau, HoTen, VaiTro, Enable)
+VALUES ('user', 'a', 'Trần Thị B', 'user', 1);
 
 
 --Lệnh code tùy ý
@@ -229,6 +334,8 @@ select * from XuatXu
 select * from DoTuoi
 select * from KhachHang
 select * from ChiTietHoaDon
+select * from tabhoadon
+
 
 drop table HoaDon
 drop table SanPham
@@ -240,87 +347,3 @@ drop table XuatXu
 drop table DoTuoi
 drop table KhachHang
 
-delete from khachHang
-
-
-
-
-
-INSERT INTO TaiKhoan (TenDangNhap, MatKhau, HoTen, VaiTro, Enable)
-VALUES ('admin', 'a', 'Nguyen Van A', 'Admin', 1);
-
-INSERT INTO TaiKhoan (TenDangNhap, MatKhau, HoTen, VaiTro, Enable)
-VALUES ('user', 'a', 'Tran Thi B', 'NguoiDung', 1);
-
--- Thêm dữ liệu mẫu vào bảng ChiTietHoaDon
-INSERT INTO ChiTietHoaDon (DonHangID, SanPhamID, SoLuong, GiaGiam, ThanhTien)
-VALUES 
-(1, 1, 2, 10000, 200000),   -- Chi tiết hóa đơn cho đơn hàng 1, sản phẩm 1
-(1, 2, 1, NULL, 150000),    -- Chi tiết hóa đơn cho đơn hàng 1, sản phẩm 2, không có giảm giá
-(2, 3, 5, 5000, 450000),    -- Chi tiết hóa đơn cho đơn hàng 2, sản phẩm 3
-(3, 1, 3, NULL, 300000),    -- Chi tiết hóa đơn cho đơn hàng 3, sản phẩm 1, không có giảm giá
-(3, 4, 10, 20000, 1000000); -- Chi tiết hóa đơn cho đơn hàng 3, sản phẩm 4
-
-
--- Chèn dữ liệu mẫu vào HoaDon
-INSERT INTO HoaDon (KhachID, TongTien, TrangThai, NguoiBanID, LoaiGiamGia, GiamGiaTien, GiamGiaPhanTram, PhiShip, PhiKhac, Enable)
-VALUES 
-(1, 500000, N'Chờ xử lý', 1, 'So', 10000, 5.00, 30000, 10000, 1),
-(2, 750000, N'Đang xử lý', 2, 'PhanTram', 5000, 10.00, 40000, 20000, 1),
-(3, 600000, N'Đã giao', 1, 'So', 15000, 7.00, 25000, 5000, 1);
-
-
--- Chèn dữ liệu mẫu vào KhachHang
-INSERT INTO KhachHang (HoTen, DienThoai, DiaChi, Enable)
-VALUES 
-('Nguyen Van A', '0912345678', 'Hanoi', 1),
-('Tran Thi B', '0987654321', 'Ho Chi Minh City', 1),
-('Le Thi C', '0123456789', 'Da Nang', 1);
-
--- Chèn dữ liệu mẫu vào SanPham
-INSERT INTO SanPham (Ten, LoaiID, HangID, DoTuoiID, GiaNhap, GiaBan, Ton, MoTa, HinhAnhURL, Enable)
-VALUES 
-(N'Xe Ô Tô Điều Khiển', 1, 1, 3, 150000, 200000, 50, N'Xe ô tô điều khiển từ xa cho trẻ em', 'http://example.com/xeco.jpg', 1),
-(N'Bộ Xếp Hình Sáng Tạo', 2, 2, 2, 80000, 120000, 100, N'Bộ xếp hình giúp phát triển tư duy', 'http://example.com/xep_hinh.jpg', 1),
-(N'Búp Bê Bán Quán', 3, 3, 1, 120000, 160000, 30, N'Búp bê bán hàng cho trẻ em', 'http://example.com/bup_be.jpg', 1),
-(N'Hộp Lego Đa Năng', 1, 1, 3, 200000, 250000, 20, N'Hộp Lego để lắp ráp và sáng tạo', 'http://example.com/lego.jpg', 1);
-
--- Chèn dữ liệu mẫu vào LoaiSP
-INSERT INTO LoaiSP (Ten, Enable)
-VALUES 
-(N'Đồ Chơi Học Tập', 1),
-(N'Đồ Chơi Giải Trí', 1),
-(N'Đồ Chơi Sáng Tạo', 1);
-
--- Chèn dữ liệu mẫu vào HangSX
-INSERT INTO HangSX (Ten, Enable)
-VALUES 
-(N'Hãng A', 1),
-(N'Hãng B', 1),
-(N'Hãng C', 1);
-
--- Chèn dữ liệu mẫu vào XuatXu
-INSERT INTO XuatXu (Ten, Enable)
-VALUES 
-( N'Việt Nam', 1),
-( N'Trung Quốc', 1),
-(N'Nhật Bản', 1);
-
--- Chèn dữ liệu mẫu vào DoTuoi
-INSERT INTO DoTuoi (Ten, Enable)
-VALUES 
-(N'Từ 1 đến 3 tuổi', 1),
-(N'Từ 4 đến 6 tuổi', 1),
-(N'Từ 7 đến 12 tuổi', 1);
-
-
-SELECT COUNT(*) FROM sanpham WHERE Ten = N'Hộp Lego Đa Năng' AND LoaiID = '1'
-
-SELECT * FROM dbo.HangSX WHERE ID = 2;
-
-SELECT ID, Ten, LoaiID, GiaNhap, GiaBan, Ton, enable, MoTa, hinhanhurl  
-                   FROM SanPham  
-                   WHERE LoaiID IN (SELECT ID FROM LoaiSP WHERE Ten = N'Đồ Chơi Giải Trí')
-
-select * from sanpham 
-where LoaiID = 1 and XuatXuID = 1

@@ -35,6 +35,9 @@ namespace Project01.Class
             // Thiết lập vùng bo góc cho Panel
             panel.Region = new Region(duongVien);
         }
+
+        
+
     }
 
 }

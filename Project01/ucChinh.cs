@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Project01
 {
@@ -19,10 +20,13 @@ namespace Project01
 
 
         public int sttSP = 1;
+        int indexP = 2;
+        int indexTag = 0;
 
         public ucChinh()
         {
             InitializeComponent();
+            TaopTabCoDinh();
 
         }
 
@@ -38,7 +42,6 @@ namespace Project01
             TongGiaSPHD();
             LoadKhachHangToCb();
 
-
         }
 
         private void VeBoGoc()
@@ -47,6 +50,9 @@ namespace Project01
             VeBoGocPanel.BoGocPanel(pBill, 50);
             VeBoGocPanel.BoGocPanel(pHoaDon, 30);
             VeBoGocPanel.BoGocPanel(pInfoKhach, 30);
+            VeBoGocPanel.BoGocPanel(pTimKiem, 40);
+
+
         }
         //XyLy tinh tien
         private void txtThueVATHD_TextChanged(object sender, EventArgs e)
@@ -249,8 +255,10 @@ namespace Project01
                     Panel pThuocTinhHH = new Panel
                     {
                         BackColor = SystemColors.ControlLightLight,
-                        Size = new Size(270, 100),
-                        Margin = new Padding(0, 15, 15, 0)
+                        Size = new Size(265, 100),
+                        Margin = new Padding(7, 15, 7, 0),
+
+
                     };
 
                     VeBoGocPanel.BoGocPanel(pThuocTinhHH, 30);
@@ -263,7 +271,7 @@ namespace Project01
                         SizeMode = PictureBoxSizeMode.StretchImage,
                         ImageLocation = row["HinhAnhURL"].ToString() // Đặt URL ảnh
                     };
-                    pbAnhSP.Click += (s, e) => Panels_Click(pThuocTinhHH, e);  // Đăng ký sự kiện cho PictureBox
+                    pbAnhSP.Click += (s, e) => pThuocTinhHH_Kich(pThuocTinhHH, e);  // Đăng ký sự kiện cho PictureBox
 
                     // Tạo và cấu hình các Label
                     Label lbTenSP = new Label
@@ -275,7 +283,7 @@ namespace Project01
                         ForeColor = ColorTranslator.FromHtml("#2c3f50"),
                         Text = row["Ten"].ToString()
                     };
-                    lbTenSP.Click += (s, e) => Panels_Click(pThuocTinhHH, e);  // Đăng ký sự kiện cho Label tên sản phẩm
+                    lbTenSP.Click += (s, e) => pThuocTinhHH_Kich(pThuocTinhHH, e);  // Đăng ký sự kiện cho Label tên sản phẩm
 
                     Label lbGiaSP = new Label
                     {
@@ -285,7 +293,7 @@ namespace Project01
                         ForeColor = ColorTranslator.FromHtml("#008fff"),
                         Text = string.Format("{0:N0}", Convert.ToDecimal(row["GiaBan"])) // Định dạng giá với dấu phân cách nghìn
                     };
-                    lbGiaSP.Click += (s, e) => Panels_Click(pThuocTinhHH, e);  // Đăng ký sự kiện cho Label giá
+                    lbGiaSP.Click += (s, e) => pThuocTinhHH_Kich(pThuocTinhHH, e);  // Đăng ký sự kiện cho Label giá
 
                     Label lbSoLuongSP = new Label
                     {
@@ -295,7 +303,7 @@ namespace Project01
                         ForeColor = ColorTranslator.FromHtml("#ff5436"),
                         Text = row["Ton"].ToString()
                     };
-                    lbSoLuongSP.Click += (s, e) => Panels_Click(pThuocTinhHH, e);  // Đăng ký sự kiện cho Label số lượng
+                    lbSoLuongSP.Click += (s, e) => pThuocTinhHH_Kich(pThuocTinhHH, e);  // Đăng ký sự kiện cho Label số lượng
 
                     // Thêm các điều khiển vào panel
                     pThuocTinhHH.Controls.Add(pbAnhSP);
@@ -307,7 +315,7 @@ namespace Project01
                     pThuocTinhHH.Tag = row["ID"].ToString();
 
                     // Đăng ký sự kiện nhấp chuột cho panel
-                    pThuocTinhHH.Click += new EventHandler(Panels_Click);
+                    pThuocTinhHH.Click += new EventHandler(pThuocTinhHH_Kich);
 
                     // Thêm panel vào FlowLayoutPanel
                     flpSanPham.Controls.Add(pThuocTinhHH);
@@ -320,14 +328,13 @@ namespace Project01
 
         }
 
-        private void Panels_Click(object sender, EventArgs e)
+        private void pThuocTinhHH_Kich(object sender, EventArgs e)
         {
             if (sender is Panel panel)
             {
-                // Lấy ID sản phẩm từ tag
+                
                 string idSanPham = panel.Tag.ToString();
-                //MessageBox.Show(idSanPham);
-                // Tạo hoặc cập nhật
+               
                 TaoOrCapNhatSPDon(idSanPham);
                 TongGiaSPHD();
                 TongSLSPHD();
@@ -643,11 +650,11 @@ namespace Project01
 
             try
             {
-               
+
                 int donHangID = 0;
                 using (DataTable dataTable = QuanLySQL.XuatDLTuSQL(queryInsertHoaDon))
                 {
-                        donHangID = Convert.ToInt32(dataTable.Rows[0][0]);
+                    donHangID = Convert.ToInt32(dataTable.Rows[0][0]);
                 }
 
                 // Chèn chi tiết hóa đơn
@@ -683,7 +690,104 @@ namespace Project01
             }
         }
 
+       
+
+       
+
+        private void pTab_Click(object sender, EventArgs e)
+        {
+            Panel clickedPanel = sender as Panel;
+
+            foreach (Panel panel in pTabControl.Controls.OfType<Panel>())
+            {
+                panel.BackColor = Color.FromArgb(255, 224, 192); // Màu mặc định
+            }
+
+            if (clickedPanel != null)
+            {
+                clickedPanel.BackColor = SystemColors.Control; // Màu mới khi được chọn
+
+                // Cập nhật giá trị của indexTag với Tag của clickedPanel
+                indexTag = (int)clickedPanel.Tag;
+
+               
+            }
+        }
 
 
+        private void TaopTabCoDinh()
+        {
+            Panel pTab = new Panel
+            {
+                Size = new System.Drawing.Size(122, 58),
+                Location = new System.Drawing.Point(10, 10),
+                BackColor = Color.FromArgb(255, 224, 192),
+                Tag = 1,
+            };
+
+            Label lbTab = new Label
+            {
+                Size = new System.Drawing.Size(93, 21),
+                Location = new System.Drawing.Point(15, 10),
+                Text = "Hóa đơn 1",
+            };
+
+            // Đăng ký sự kiện click cho Label để gọi sự kiện click của Panel
+            lbTab.Click += (s, args) => pTab_Click(pTab, args);
+
+            pTab.Controls.Add(lbTab);
+
+            VeBoGocPanel.BoGocPanel(pTab, 25);
+
+            pTab.Click += pTab_Click;
+
+            pTabControl.Controls.Add(pTab);
+
+            pTab_Click(pTab, EventArgs.Empty); // Gọi sự kiện click của Panel để đổi màu mặc định
+        }
+
+        private void pbThem_Click(object sender, EventArgs e)
+        {
+            if (indexP > 7)
+            {
+                MessageBox.Show("Chương trình giới hạn 7 hóa đơn.");
+                return;
+            }
+
+            Panel pTab = new Panel
+            {
+                Size = new System.Drawing.Size(122, 58),
+                Location = new System.Drawing.Point(123 * (indexP - 1) + 10, 10),
+                BackColor = Color.FromArgb(255, 224, 192), // Màu mặc định
+                Tag = indexP,
+            };
+
+            Label lbTab = new Label
+            {
+                Size = new System.Drawing.Size(93, 21),
+                Location = new System.Drawing.Point(15, 10),
+                Text = "Hóa đơn " + indexP,
+            };
+
+            lbTab.Click += (s, args) => pTab_Click(pTab, args); // Đăng ký sự kiện click cho Label
+
+            pTab.Controls.Add(lbTab);
+
+            VeBoGocPanel.BoGocPanel(pTab, 25);
+
+            pTab.Click += pTab_Click;
+
+            pTabControl.Controls.Add(pTab);
+
+            pbThem.Location = new Point(122 * indexP + 15, 0);
+
+            indexP++;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            txtTimKiemHang.Text = indexTag.ToString();
+
+        }
     }
 }

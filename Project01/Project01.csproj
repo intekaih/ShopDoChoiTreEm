@@ -124,12 +124,6 @@
     <Compile Include="class\QuanLySQL.cs" />
     <Compile Include="class\VeBoGocPanel.cs" />
     <Compile Include="class\XuLyVien.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormHome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,9 +192,6 @@
     <Compile Include="Login\ucTaiKhoan.Designer.cs">
       <DependentUpon>ucTaiKhoan.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>
