@@ -41,7 +41,7 @@
             this.txtTenDangNhap.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtTenDangNhap.Location = new System.Drawing.Point(107, 25);
             this.txtTenDangNhap.Name = "txtTenDangNhap";
-            this.txtTenDangNhap.Size = new System.Drawing.Size(200, 26);
+            this.txtTenDangNhap.Size = new System.Drawing.Size(200, 30);
             this.txtTenDangNhap.TabIndex = 0;
             // 
             // txtMatKhau
@@ -50,7 +50,7 @@
             this.txtMatKhau.Location = new System.Drawing.Point(107, 67);
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.PasswordChar = '*';
-            this.txtMatKhau.Size = new System.Drawing.Size(200, 26);
+            this.txtMatKhau.Size = new System.Drawing.Size(200, 30);
             this.txtMatKhau.TabIndex = 1;
             // 
             // btnDangNhap
@@ -81,7 +81,7 @@
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label1.Location = new System.Drawing.Point(26, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 19);
+            this.label1.Size = new System.Drawing.Size(93, 22);
             this.label1.TabIndex = 4;
             this.label1.Text = "Tài Khoản";
             // 
@@ -91,7 +91,7 @@
             this.label2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label2.Location = new System.Drawing.Point(26, 70);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 19);
+            this.label2.Size = new System.Drawing.Size(87, 22);
             this.label2.TabIndex = 4;
             this.label2.Text = "Mật Khẩu";
             // 
@@ -107,6 +107,7 @@
             this.Name = "frmDangNhap";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng Nhập";
+            this.Load += new System.EventHandler(this.frmDangNhap_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

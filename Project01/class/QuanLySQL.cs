@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -22,13 +23,14 @@ namespace Project01.Class
         {
             connection = new SqlConnection();
             connection.ConnectionString =
-                @"server=INTEKAIH\TIENKHAI; database = ShopDoChoiTreEm; Integrated Security = true; ";
+                @"server=LETIENHUY\HUYYY; database = ShopDoChoiTreEm; Integrated Security = true; ";
 
             if (connection.State != ConnectionState.Open)
             {
                 try
                 {
                     connection.Open();
+                    
                 }
                 catch (Exception ex)
                 {
@@ -36,6 +38,8 @@ namespace Project01.Class
                 }
             }
         }
+
+         
 
         // Phương thức ngắt kết nối
         public static void NgatKetNoi()
@@ -53,6 +57,33 @@ namespace Project01.Class
                     MessageBox.Show("Lỗi khi ngắt kết nối SQL: " + ex.Message);
                 }
             }
+        }
+        public static DataTable GetDataToTable(string sql)
+        {
+            SqlDataAdapter adap = new SqlDataAdapter(sql, connection);
+            DataTable data = new DataTable();
+
+            adap.Fill(data);
+
+            return data;
+        }
+
+        public static void RunSQL(string sql)
+        {
+            SqlCommand cmd = new SqlCommand(sql, connection);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+
+            cmd.Dispose();
+            cmd = null;
         }
 
 
@@ -145,6 +176,21 @@ namespace Project01.Class
 
             // Trả về ID của giá trị
             return Convert.ToInt32(dt.Rows[0]["ID"]);
+        }
+
+        public static string LayTruongDuLieu(string sql)
+        {
+            string value = "";
+            SqlCommand cmd = new SqlCommand(sql, connection);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                value = reader.GetValue(0).ToString();
+            }
+
+            reader.Close();
+            return value;
         }
 
 

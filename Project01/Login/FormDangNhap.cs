@@ -49,5 +49,10 @@ namespace Project01.Login
             QuanLySQL.NgatKetNoi();
             this.Close();
         }
+
+        private void frmDangNhap_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
