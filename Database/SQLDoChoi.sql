@@ -8,20 +8,20 @@ CREATE TABLE ChiTietHoaDon (
     SoLuong INT NOT NULL,                          -- Số lượng sản phẩm
 	GiaGiam DECIMAL(10, 0) DEFAULT NULL,
 	ThanhTien Decimal(10,0) Not null,
-    Enable BIT DEFAULT 1,                         -- Cột Enable để đánh dấu chi tiết còn hoạt động hay không
+    Enable BIT DEFAULT 0,                         -- Cột Enable để đánh dấu chi tiết còn hoạt động hay không
     FOREIGN KEY (DonHangID) REFERENCES HoaDon(ID),
     FOREIGN KEY (SanPhamID) REFERENCES SanPham(ID),
     FOREIGN KEY (TabHoaDonID) REFERENCES TabHoaDon(ID),
 
 );
 
--- Thêm dữ liệu mẫu vào bảng ChiTietHoaDon
 INSERT INTO ChiTietHoaDon (TabHoaDonID, DonHangID, SanPhamID, SoLuong, GiaGiam, ThanhTien, Enable)
 VALUES 
-(1, 1, 1, 2, NULL, 300000, 1),    -- Ví dụ 1: Sản phẩm 1, hóa đơn 1, số lượng 2, giá giảm không có
-(1, 2, 5, 1, 50000, 650000, 1),   -- Ví dụ 2: Sản phẩm 5, hóa đơn 2, số lượng 1, giá giảm 50000
-(2, 2, 10, 3, 100000, 600000, 1); -- Ví dụ 3: Sản phẩm 10, hóa đơn 3, số lượng 3, giá giảm 100000
-
+(1, 8, 1, 2, 50000, 200000, 1),
+(1, 8, 2, 1, 15000, 200000, 1),
+(1, 8, 3, 1, 50000, 300000, 1),
+(1, 8, 1, 3, 60000, 300000, 1),
+(1, 8, 2, 2, 50000, 400000, 1);
 
 select a.SoLuong, b.GiaBan , a.GiaGiam, a.ThanhTien
 from ChiTietHoaDon a, sanpham b
@@ -118,21 +118,30 @@ CREATE TABLE HoaDon (
 	TabHoaDonID INT,
     KhachID INT,
     NgayLap DATETIME DEFAULT CURRENT_TIMESTAMP,
-    TongTienHang DECIMAL(10, 0) NOT NULL,                -- Tổng tiền trước giảm giá và phí
-    TrangThai nVARCHAR(50) ,                                -- Khóa ngoại liên kết với bảng TrangThaiHoaDon
+    TongTienHang DECIMAL(10, 0),                -- Tổng tiền trước giảm giá và phí
+    TrangThai nVARCHAR(50) DEFAULT N'Chờ xử lý' ,                                -- Khóa ngoại liên kết với bảng TrangThaiHoaDon
     NguoiBanID INT,                                -- Cột NguoiBanID để liên kết với người bán hàng
     GiamGiaTien DECIMAL(10, 0) DEFAULT 0.00,       -- Giảm giá theo số tiền
     GiamGiaPhanTram DECIMAL(5, 0) DEFAULT 0.00,
     ThueVAT DECIMAL(5, 0) DEFAULT 0.00,     
 	PhiKhac DECIMAL(10, 0) DEFAULT 0.00,            -- Các phí khác
     TongThanhToan DECIMAL(10, 0) DEFAULT 0.00,  
+	KhachTra DECIMAL(10, 0) DEFAULT 0.00,
+	ThanhToanID INT,
 	GhiChu nvarchar(max),
-    Enable BIT DEFAULT 1,                          -- Cột Enable để đánh dấu hóa đơn còn hoạt động hay không
+	IsSaved BIT DEFAULT 0,
+    Enable BIT DEFAULT 0,                          -- Cột Enable để đánh dấu hóa đơn còn hoạt động hay không
     FOREIGN KEY (KhachID) REFERENCES KhachHang(ID),
     FOREIGN KEY (NguoiBanID) REFERENCES TaiKhoan(ID),
+	FOREIGN KEY (ThanhToanID) REFERENCES PhuongThucThanhToan(ID),
     FOREIGN KEY (TabHoaDonID) REFERENCES TabHoaDon(ID)
 );
- 
+
+
+
+
+
+
  -- Thêm dữ liệu mẫu vào bảng HoaDon
 INSERT INTO HoaDon (TabHoaDonID, KhachID, TongTienHang, TrangThai, NguoiBanID, GiamGiaTien, GiamGiaPhanTram, ThueVAT, PhiKhac, TongThanhToan, GhiChu, Enable)
 VALUES (1, 1, 500000, 'Đã thanh toán', 1, 50000, 10, 5, 20000, 450000, 'Khách hàng thanh toán đầy đủ.', 1);
@@ -197,13 +206,22 @@ SET PhiShip = 50.00,       -- Ví dụ phí ship 50 đơn vị tiền tệ
     PhiKhac = 20.00        -- Ví dụ phí khác 20 đơn vị tiền tệ
 WHERE ID = X;              -- Thay X bằng ID của hóa đơn cần cập nhật
 
-
+-- Tạo bảng PhuongThucThanhToan
+CREATE TABLE PhuongThucThanhToan (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Ten NVARCHAR(100) NOT NULL
+);
 
 -- Tạo bảng TabHoaDon
 CREATE TABLE TabHoaDon (
     ID INT IDENTITY(1,1) PRIMARY KEY,  -- Cột ID là khóa chính và tự động tăng
     Ten NVARCHAR(100) NOT NULL          -- Cột Ten không cho phép giá trị NULL
 );
+
+INSERT INTO PhuongThucThanhToan (Ten) VALUES 
+(N'Tiền mặt'),
+(N'Thẻ'),
+(N'Chuyển khoản');
 
 
 --Tạo bảng khách hàng
@@ -324,9 +342,6 @@ VALUES ('user', 'a', 'Trần Thị B', 'user', 1);
 
 --Lệnh code tùy ý
 select * from SanPham
-select * from HoaDon
-select * from TaiKhoan
-select * from HoaDon
 select * from TaiKhoan
 select * from LoaiSP
 select * from HangSX
@@ -334,7 +349,10 @@ select * from XuatXu
 select * from DoTuoi
 select * from KhachHang
 select * from ChiTietHoaDon
+select * from HoaDon
 select * from tabhoadon
+select * from PhuongThucThanhToan
+
 
 
 drop table HoaDon
@@ -347,3 +365,19 @@ drop table XuatXu
 drop table DoTuoi
 drop table KhachHang
 
+-- Top 10 SP bán chạy
+SELECT TOP 10 
+    sp.Ten, 
+    SUM(ct.SoLuong) AS TongSoLuong
+FROM 
+    ChiTietHoaDon ct
+JOIN 
+    HoaDon hd ON ct.DonHangID = hd.ID
+JOIN 
+    SanPham sp ON ct.SanPhamID = sp.ID
+WHERE 
+    hd.NgayLap >= DATEADD(DAY, -7, GETDATE())
+GROUP BY 
+    sp.Ten
+ORDER BY 
+    TongSoLuong DESC;

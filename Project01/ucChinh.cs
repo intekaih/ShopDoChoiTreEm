@@ -15,13 +15,21 @@ namespace Project01
 {
     public partial class ucChinh : UserControl
     {
+        private Dictionary<int, bool> hoaDonDaTao = new Dictionary<int, bool>();// Chứa các hóa đơn đã tạo
         private Dictionary<string, Panel> listCacSPDon = new Dictionary<string, Panel>();
+        // Xác định 1 tab thì chỉ có 1 HoaDon (lưu HoaDon)
+        private Dictionary<int, int> hoaDonDict = new Dictionary<int, int>();
+        //thùng chứa các listCacSPDon với khóa là tabhoadonID 
+        Dictionary<int, Dictionary<string, Panel>> dictListCacSPDon = new Dictionary<int, Dictionary<string, Panel>>();
+
+
         BindingSource KhachHang = new BindingSource();
 
-
         public int sttSP = 1;
-        int indexP = 2;
-        int indexTag = 0;
+        
+        int tabHoaDonID = 0;
+        int donHangID = 0;
+
 
         public ucChinh()
         {
@@ -51,8 +59,8 @@ namespace Project01
             VeBoGocPanel.BoGocPanel(pHoaDon, 30);
             VeBoGocPanel.BoGocPanel(pInfoKhach, 30);
             VeBoGocPanel.BoGocPanel(pTimKiem, 40);
-
-
+            VeBoGocPanel.BoGocPanel(pBtnn, 50);
+            VeBoGocPanel.BoGocPanel(pTinhTien, 30);
         }
         //XyLy tinh tien
         private void txtThueVATHD_TextChanged(object sender, EventArgs e)
@@ -143,15 +151,16 @@ namespace Project01
 
         private void TongSLSPHD()
         {
+            TongGiaSPHD();
             decimal tongSL = 0;
 
             foreach (Control control in flpBangHoaDon.Controls)
             {
                 if (control is Panel panel)
                 {
-                    foreach (Control controlOne in panel.Controls)
+                    foreach (Control controlItem in panel.Controls)
                     {
-                        if (controlOne is TextBox textbox && textbox.Name == "txtSoLuong1SPDon")
+                        if (controlItem is TextBox textbox && textbox.Name == "txtSoLuong1SPDon")
                         {
                             if (decimal.TryParse(textbox.Text, out decimal sL))
                             {
@@ -332,39 +341,97 @@ namespace Project01
         {
             if (sender is Panel panel)
             {
-                
                 string idSanPham = panel.Tag.ToString();
-               
-                TaoOrCapNhatSPDon(idSanPham);
+
+                TaoOrCapNhatSPDon(idSanPham, donHangID, tabHoaDonID);
+
                 TongGiaSPHD();
                 TongSLSPHD();
-
+                CapNhatStt();
             }
         }
 
-        private void TaoOrCapNhatSPDon(string ID)
+        private void TaoOrCapNhatSPDon(string sanphamID, int donHangID, int tabHoaDonID)
         {
             try
             {
-                string query = $"SELECT * FROM SanPham WHERE ID = {ID}";
-                DataTable dataTable = QuanLySQL.XuatDLTuSQL(query);
+
+                DataTable dataTable = QuanLySQL.XuatDLTuSQL($"SELECT * FROM SanPham WHERE ID = {sanphamID}");
 
                 if (dataTable.Rows.Count > 0)
                 {
                     DataRow row = dataTable.Rows[0];
 
-                    // Kiểm tra nếu đã có panel chi tiết cho sản phẩm đó
-                    if (listCacSPDon.ContainsKey(ID))
+
+                    if (listCacSPDon.ContainsKey(sanphamID))
                     {
-                        // Nếu có, tăng số lượng mua thêm 1
-                        Panel existingPanel = listCacSPDon[ID]; // Panel chứa các controls
+
+                        Panel existingPanel = listCacSPDon[sanphamID];
                         TextBox txtSoLuong1SPDon = existingPanel.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "txtSoLuong1SPDon"); // Tìm TextBox
 
                         if (txtSoLuong1SPDon != null)
                         {
                             int soLuongMua = int.Parse(txtSoLuong1SPDon.Text);
                             txtSoLuong1SPDon.Text = (soLuongMua + 1).ToString();
-                            CapNhatGia(existingPanel);
+
+                        }
+                    }
+                    else
+                    {
+                        decimal giaGiam = decimal.Parse(row["GiaBan"].ToString());
+                        string query = $"insert into ChiTietHoaDon (TabHoaDonID, DonHangID, SanPhamID, SoLuong, GiaGiam, thanhtien) values " +
+                            $"({tabHoaDonID}, {donHangID}, {sanphamID},1, {giaGiam}, 0)";
+                        QuanLySQL.NhapDLVaoSQL(query);
+                    }
+                    LoadSPToflpBangHoaDon(donHangID, tabHoaDonID);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi hiển thị chi tiết sản phẩm: " + ex.Message);
+            }
+        }
+
+
+        private void LoadSPToflpBangHoaDon(int donHangID, int tabHoaDonID)
+        {
+
+            try
+            {
+                // Kiểm tra xem từ điển listCacSPDon đã được tạo chưa
+                if (!dictListCacSPDon.ContainsKey(tabHoaDonID))
+                {
+                    dictListCacSPDon[tabHoaDonID] = new Dictionary<string, Panel>();
+                }
+
+                listCacSPDon = dictListCacSPDon[tabHoaDonID];
+
+                string query = $"SELECT ct.SanPhamID, sp.Ten, ct.SoLuong, ct.GiaGiam, ct.ThanhTien " +
+                               $"FROM ChiTietHoaDon ct " +
+                               $"JOIN SanPham sp ON ct.SanPhamID = sp.ID " +
+                               $"WHERE ct.DonHangID = {{0}} AND ct.TabHoaDonID = {{1}} ";
+                string queryUd = $"UPDATE ChiTietHoaDon SET ThanhTien = (GiaGiam * SoLuong) WHERE DonHangID = {{0}} AND TabHoaDonID = {{1}};";
+
+                QuanLySQL.NhapDLVaoSQL(string.Format(queryUd, donHangID, tabHoaDonID));
+                DataTable dataTable = QuanLySQL.XuatDLTuSQL(string.Format(query, donHangID, tabHoaDonID));
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    string sanPhamID = row["SanPhamID"].ToString();
+
+                    if (listCacSPDon.ContainsKey(sanPhamID))
+                    {
+                        Panel existingPanel = listCacSPDon[sanPhamID];
+                        TextBox txtSoLuong1SPDon = existingPanel.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "txtSoLuong1SPDon");
+                        TextBox txtGia1SPDon = existingPanel.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "txtGia1SPDon");
+                        Label lbTongGia1SPDon = existingPanel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "lbTongGia1SPDon");
+
+                        if (txtSoLuong1SPDon != null && txtGia1SPDon != null && lbTongGia1SPDon != null)
+                        {
+                            txtSoLuong1SPDon.Text = row["SoLuong"].ToString();
+                            txtGia1SPDon.Text = Convert.ToDecimal(row["GiaGiam"]).ToString("N0");
+
+                            lbTongGia1SPDon.Text = Convert.ToDecimal(row["ThanhTien"]).ToString("N0");
                         }
                     }
                     else
@@ -408,42 +475,38 @@ namespace Project01
                         {
                             Name = "lbTongGia1SPDon",
                             Location = new Point(579, 49),
-                            Text = string.Format("{0:N0}", Convert.ToDecimal(row["GiaBan"])) // Định dạng giá với dấu phân cách nghìn
+                            Text = string.Format("{0:N0}", Convert.ToDecimal(row["ThanhTien"]))
                         };
 
                         TextBox txtSoLuong1SPDon = new TextBox
                         {
                             Name = "txtSoLuong1SPDon",
-                            Text = "1",
+                            Text = row["SoLuong"].ToString(),
                             Size = new Size(76, 29),
                             Location = new Point(125, 46),
                             TextAlign = HorizontalAlignment.Center
-
                         };
-
-
 
                         TextBox txtGia1SPDon = new TextBox
                         {
-                            Name = "txtGia1SP",
+                            Name = "txtGia1SPDon",
                             Location = new Point(352, 46),
                             Size = new Size(100, 30),
                             AutoSize = true,
-                            Text = Convert.ToDecimal(row["GiaBan"]).ToString("N0"),
+                            Text = Convert.ToDecimal(row["GiaGiam"]).ToString("N0"),
                             TextAlign = HorizontalAlignment.Center
-
                         };
 
                         Label lbMaSPDon = new Label
                         {
                             AutoSize = true,
                             Name = "lbMaSPDon",
-                            Text = "SP" + row["ID"].ToString().PadLeft(3, '0'),
+                            Text = "SP" + sanPhamID.PadLeft(3, '0'),
                             Size = new Size(59, 21),
                             Location = new Point(122, 13)
                         };
 
-                        // Đăng ký sự kiện khi giá thay đổi
+                        // Đăng ký sự kiện khi giá hoặc số lượng thay đổi
                         txtGia1SPDon.TextChanged += new EventHandler(txtGia1SPDon_TextChanged);
                         txtSoLuong1SPDon.TextChanged += new EventHandler(txtSoLuong1SPDon_TextChanged);
                         pbXoaSPDon.Click += PbXoaSPDon_Click;
@@ -457,19 +520,12 @@ namespace Project01
                         pThuocTinhHHDon.Controls.Add(txtGia1SPDon);
                         pThuocTinhHHDon.Controls.Add(lbMaSPDon);
 
-
                         sttSP++;
 
-                        // Lưu trữ panel chi tiết vào từ điển
-                        listCacSPDon[ID] = pThuocTinhHHDon;
+                        listCacSPDon[sanPhamID] = pThuocTinhHHDon;
 
-                        // Hiển thị panel chi tiết trong form
                         flpBangHoaDon.Controls.Add(pThuocTinhHHDon);
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Không tìm thấy thông tin sản phẩm.");
                 }
             }
             catch (Exception ex)
@@ -478,11 +534,12 @@ namespace Project01
             }
         }
 
+
+
         private void PbXoaSPDon_Click(object sender, EventArgs e)
         {
             if (sender is PictureBox pbXoaSPDon)
             {
-
                 // Tìm panel chứa PictureBox
                 Panel panel = pbXoaSPDon.Parent as Panel;
 
@@ -493,17 +550,33 @@ namespace Project01
 
                     if (!string.IsNullOrEmpty(idSanPham) && listCacSPDon.ContainsKey(idSanPham))
                     {
-                        // Xóa panel khỏi FlowLayoutPanel và từ điển
-                        flpBangHoaDon.Controls.Remove(panel);
-                        listCacSPDon.Remove(idSanPham);
+                        // Xóa dữ liệu khỏi cơ sở dữ liệu SQL
+                        try
+                        {
+                            // Tạo câu lệnh SQL để xóa bản ghi
+                            string query = $"DELETE FROM ChiTietHoaDon WHERE SanPhamID = {{0}} AND DonHangID = {{1}} AND TabHoaDonID = {{2}}";
 
-                        CapNhatStt();
-                        TongGiaSPHD();
-                        TongSLSPHD();
+                            // Thực thi câu lệnh SQL với giá trị tham số
+                            QuanLySQL.NhapDLVaoSQL(string.Format(query, idSanPham, donHangID, tabHoaDonID));
+
+                            // Xóa panel khỏi FlowLayoutPanel và từ điển
+                            flpBangHoaDon.Controls.Remove(panel);
+                            listCacSPDon.Remove(idSanPham);
+
+                            // Cập nhật lại thông tin
+                            CapNhatStt();
+                            TongGiaSPHD();
+                            TongSLSPHD();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi khi xóa dữ liệu: " + ex.Message);
+                        }
                     }
                 }
             }
         }
+
 
         private void txtSoLuong1SPDon_TextChanged(object sender, EventArgs e)
         {
@@ -514,63 +587,71 @@ namespace Project01
 
                 if (panel != null)
                 {
+                    string idSanPhamStr = panel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "lbMaSPDon")?.Text.Substring(2).TrimStart('0');
 
-                    // Cập nhật lại tổng giá khi số lượng thay đổi
-                    CapNhatGia(panel);
+                    if (int.TryParse(idSanPhamStr, out int idSanPham))
+                    {
+                        // Lấy giá từ TextBox
+                        if (decimal.TryParse(txtSoLuong1SPDon.Text, out decimal soLuong))
+                        {
+                            // Tạo câu lệnh SQL với tham số
+                            string query = $"UPDATE ChiTietHoaDon SET SoLuong = {{0}} WHERE SanPhamID = {{1}} AND DonHangID = {{2}} AND TabHoaDonID = {{3}}";
+
+                            // Thực thi câu lệnh SQL với giá trị tham số
+                            QuanLySQL.NhapDLVaoSQL(string.Format(query, soLuong, idSanPham, donHangID, tabHoaDonID));
+
+
+                            LoadSPToflpBangHoaDon(donHangID, tabHoaDonID);
+                        }
+                        else
+                        {
+                            txtSoLuong1SPDon.Text = "0";
+                        }
+                    }
                 }
+                txtSoLuong1SPDon.SelectionStart = txtSoLuong1SPDon.Text.Length;
+                TongSLSPHD();
+                TongThanhToan();
             }
-            TongSLSPHD();
+
         }
 
         private void txtGia1SPDon_TextChanged(object sender, EventArgs e)
         {
             if (sender is TextBox txtGia1SPDon)
             {
-                // Lấy panel chứa TextBox
                 Panel panel = txtGia1SPDon.Parent as Panel;
 
                 if (panel != null)
                 {
-                    // Cập nhật lại tổng giá khi giá thay đổi
-                    CapNhatGia(panel);
+                    string idSanPhamStr = panel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "lbMaSPDon")?.Text.Substring(2).TrimStart('0');
+
+                    if (int.TryParse(idSanPhamStr, out int idSanPham))
+                    {
+                        // Lấy giá từ TextBox
+                        if (decimal.TryParse(txtGia1SPDon.Text, out decimal giaBan))
+                        {
+                            // Tạo câu lệnh SQL với tham số
+                            string query = $"UPDATE ChiTietHoaDon SET GiaGiam = {{0}} WHERE SanPhamID = {{1}} AND DonHangID = {{2}} AND TabHoaDonID = {{3}}";
+
+                            // Thực thi câu lệnh SQL với giá trị tham số
+                            QuanLySQL.NhapDLVaoSQL(string.Format(query, giaBan, idSanPham, donHangID, tabHoaDonID));
+
+
+                            LoadSPToflpBangHoaDon(donHangID, tabHoaDonID);
+                        }
+                        else
+                        {
+                            txtGia1SPDon.Text = "0";
+                        }
+                    }
+
                 }
+                txtGia1SPDon.SelectionStart = txtGia1SPDon.Text.Length;
             }
+
+            TongThanhToan();
         }
-
-        private void CapNhatGia(Panel panel)
-        {
-            // Lấy TextBox số lượng và giá từ panel
-            TextBox txtSoLuong1SPDon = panel.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "txtSoLuong1SPDon");
-            TextBox txtGia1SPDon = panel.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "txtGia1SP");
-
-            // Lấy nhãn để hiển thị tổng giá
-            Label lbTongGia1SPDon = panel.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "lbTongGia1SPDon");
-
-            // Biến lưu số lượng và giá
-            int soLuong = 0;
-            decimal giaBan = 0;
-
-            // Thử lấy số lượng từ TextBox, nếu không thể thì đặt soLuong = 0
-            if (!int.TryParse(txtSoLuong1SPDon.Text, out soLuong))
-            {
-                soLuong = 0;
-            }
-
-            // Thử lấy giá từ TextBox, nếu không thể thì đặt giaBan = 0
-            if (!decimal.TryParse(txtGia1SPDon.Text, out giaBan))
-            {
-                giaBan = 0;
-            }
-
-            // Tính tổng giá
-            decimal tongGia = soLuong * giaBan;
-
-            // Cập nhật tổng giá vào nhãn
-            lbTongGia1SPDon.Text = string.Format("{0:N0}", tongGia);
-            TongGiaSPHD();
-
-        }
-
         private void CapNhatStt()
         {
             // Lặp qua các panel trong FlowLayoutPanel
@@ -609,146 +690,201 @@ namespace Project01
 
         private void btnHuyDon_Click(object sender, EventArgs e)
         {
-            // Xóa tất cả các phần tử trong Dictionary
-            listCacSPDon.Clear();
+            // Xóa hóa đơn trong cơ sở dữ liệu
+            XoaHoaDon();
 
-            // Xóa tất cả các điều khiển trong FlowLayoutPanel
+            // Cập nhật giao diện
+            ResetGiaoDien();
+
+            Panel tabToRemove = pTabControl.Controls.OfType<Panel>().FirstOrDefault(p => (int)p.Tag == tabHoaDonID);
+            if (tabToRemove != null)
+            {
+                if (tabHoaDonID == 1)
+                {
+                    TaopTabCoDinh();
+                }
+                else
+                {
+                    XoaTab(tabToRemove, tabHoaDonID);
+                }
+            }
+
+            // Cập nhật vị trí của tất cả các pTab và nút thêm
+            CapNhatViTriCacTab();
+            CapNhatViTriNutThem();
+        }
+
+        private void XoaHoaDon()
+        {
+            string queryChiTiet = $"DELETE FROM ChiTietHoaDon WHERE TabHoaDonID = {tabHoaDonID} AND DonHangID = {donHangID}";
+            string queryHoaDon = $"DELETE FROM HoaDon WHERE ID = {donHangID}";
+
+            QuanLySQL.NhapDLVaoSQL(queryChiTiet);
+            QuanLySQL.NhapDLVaoSQL(queryHoaDon);
+
+            listCacSPDon.Clear();
+            hoaDonDict.Remove(tabHoaDonID);
+            dictListCacSPDon.Remove(tabHoaDonID);
+        }
+
+        private void ResetGiaoDien()
+        {
             flpBangHoaDon.Controls.Clear();
+            lbTongSLSpHd.Text = "";
+            txtPhiKhacHD.Text = "0";
+            txtGiamGiaHD.Text = "0";
+            txtThueVATHD.Text = "0";
+            txtGhiChuHoaDon.Text = "";
             CapNhatStt();
             TongGiaSPHD();
-            lbTongSLSpHd.Text = "";
         }
 
-        private void btnLuuDon_Click(object sender, EventArgs e)
+        private void CapNhatViTriNutThem()
         {
-            // Thông tin hóa đơn
-            int khachID = int.Parse(cbHoTenKH.SelectedValue.ToString());
-            DateTime ngayLap = dtpNgayLapHD.Value;
-            decimal tongTienHang = decimal.Parse(lbTongTienHang.Text);
-            string trangThai = "Chờ Xử Lý";
-            int nguoiBanID = 1;
-            decimal giamGiaTien = 0;
-            decimal giamGiaPhanTram = 0;
+            pbThem.Location = new Point(123 * hoaDonDaTao.Count + 15, 0);
+        }
 
-            if (rdVND.Checked)
-                giamGiaTien = decimal.Parse(txtGiamGiaHD.Text);
-
-            if (rdPhanTram.Checked)
-                giamGiaPhanTram = decimal.Parse(txtGiamGiaHD.Text);
-
-            decimal thueVAT = decimal.Parse(txtThueVATHD.Text);
-            decimal phiKhac = decimal.Parse(txtPhiKhacHD.Text);
-            decimal tongThanhToan = decimal.Parse(lbTongThanhToan.Text);
-            string ghiChu = txtGhiChuHoaDon.Text;
-
-            // Chèn hóa đơn và lấy ID
-            string queryInsertHoaDon = "INSERT INTO HoaDon (KhachID, NgayLap, TongTienHang, TrangThai, NguoiBanID, GiamGiaTien, GiamGiaPhanTram, " +
-                                       "ThueVAT, PhiKhac, TongThanhToan, GhiChu) VALUES " +
-                                       $"({khachID}, '{ngayLap:yyyy-MM-dd HH:mm:ss}', {tongTienHang}, '{trangThai}', {nguoiBanID}, {giamGiaTien}, " +
-                                       $"{giamGiaPhanTram}, {thueVAT}, {phiKhac}, {tongThanhToan}, '{ghiChu}'); " +
-                                       "SELECT SCOPE_IDENTITY();";
-
-            try
+        private void XoaTab(Panel pTab, int index)
+        {
+            if (pTabControl.Controls.Contains(pTab))
             {
+                pTabControl.Controls.Remove(pTab);
+                hoaDonDaTao.Remove(index);
+                CapNhatViTriCacTab();
 
-                int donHangID = 0;
-                using (DataTable dataTable = QuanLySQL.XuatDLTuSQL(queryInsertHoaDon))
+                if (index == 1)
                 {
-                    donHangID = Convert.ToInt32(dataTable.Rows[0][0]);
-                }
-
-                // Chèn chi tiết hóa đơn
-                foreach (var entry in listCacSPDon)
-                {
-                    string ID = entry.Key;
-                    Panel pThuocTinhHHDon = entry.Value;
-
-                    TextBox txtSoLuong1SPDon = pThuocTinhHHDon.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "txtSoLuong1SPDon");
-                    TextBox txtGia1SPDon = pThuocTinhHHDon.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "txtGia1SP");
-                    Label lbTongGia1SPDon = pThuocTinhHHDon.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "lbTongGia1SPDon");
-                    Label lbMaSPDon = pThuocTinhHHDon.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "lbMaSPDon");
-
-                    if (txtSoLuong1SPDon != null && txtGia1SPDon != null && lbTongGia1SPDon != null && lbMaSPDon != null)
+                    TaopTabCoDinh();
+                    Panel newTab = pTabControl.Controls.OfType<Panel>().FirstOrDefault(p => (int)p.Tag == 1);
+                    if (newTab != null)
                     {
-                        int soLuong = int.Parse(txtSoLuong1SPDon.Text);
-                        decimal gia = decimal.Parse(txtGia1SPDon.Text);
-                        decimal tongGia = decimal.Parse(lbTongGia1SPDon.Text);
-                        string maSP = lbMaSPDon.Text;
-
-                        string querySP = $"INSERT INTO ChiTietHoaDon (DonHangID, SanPhamID, SoLuong, GiaGiam, ThanhTien) " +
-                                         $"VALUES ({donHangID}, {ID}, {soLuong}, {gia}, {tongGia})";
-
-                        QuanLySQL.NhapDLVaoSQL(querySP);
+                        pTab_Click(newTab, EventArgs.Empty);
                     }
                 }
-
-                MessageBox.Show("Dữ liệu đã được lưu thành công.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi lưu hóa đơn và chi tiết hóa đơn: " + ex.Message);
+                else
+                {
+                    ChonTabTruoc(index);
+                }
             }
         }
 
-       
+        private void ChonTabTruoc(int index)
+        {
+            if (index - 1 > 0)
+            {
+                Panel tabTruoc = pTabControl.Controls.OfType<Panel>().FirstOrDefault(p => (int)p.Tag == index - 1);
+                if (tabTruoc != null)
+                {
+                    pTab_Click(tabTruoc, EventArgs.Empty);
+                }
+            }
+        }
 
-       
-
+        private void CapNhatViTriCacTab()
+        {
+            int viTri = 0; // Vị trí bắt đầu
+            foreach (var index in hoaDonDaTao.Keys.OrderBy(k => k))
+            {
+                Panel panel = pTabControl.Controls.OfType<Panel>().FirstOrDefault(p => (int)p.Tag == index);
+                if (panel != null)
+                {
+                    panel.Location = new Point(123 * viTri + 10, 10);
+                    viTri++;
+                }
+            }
+            pbThem.Location = new Point(123 * viTri + 15, 0);
+        }
         private void pTab_Click(object sender, EventArgs e)
         {
+            flpBangHoaDon.Controls.Clear();
+            ResetTabColors();
+
             Panel clickedPanel = sender as Panel;
-
-            foreach (Panel panel in pTabControl.Controls.OfType<Panel>())
-            {
-                panel.BackColor = Color.FromArgb(255, 224, 192); // Màu mặc định
-            }
-
             if (clickedPanel != null)
             {
-                clickedPanel.BackColor = SystemColors.Control; // Màu mới khi được chọn
+                clickedPanel.BackColor = SystemColors.Control;
+                tabHoaDonID = (int)clickedPanel.Tag;
 
-                // Cập nhật giá trị của indexTag với Tag của clickedPanel
-                indexTag = (int)clickedPanel.Tag;
+                if (!hoaDonDict.ContainsKey(tabHoaDonID))
+                {
+                    TaoHoaDonBar();
+                }
+                else
+                {
+                    donHangID = hoaDonDict[tabHoaDonID];
+                    listCacSPDon = dictListCacSPDon[tabHoaDonID];
+                    LoadProducts();
+                }
+            }
+            TongGiaSPHD();
+        }
 
-               
+        private void ResetTabColors()
+        {
+            foreach (Panel panel in pTabControl.Controls.OfType<Panel>())
+            {
+                panel.BackColor = Color.FromArgb(255, 224, 192);
             }
         }
 
+        private void TaoHoaDonBar()
+        {
+            dictListCacSPDon[tabHoaDonID] = new Dictionary<string, Panel>();
+            string query = $"INSERT INTO HoaDon (TabHoaDonID) VALUES ({tabHoaDonID}); SELECT SCOPE_IDENTITY();";
+
+            using (DataTable dataTable = QuanLySQL.XuatDLTuSQL(query))
+            {
+                donHangID = Convert.ToInt32(dataTable.Rows[0][0]);
+            }
+
+            hoaDonDict[tabHoaDonID] = donHangID;
+
+            LoadSPToflpBangHoaDon(donHangID, tabHoaDonID);
+        }
+
+        private void LoadProducts()
+        {
+            foreach (var panel in listCacSPDon.Values)
+            {
+                flpBangHoaDon.Controls.Add(panel);
+            }
+        }
 
         private void TaopTabCoDinh()
         {
-            Panel pTab = new Panel
+            if (!hoaDonDaTao.ContainsKey(1))
             {
-                Size = new System.Drawing.Size(122, 58),
-                Location = new System.Drawing.Point(10, 10),
-                BackColor = Color.FromArgb(255, 224, 192),
-                Tag = 1,
-            };
+                Panel pTab = new Panel
+                {
+                    Size = new Size(122, 58),
+                    Location = new Point(10, 10),
+                    BackColor = Color.FromArgb(255, 224, 192),
+                    Tag = 1,
+                };
 
-            Label lbTab = new Label
-            {
-                Size = new System.Drawing.Size(93, 21),
-                Location = new System.Drawing.Point(15, 10),
-                Text = "Hóa đơn 1",
-            };
+                Label lbTab = new Label
+                {
+                    Size = new Size(93, 21),
+                    Location = new Point(15, 10),
+                    Text = "Hóa đơn 1",
+                };
 
-            // Đăng ký sự kiện click cho Label để gọi sự kiện click của Panel
-            lbTab.Click += (s, args) => pTab_Click(pTab, args);
+                lbTab.Click += (s, args) => pTab_Click(pTab, args);
+                pTab.Controls.Add(lbTab);
+                VeBoGocPanel.BoGocPanel(pTab, 25);
+                pTab.Click += pTab_Click;
 
-            pTab.Controls.Add(lbTab);
+                pTabControl.Controls.Add(pTab);
+                hoaDonDaTao[1] = false;
 
-            VeBoGocPanel.BoGocPanel(pTab, 25);
-
-            pTab.Click += pTab_Click;
-
-            pTabControl.Controls.Add(pTab);
-
-            pTab_Click(pTab, EventArgs.Empty); // Gọi sự kiện click của Panel để đổi màu mặc định
+                pTab_Click(pTab, EventArgs.Empty);
+            }
         }
 
         private void pbThem_Click(object sender, EventArgs e)
         {
-            if (indexP > 7)
+            int newIndex = TimChiSoTruoc();
+            if (newIndex > 7)
             {
                 MessageBox.Show("Chương trình giới hạn 7 hóa đơn.");
                 return;
@@ -756,38 +892,112 @@ namespace Project01
 
             Panel pTab = new Panel
             {
-                Size = new System.Drawing.Size(122, 58),
-                Location = new System.Drawing.Point(123 * (indexP - 1) + 10, 10),
-                BackColor = Color.FromArgb(255, 224, 192), // Màu mặc định
-                Tag = indexP,
+                Size = new Size(122, 58),
+                BackColor = Color.FromArgb(255, 224, 192),
+                Tag = newIndex,
             };
 
             Label lbTab = new Label
             {
-                Size = new System.Drawing.Size(93, 21),
-                Location = new System.Drawing.Point(15, 10),
-                Text = "Hóa đơn " + indexP,
+                Size = new Size(93, 21),
+                Location = new Point(15, 10),
+                Text = "Hóa đơn " + newIndex,
             };
 
-            lbTab.Click += (s, args) => pTab_Click(pTab, args); // Đăng ký sự kiện click cho Label
-
+            lbTab.Click += (s, args) => pTab_Click(pTab, args);
             pTab.Controls.Add(lbTab);
-
             VeBoGocPanel.BoGocPanel(pTab, 25);
-
             pTab.Click += pTab_Click;
 
             pTabControl.Controls.Add(pTab);
-
-            pbThem.Location = new Point(122 * indexP + 15, 0);
-
-            indexP++;
+            hoaDonDaTao[newIndex] = false;
+            CapNhatViTriCacTab();
+            pTab_Click(pTab, EventArgs.Empty);
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private int TimChiSoTruoc()
         {
-            txtTimKiemHang.Text = indexTag.ToString();
+            int newIndex = 1;
+            while (hoaDonDaTao.ContainsKey(newIndex))
+            {
+                newIndex++;
+            }
+            return newIndex;
+        }
+
+
+
+        private void btnLuuDon_Click(object sender, EventArgs e)
+        {
+            int khachID = int.Parse(cbHoTenKH.SelectedValue.ToString());
+            DateTime ngayLap = dtpNgayLapHD.Value;
+            decimal tongTienHang = decimal.Parse(lbTongTienHang.Text);
+            string trangThai = "Chờ Xử Lý";
+            int nguoiBanID = 1;
+            decimal giamGiaTien = rdVND.Checked ? decimal.Parse(txtGiamGiaHD.Text) : 0;
+            decimal giamGiaPhanTram = rdPhanTram.Checked ? decimal.Parse(txtGiamGiaHD.Text) : 0;
+            decimal thueVAT = decimal.Parse(txtThueVATHD.Text);
+            decimal phiKhac = decimal.Parse(txtPhiKhacHD.Text);
+            decimal tongThanhToan = decimal.Parse(lbTongThanhToan.Text);
+            decimal khachTra = decimal.Parse(txtKhachTra.Text);
+            string ghiChu = txtGhiChuHoaDon.Text;
+            int hoaDonID = donHangID;
+            int thanhToanID = 3;
+
+            if (rdTienMat.Checked == true) thanhToanID = 1;
+            
+            if (rdThe.Checked == true) thanhToanID = 2;
+
+            MessageBox.Show(thanhToanID.ToString());
+            string queryUpdateHoaDon = $"UPDATE HoaDon SET " +
+                                        $"KhachID = {khachID}, " +
+                                        $"NgayLap = '{ngayLap:yyyy-MM-dd HH:mm:ss}', " +
+                                        $"TongTienHang = {tongTienHang}, " +
+                                        $"TrangThai = N'{trangThai}', " +
+                                        $"NguoiBanID = {nguoiBanID}, " +
+                                        $"GiamGiaTien = {giamGiaTien}, " +
+                                        $"GiamGiaPhanTram = {giamGiaPhanTram}, " +
+                                        $"ThueVAT = {thueVAT}, " +
+                                        $"PhiKhac = {phiKhac}, " +
+                                        $"TongThanhToan = {tongThanhToan}, " +
+                                        $"GhiChu = N'{ghiChu}', " +
+                                        $"ThanhToanID = {thanhToanID}," +
+                                        $"KhachTra = {khachTra}," +
+                                        $"IsSaved = 1 " +
+                                        $"WHERE ID = {hoaDonID};";
+
+            // Thực hiện câu lệnh cập nhật
+            QuanLySQL.NhapDLVaoSQL(queryUpdateHoaDon);
+
+            MessageBox.Show("Cập nhật hóa đơn thành công!");
+        }
+
+        private void btnLuuIn_Click(object sender, EventArgs e)
+        {
 
         }
+
+
+        private void lbTongThanhToan_TextChanged(object sender, EventArgs e)
+        {
+            lbKhachCanTra.Text = lbTongThanhToan.Text;
+            txtKhachTra.Text = lbKhachCanTra.Text;
+        }
+
+        private void txtKhachTra_TextChanged(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(txtKhachTra.Text, out decimal khachTra))
+            {
+               
+                txtKhachTra.Text = khachTra.ToString("N0");
+                txtKhachTra.SelectionStart = txtKhachTra.Text.Length; 
+
+                decimal tongTien = decimal.Parse(lbKhachCanTra.Text);
+                lbTienThua.Text = (khachTra - tongTien).ToString("N0");
+            }
+            else txtKhachTra.Text = "0";
+        }
+
+       
     }
 }

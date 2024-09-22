@@ -21,11 +21,13 @@ namespace Project01
         private void frmHome_Load(object sender, EventArgs e)
         {
             QuanLySQL.KetNoi();
+            ucChinh ucChinh = new ucChinh();
+            AddControlsToPanel(ucChinh);
         }
 
         public void AddControlsToPanel(Control c)
         {
-            c.Dock = DockStyle.Fill;
+            c.Dock = DockStyle.Fill;  
             pHome.Controls.Clear();
             pHome.Controls.Add(c);
         }
@@ -38,7 +40,7 @@ namespace Project01
 
         private void pbExit_Click(object sender, EventArgs e)
         {
-            QuanLySQL.NgatKetNoi();
+            
             Application.Exit(); 
         }
 
@@ -65,6 +67,12 @@ namespace Project01
         {
             ucTaiKhoan ucTK = new ucTaiKhoan();
             AddControlsToPanel(ucTK);
+        }
+
+        private void frmHome_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+            QuanLySQL.NgatKetNoi();
         }
     }
 }

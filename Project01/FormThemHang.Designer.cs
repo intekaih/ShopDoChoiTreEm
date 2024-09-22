@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmThemHang));
             this.btnThem = new System.Windows.Forms.Button();
-            this.btnThoatFNH = new System.Windows.Forms.Button();
+            this.btnThoat = new System.Windows.Forms.Button();
             this.txtTenHang = new System.Windows.Forms.TextBox();
             this.txtID = new System.Windows.Forms.TextBox();
             this.pbHinhSP = new System.Windows.Forms.PictureBox();
@@ -75,20 +75,20 @@
             this.btnThem.UseVisualStyleBackColor = false;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
-            // btnThoatFNH
+            // btnThoat
             // 
-            this.btnThoatFNH.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(176)))), ((int)(((byte)(211)))));
-            this.btnThoatFNH.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnThoatFNH.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThoatFNH.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThoatFNH.ForeColor = System.Drawing.Color.Transparent;
-            this.btnThoatFNH.Location = new System.Drawing.Point(533, 394);
-            this.btnThoatFNH.Name = "btnThoatFNH";
-            this.btnThoatFNH.Size = new System.Drawing.Size(108, 33);
-            this.btnThoatFNH.TabIndex = 9;
-            this.btnThoatFNH.Text = "Thoát";
-            this.btnThoatFNH.UseVisualStyleBackColor = false;
-            this.btnThoatFNH.Click += new System.EventHandler(this.btnThoatFNH_Click);
+            this.btnThoat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(176)))), ((int)(((byte)(211)))));
+            this.btnThoat.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnThoat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThoat.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThoat.ForeColor = System.Drawing.Color.Transparent;
+            this.btnThoat.Location = new System.Drawing.Point(533, 394);
+            this.btnThoat.Name = "btnThoat";
+            this.btnThoat.Size = new System.Drawing.Size(108, 33);
+            this.btnThoat.TabIndex = 9;
+            this.btnThoat.Text = "Thoát";
+            this.btnThoat.UseVisualStyleBackColor = false;
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
             // txtTenHang
             // 
@@ -351,7 +351,7 @@
             this.Controls.Add(this.cbDoTuoi);
             this.Controls.Add(this.cbLoaiHang);
             this.Controls.Add(this.cboTrangThaiBan);
-            this.Controls.Add(this.btnThoatFNH);
+            this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.btnSua);
             this.Controls.Add(this.btnThem);
             this.Controls.Add(this.txtNote);
@@ -388,7 +388,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnThem;
-        private System.Windows.Forms.Button btnThoatFNH;
+        private System.Windows.Forms.Button btnThoat;
         public System.Windows.Forms.TextBox txtTenHang;
         public System.Windows.Forms.TextBox txtID;
         public System.Windows.Forms.PictureBox pbHinhSP;

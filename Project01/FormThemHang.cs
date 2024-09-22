@@ -263,10 +263,7 @@ namespace Project01
                 e.Handled = true;
         }
 
-        private void btnThoatFNH_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+       
 
 
         public void HienThiBtnSua()
@@ -315,7 +312,10 @@ namespace Project01
 
         }
 
-        
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
 
