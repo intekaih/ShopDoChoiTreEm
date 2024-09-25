@@ -122,7 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="class\QuanLySQL.cs" />
-    <Compile Include="class\VeBoGocPanel.cs" />
+    <Compile Include="class\TrangTri.cs" />
     <Compile Include="class\XuLyVien.cs" />
     <Compile Include="FormHome.cs">
       <SubType>Form</SubType>

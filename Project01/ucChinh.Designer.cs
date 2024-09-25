@@ -67,10 +67,6 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.pBtnn = new System.Windows.Forms.Panel();
-            this.btnHuyDon = new System.Windows.Forms.Button();
-            this.btnLuuIn = new System.Windows.Forms.Button();
-            this.btnLuuDon = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.pInfoKhach = new System.Windows.Forms.Panel();
             this.txtF = new System.Windows.Forms.TextBox();
             this.cbHoTenKH = new System.Windows.Forms.ComboBox();
@@ -83,15 +79,7 @@
             this.txtSDT = new System.Windows.Forms.TextBox();
             this.pSale = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.pHang = new System.Windows.Forms.Panel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.pLocSP = new System.Windows.Forms.Panel();
             this.pBtn = new System.Windows.Forms.Panel();
             this.pTimKiem = new System.Windows.Forms.Panel();
             this.txtTimKiemHang = new System.Windows.Forms.TextBox();
@@ -105,6 +93,16 @@
             this.lbGiaSP = new System.Windows.Forms.Label();
             this.lbTenSP = new System.Windows.Forms.Label();
             this.pbAnhSP = new System.Windows.Forms.PictureBox();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.pHuyDon = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pLuuIn = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.pLuuDon = new System.Windows.Forms.Panel();
+            this.pbLuuDon = new System.Windows.Forms.PictureBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.pBill.SuspendLayout();
             this.pHoaDon.SuspendLayout();
             this.pTinhTien.SuspendLayout();
@@ -113,8 +111,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbKhachHang)).BeginInit();
             this.pSale.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.pHang.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.pLocSP.SuspendLayout();
             this.pBtn.SuspendLayout();
             this.pTimKiem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -123,6 +120,12 @@
             this.flpSanPham.SuspendLayout();
             this.pThuocTinhHH.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAnhSP)).BeginInit();
+            this.pHuyDon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.pLuuIn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.pLuuDon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLuuDon)).BeginInit();
             this.SuspendLayout();
             // 
             // flpBangHoaDon
@@ -520,58 +523,14 @@
             // pBtnn
             // 
             this.pBtnn.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pBtnn.Controls.Add(this.btnHuyDon);
-            this.pBtnn.Controls.Add(this.btnLuuIn);
-            this.pBtnn.Controls.Add(this.btnLuuDon);
-            this.pBtnn.Controls.Add(this.button4);
+            this.pBtnn.Controls.Add(this.pLuuIn);
+            this.pBtnn.Controls.Add(this.pLuuDon);
+            this.pBtnn.Controls.Add(this.pHuyDon);
             this.pBtnn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.pBtnn.Location = new System.Drawing.Point(948, 967);
             this.pBtnn.Name = "pBtnn";
             this.pBtnn.Size = new System.Drawing.Size(956, 53);
             this.pBtnn.TabIndex = 3;
-            // 
-            // btnHuyDon
-            // 
-            this.btnHuyDon.AutoSize = true;
-            this.btnHuyDon.Location = new System.Drawing.Point(274, 11);
-            this.btnHuyDon.Name = "btnHuyDon";
-            this.btnHuyDon.Size = new System.Drawing.Size(83, 31);
-            this.btnHuyDon.TabIndex = 9;
-            this.btnHuyDon.Text = "HuyDon";
-            this.btnHuyDon.UseVisualStyleBackColor = true;
-            this.btnHuyDon.Click += new System.EventHandler(this.btnHuyDon_Click);
-            // 
-            // btnLuuIn
-            // 
-            this.btnLuuIn.AutoSize = true;
-            this.btnLuuIn.Location = new System.Drawing.Point(363, 11);
-            this.btnLuuIn.Name = "btnLuuIn";
-            this.btnLuuIn.Size = new System.Drawing.Size(92, 31);
-            this.btnLuuIn.TabIndex = 10;
-            this.btnLuuIn.Text = "Lưu và In";
-            this.btnLuuIn.UseVisualStyleBackColor = true;
-            this.btnLuuIn.Click += new System.EventHandler(this.btnLuuIn_Click);
-            // 
-            // btnLuuDon
-            // 
-            this.btnLuuDon.AutoSize = true;
-            this.btnLuuDon.Location = new System.Drawing.Point(461, 11);
-            this.btnLuuDon.Name = "btnLuuDon";
-            this.btnLuuDon.Size = new System.Drawing.Size(88, 31);
-            this.btnLuuDon.TabIndex = 11;
-            this.btnLuuDon.Text = "Lưu Đơn";
-            this.btnLuuDon.UseVisualStyleBackColor = true;
-            this.btnLuuDon.Click += new System.EventHandler(this.btnLuuDon_Click);
-            // 
-            // button4
-            // 
-            this.button4.AutoSize = true;
-            this.button4.Location = new System.Drawing.Point(555, 11);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(77, 31);
-            this.button4.TabIndex = 12;
-            this.button4.Text = "button2";
-            this.button4.UseVisualStyleBackColor = true;
             // 
             // pInfoKhach
             // 
@@ -695,126 +654,24 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.pHang);
+            this.panel2.Controls.Add(this.pLocSP);
             this.panel2.Location = new System.Drawing.Point(773, 50);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1147, 116);
             this.panel2.TabIndex = 9;
             // 
-            // pHang
+            // pLocSP
             // 
-            this.pHang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pLocSP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pHang.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pHang.Controls.Add(this.flowLayoutPanel1);
-            this.pHang.Controls.Add(this.textBox1);
-            this.pHang.Location = new System.Drawing.Point(0, 13);
-            this.pHang.Margin = new System.Windows.Forms.Padding(2);
-            this.pHang.Name = "pHang";
-            this.pHang.Size = new System.Drawing.Size(1131, 99);
-            this.pHang.TabIndex = 5;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.checkBox1);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox2);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox3);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox4);
-            this.flowLayoutPanel1.Controls.Add(this.checkBox5);
-            this.flowLayoutPanel1.Controls.Add(this.comboBox1);
-            this.flowLayoutPanel1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(10, 54);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(696, 32);
-            this.flowLayoutPanel1.TabIndex = 8;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.checkBox1.Location = new System.Drawing.Point(2, 2);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(113, 25);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.checkBox2.Location = new System.Drawing.Point(119, 2);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(113, 25);
-            this.checkBox2.TabIndex = 0;
-            this.checkBox2.Text = "checkBox1";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.checkBox3.Location = new System.Drawing.Point(236, 2);
-            this.checkBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(113, 25);
-            this.checkBox3.TabIndex = 0;
-            this.checkBox3.Text = "checkBox1";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.checkBox4.Location = new System.Drawing.Point(353, 2);
-            this.checkBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(113, 25);
-            this.checkBox4.TabIndex = 0;
-            this.checkBox4.Text = "checkBox1";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox5
-            // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.checkBox5.Location = new System.Drawing.Point(470, 2);
-            this.checkBox5.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(113, 25);
-            this.checkBox5.TabIndex = 0;
-            this.checkBox5.Text = "checkBox1";
-            this.checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "a",
-            "b",
-            "c",
-            "d"});
-            this.comboBox1.Location = new System.Drawing.Point(587, 2);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(92, 28);
-            this.comboBox1.TabIndex = 9;
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.textBox1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.textBox1.Location = new System.Drawing.Point(10, 11);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(255, 32);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "Tìm Hàng Hóa";
+            this.pLocSP.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pLocSP.Controls.Add(this.checkedListBox1);
+            this.pLocSP.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.pLocSP.Location = new System.Drawing.Point(0, 13);
+            this.pLocSP.Margin = new System.Windows.Forms.Padding(2);
+            this.pLocSP.Name = "pLocSP";
+            this.pLocSP.Size = new System.Drawing.Size(1131, 99);
+            this.pLocSP.TabIndex = 5;
             // 
             // pBtn
             // 
@@ -846,6 +703,7 @@
             this.txtTimKiemHang.Name = "txtTimKiemHang";
             this.txtTimKiemHang.Size = new System.Drawing.Size(489, 20);
             this.txtTimKiemHang.TabIndex = 1;
+            this.txtTimKiemHang.TextChanged += new System.EventHandler(this.txtTimKiemHang_TextChanged);
             // 
             // pictureBox1
             // 
@@ -964,6 +822,119 @@
             this.pbAnhSP.TabIndex = 0;
             this.pbAnhSP.TabStop = false;
             // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "a",
+            "b",
+            "c",
+            "d"});
+            this.checkedListBox1.Location = new System.Drawing.Point(12, 3);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(154, 84);
+            this.checkedListBox1.TabIndex = 0;
+            // 
+            // pHuyDon
+            // 
+            this.pHuyDon.BackColor = System.Drawing.Color.LightPink;
+            this.pHuyDon.Controls.Add(this.pictureBox2);
+            this.pHuyDon.Controls.Add(this.label2);
+            this.pHuyDon.Location = new System.Drawing.Point(200, 8);
+            this.pHuyDon.Name = "pHuyDon";
+            this.pHuyDon.Size = new System.Drawing.Size(150, 37);
+            this.pHuyDon.TabIndex = 12;
+            this.pHuyDon.Click += new System.EventHandler(this.btnHuyDon_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.label2.Location = new System.Drawing.Point(55, 8);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(79, 21);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Hủy Đơn";
+            this.label2.Click += new System.EventHandler(this.btnHuyDon_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(17, 6);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(25, 25);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.btnHuyDon_Click);
+            // 
+            // pLuuIn
+            // 
+            this.pLuuIn.BackColor = System.Drawing.Color.LightPink;
+            this.pLuuIn.Controls.Add(this.pictureBox3);
+            this.pLuuIn.Controls.Add(this.label19);
+            this.pLuuIn.Location = new System.Drawing.Point(403, 7);
+            this.pLuuIn.Name = "pLuuIn";
+            this.pLuuIn.Size = new System.Drawing.Size(150, 37);
+            this.pLuuIn.TabIndex = 12;
+            this.pLuuIn.Click += new System.EventHandler(this.btnLuuIn_Click);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(17, 6);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(25, 25);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 1;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.btnLuuIn_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.label19.Location = new System.Drawing.Point(55, 8);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(82, 21);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "Lưu và In";
+            this.label19.Click += new System.EventHandler(this.btnLuuIn_Click);
+            // 
+            // pLuuDon
+            // 
+            this.pLuuDon.BackColor = System.Drawing.Color.LightPink;
+            this.pLuuDon.Controls.Add(this.pbLuuDon);
+            this.pLuuDon.Controls.Add(this.label21);
+            this.pLuuDon.Location = new System.Drawing.Point(606, 7);
+            this.pLuuDon.Name = "pLuuDon";
+            this.pLuuDon.Size = new System.Drawing.Size(150, 37);
+            this.pLuuDon.TabIndex = 12;
+            this.pLuuDon.Click += new System.EventHandler(this.btnLuuDon_Click);
+            // 
+            // pbLuuDon
+            // 
+            this.pbLuuDon.Image = ((System.Drawing.Image)(resources.GetObject("pbLuuDon.Image")));
+            this.pbLuuDon.Location = new System.Drawing.Point(17, 6);
+            this.pbLuuDon.Name = "pbLuuDon";
+            this.pbLuuDon.Size = new System.Drawing.Size(25, 25);
+            this.pbLuuDon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLuuDon.TabIndex = 1;
+            this.pbLuuDon.TabStop = false;
+            this.pbLuuDon.Click += new System.EventHandler(this.btnLuuDon_Click);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.label21.Location = new System.Drawing.Point(55, 8);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(78, 21);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "Lưu Đơn";
+            this.label21.Click += new System.EventHandler(this.btnLuuDon_Click);
+            // 
             // ucChinh
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -981,16 +952,12 @@
             this.pTinhTien.ResumeLayout(false);
             this.pTinhTien.PerformLayout();
             this.pBtnn.ResumeLayout(false);
-            this.pBtnn.PerformLayout();
             this.pInfoKhach.ResumeLayout(false);
             this.pInfoKhach.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbKhachHang)).EndInit();
             this.pSale.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.pHang.ResumeLayout(false);
-            this.pHang.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
+            this.pLocSP.ResumeLayout(false);
             this.pBtn.ResumeLayout(false);
             this.pBtn.PerformLayout();
             this.pTimKiem.ResumeLayout(false);
@@ -1002,6 +969,15 @@
             this.pThuocTinhHH.ResumeLayout(false);
             this.pThuocTinhHH.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAnhSP)).EndInit();
+            this.pHuyDon.ResumeLayout(false);
+            this.pHuyDon.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.pLuuIn.ResumeLayout(false);
+            this.pLuuIn.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.pLuuDon.ResumeLayout(false);
+            this.pLuuDon.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLuuDon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1053,23 +1029,11 @@
         private System.Windows.Forms.Panel pTabControl;
         private System.Windows.Forms.PictureBox pbThem;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel pHang;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Panel pLocSP;
         private System.Windows.Forms.Panel pTimKiem;
         private System.Windows.Forms.TextBox txtTimKiemHang;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel pBtnn;
-        private System.Windows.Forms.Button btnHuyDon;
-        private System.Windows.Forms.Button btnLuuIn;
-        private System.Windows.Forms.Button btnLuuDon;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Panel pTinhTien;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.RadioButton rdCK;
@@ -1081,6 +1045,16 @@
         private System.Windows.Forms.Label lbTienThua;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label lbKhachCanTra;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.Panel pHuyDon;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Panel pLuuIn;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Panel pLuuDon;
+        private System.Windows.Forms.PictureBox pbLuuDon;
+        private System.Windows.Forms.Label label21;
     }
 }
 

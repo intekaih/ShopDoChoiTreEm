@@ -29,10 +29,10 @@ namespace Project01
         {
             QuanLySQL.KetNoi();
             LoadDataToDGV();
-            VeBoGocPanel.BoGocPanel(pSua, 15);
-            VeBoGocPanel.BoGocPanel(pThem, 15);
-            VeBoGocPanel.BoGocPanel(pThoat, 15);
-            VeBoGocPanel.BoGocPanel(pXoa, 15);
+            TrangTri.BoGocPanel(pSua, 15);
+            TrangTri.BoGocPanel(pThem, 15);
+            TrangTri.BoGocPanel(pThoat, 15);
+            TrangTri.BoGocPanel(pXoa, 15);
 
         }
 

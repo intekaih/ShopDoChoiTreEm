@@ -66,7 +66,7 @@ namespace Project01
         private void btnTaiKhoan_Click(object sender, EventArgs e)
         {
             ucTaiKhoan ucTK = new ucTaiKhoan();
-            AddControlsToPanel(ucTK);
+            ucTK.ShowDialog();
         }
 
         private void frmHome_FormClosing(object sender, FormClosingEventArgs e)

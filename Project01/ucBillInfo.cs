@@ -30,11 +30,11 @@ namespace Project01
 
         private void VeBoGoc()
         {
-            VeBoGocPanel.BoGocPanel(flpThemDon, 10);
-            VeBoGocPanel.BoGocPanel(flpTrangThaiTT, 30);
-            VeBoGocPanel.BoGocPanel(flpKhachHang, 30);
-            VeBoGocPanel.BoGocPanel(flpThoiGian, 30);
-            VeBoGocPanel.BoGocPanel(pTimKiemHD, 40);
+            TrangTri.BoGocPanel(flpThemDon, 10);
+            TrangTri.BoGocPanel(flpTrangThaiTT, 30);
+            TrangTri.BoGocPanel(flpKhachHang, 30);
+            TrangTri.BoGocPanel(flpThoiGian, 30);
+            TrangTri.BoGocPanel(pTimKiemHD, 40);
         }
 
         private void LoadDTToDGV()

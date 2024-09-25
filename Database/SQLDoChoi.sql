@@ -15,6 +15,9 @@ CREATE TABLE ChiTietHoaDon (
 
 );
 
+
+
+
 INSERT INTO ChiTietHoaDon (TabHoaDonID, DonHangID, SanPhamID, SoLuong, GiaGiam, ThanhTien, Enable)
 VALUES 
 (1, 8, 1, 2, 50000, 200000, 1),
@@ -341,15 +344,40 @@ VALUES ('user', 'a', 'Trần Thị B', 'user', 1);
 
 
 --Lệnh code tùy ý
-select * from SanPham
+
 select * from TaiKhoan
 select * from LoaiSP
 select * from HangSX
 select * from XuatXu
 select * from DoTuoi
 select * from KhachHang
-select * from ChiTietHoaDon
 select * from HoaDon
+select * from ChiTietHoaDon
+select * from SanPham
+
+select *
+from ChiTietHoaDon
+where 
+	 DonHangID = 12
+
+update ChiTietHoaDon
+set Enable = 1
+where 
+	 DonHangID = 12
+
+
+SELECT  SanPhamID , SoLuong
+FROM ChiTietHoaDon
+WHERE TabHoaDonID = 1
+  AND DonHangID = 55
+group by SanPhamID, SoLuong
+  
+UPDATE SanPham 
+SET Ton = Ton - ct.SoLuong 
+FROM SanPham sp JOIN ChiTietHoaDon ct ON sp.ID = ct.SanPhamID 
+WHERE ct.TabHoaDonID = 1 AND ct.DonHangID = 55
+
+
 select * from tabhoadon
 select * from PhuongThucThanhToan
 

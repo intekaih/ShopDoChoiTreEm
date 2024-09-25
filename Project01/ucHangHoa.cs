@@ -32,15 +32,15 @@ namespace Project01
 
         private void VeBoGoc()
         {
-            VeBoGocPanel.BoGocPanel(flpLocLoaiHang, 30);
-            VeBoGocPanel.BoGocPanel(pTimKiem, 40);
-            VeBoGocPanel.BoGocPanel(flpTonKho, 30);
-            VeBoGocPanel.BoGocPanel(flpThem, 10);
-            VeBoGocPanel.BoGocPanel(flpXuatFile, 10);
-            VeBoGocPanel.BoGocPanel(flpNhapFile, 10);
-            VeBoGocPanel.BoGocPanel(flpXuatXu, 30);
-            VeBoGocPanel.BoGocPanel(flpHangSX, 30);
-            VeBoGocPanel.BoGocPanel(flpLocDoTuoi, 30);
+            TrangTri.BoGocPanel(flpLocLoaiHang, 30);
+            TrangTri.BoGocPanel(pTimKiem, 40);
+            TrangTri.BoGocPanel(flpTonKho, 30);
+            TrangTri.BoGocPanel(flpThem, 10);
+            TrangTri.BoGocPanel(flpXuatFile, 10);
+            TrangTri.BoGocPanel(flpNhapFile, 10);
+            TrangTri.BoGocPanel(flpXuatXu, 30);
+            TrangTri.BoGocPanel(flpHangSX, 30);
+            TrangTri.BoGocPanel(flpLocDoTuoi, 30);
         }
 
         //Hiển thị TenLoai tu MaLoai
@@ -453,7 +453,6 @@ namespace Project01
             return ID;
         }
 
-
         private void XyLyLoc()
         {
             int? loaiID = SelectToID(dgvLocLoai, "LoaiSP", "LoaiSP");
@@ -488,8 +487,6 @@ namespace Project01
             LoadDataToDGV(dataTable);
 
         }
-
-       
 
         private void LoadDataToDGV(DataTable dataTable)
         {

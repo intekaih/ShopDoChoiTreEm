@@ -23,7 +23,7 @@ namespace Project01.Class
         {
             connection = new SqlConnection();
             connection.ConnectionString =
-                @"server=LETIENHUY\HUYYY; database = ShopDoChoiTreEm; Integrated Security = true; ";
+                @"server=INTEKAIH\TIENKHAI; database = ShopDoChoiTreEm; Integrated Security = true; ";
 
             if (connection.State != ConnectionState.Open)
             {
