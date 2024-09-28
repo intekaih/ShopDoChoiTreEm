@@ -35,6 +35,7 @@
             this.txt_MatKhauMoi = new System.Windows.Forms.TextBox();
             this.txt_XacNhanLaiMatKhau = new System.Windows.Forms.TextBox();
             this.btn_ThayDoi = new System.Windows.Forms.Button();
+            this.btn_reset_password = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // MatKhauCu
@@ -107,11 +108,26 @@
             this.btn_ThayDoi.UseVisualStyleBackColor = false;
             this.btn_ThayDoi.Click += new System.EventHandler(this.btn_ThayDoi_Click);
             // 
+            // btn_reset_password
+            // 
+            this.btn_reset_password.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(78)))), ((int)(((byte)(95)))));
+            this.btn_reset_password.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_reset_password.ForeColor = System.Drawing.Color.White;
+            this.btn_reset_password.Location = new System.Drawing.Point(466, 288);
+            this.btn_reset_password.Name = "btn_reset_password";
+            this.btn_reset_password.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btn_reset_password.Size = new System.Drawing.Size(214, 46);
+            this.btn_reset_password.TabIndex = 3;
+            this.btn_reset_password.Text = "TẠO LẠI MẬT KHẨU";
+            this.btn_reset_password.UseVisualStyleBackColor = false;
+            this.btn_reset_password.Click += new System.EventHandler(this.btn_reset_password_Click);
+            // 
             // FrmDoiMatKhau
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btn_reset_password);
             this.Controls.Add(this.btn_ThayDoi);
             this.Controls.Add(this.txt_XacNhanLaiMatKhau);
             this.Controls.Add(this.txt_MatKhauMoi);
@@ -136,5 +152,6 @@
         private System.Windows.Forms.TextBox txt_MatKhauMoi;
         private System.Windows.Forms.TextBox txt_XacNhanLaiMatKhau;
         private System.Windows.Forms.Button btn_ThayDoi;
+        private System.Windows.Forms.Button btn_reset_password;
     }
 }

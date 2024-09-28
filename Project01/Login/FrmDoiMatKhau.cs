@@ -21,6 +21,7 @@ namespace Project01.Login
 
 
     {
+        public string ID { get; set; }
         public string TenDangNhap { get; set; }
         public FrmDoiMatKhau()
         {
@@ -57,7 +58,7 @@ namespace Project01.Login
                 return;
             }
             string sql;
-            sql = $"SELECT * FROM TaiKhoan where ID= '{TenDangNhap}'";
+            sql = $"SELECT * FROM TaiKhoan where ID= '{ID}'";
             var datatbl = QuanLySQL.GetDataToTable(sql);
             if (datatbl.Rows.Count == 0)
             {
@@ -65,12 +66,20 @@ namespace Project01.Login
                 return;
             }
 
-            string sqlChangePass = $"update TaiKhoan set MatKhau= N'{MatKhauMoi}' Where ID = '{TenDangNhap}'";
+            string sqlChangePass = $"update TaiKhoan set MatKhau= N'{MatKhauMoi}' Where ID = '{ID}'";
             QuanLySQL.RunSQL(sqlChangePass);
             
             MessageBox.Show("Đổi mật khẩu  thành công");
 
             this.Close();
-        } 
         }
+
+        private void btn_reset_password_Click(object sender, EventArgs e)
+        {
+            string sqlChangePass = $"update TaiKhoan set MatKhau= N'{TenDangNhap}' Where ID = '{ID}'";
+            QuanLySQL.RunSQL(sqlChangePass);
+
+            MessageBox.Show("Tạo lại mật khẩu thành công. Mật khẩu mới trùng với tên đăng nhập");
+        }
+    }
     }

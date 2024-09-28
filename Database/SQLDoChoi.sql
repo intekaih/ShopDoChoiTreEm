@@ -348,12 +348,13 @@ VALUES ('user', 'a', 'Trần Thị B', 'user', 1);
 select * from TaiKhoan
 select * from LoaiSP
 select * from HangSX
-select * from XuatXu
 select * from DoTuoi
 select * from KhachHang
 select * from HoaDon
 select * from ChiTietHoaDon
 select * from SanPham
+select * from XuatXu
+
 
 select *
 from ChiTietHoaDon
