@@ -1,0 +1,22 @@
+public string BuildQuery(int? loaiID, int hangID, int? tonMin)
+{
+    // Khởi tạo câu lệnh SELECT cơ bản
+    StringBuilder queryBuilder = new StringBuilder("SELECT * FROM SanPham WHERE HangID = {0}");
+
+    // Thêm điều kiện nếu loaiID có giá trị
+    if (loaiID.HasValue)
+    {
+        queryBuilder.Append(" AND LoaiID = {1}");
+    }
+
+    // Thêm điều kiện nếu tonMin có giá trị
+    if (tonMin.HasValue)
+    {
+        queryBuilder.Append(" AND Ton > {2}");
+    }
+
+    // Tạo câu lệnh SQL
+    string query = string.Format(queryBuilder.ToString(), hangID, loaiID.HasValue ? loaiID.Value.ToString() : "NULL", tonMin.HasValue ? tonMin.Value.ToString() : "NULL");
+
+    return query;
+}
